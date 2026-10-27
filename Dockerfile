@@ -12,6 +12,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends python3 && rm -
 WORKDIR /app
 COPY --from=build /app /app
 COPY ops.py /app/ops.py
+# Release archives can retain private source modes; this file contains public code.
+RUN chmod 0444 /app/ops.py
 USER 1000:1000
+# Check the actual runtime identity can read/parse operations and load native SQLite.
+RUN python3 -c "import os; from pathlib import Path; assert os.getuid()==1000; p=Path('/app/ops.py'); compile(p.read_text(), str(p), 'exec')"
+RUN node -e "require('better-sqlite3')(':memory:').close()"
 ENTRYPOINT ["python3","/app/ops.py"]
 CMD ["serve"]

@@ -6,7 +6,7 @@ This source candidate is undergoing release review. The included planner support
 
 ## Host it at your domain
 
-Use a Linux VPS with Docker Engine and Compose v2. Point your domain or subdomain at its public IP, configure public TCP 80/443, and restrict SSH to your administrative policy. Follow [hosting and recovery](docs/HOSTING.md). Users can reach the trusted HTTPS URL from any Internet-connected browser. Your browser device must be able to reach the server for online synchronization.
+Use a Linux VPS with Docker Engine and Compose v2. Run the documented hosting preparation step to normalize the two public proxy-template modes while preserving credential privacy. Point your domain or subdomain at its public IP, configure public TCP 80/443, and restrict SSH to your administrative policy. Follow [hosting and recovery](docs/HOSTING.md). Users can reach the trusted HTTPS URL from any Internet-connected browser. Your browser device must be able to reach the server for online synchronization.
 
 On Safari, save a bookmark for browser access or use Share → Add to Home Screen for a launcher. Safari may offer Open as Web App. Native Safari/iOS installation remains unverified. Chromium and isolated WebKit tests cover preceding candidate flows with real loopback-server outages; release verification must target the exact release revision.
 

@@ -323,8 +323,8 @@
     },
     {
       "path": "Dockerfile",
-      "candidate_sha256": "850dd7a14c05387a026ef577eec93bd30d72bf1cce63c375f60ffa0f52630055",
-      "transformation": "reviewed Node 22.23.4/Caddy 2.11.7 immutable pins and active Debian security repositories; regression proxy pin matches Compose"
+      "candidate_sha256": "626a8a0a41cf1c573d595f86ed734bc735e45c42600a93fd62ee78fcaec19548",
+      "transformation": "reviewed public source distribution modes and actual nonroot entrypoint validation"
     },
     {
       "path": "compose.yaml",
@@ -423,8 +423,23 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "b90984d608c371589aa6d91638cba6cbf8755bce008dd87eaad9a4a47547d69d",
-      "transformation": "authored bounded service/test or integrated Linux regression runner"
+      "candidate_sha256": "4d1f494a294abe241ae55e71ad0482b32a17f98c4e878acc3554edced990a47d",
+      "transformation": "reviewed public source distribution modes and actual nonroot entrypoint validation"
+    },
+    {
+      "path": "scripts/prepare-hosting.py",
+      "candidate_sha256": "1e5fe6ccadf1f04b73d5374a3302c756c90f798eb38da9e44b122d6befa8cc3b",
+      "transformation": "authored distribution permission regression/preflight"
+    },
+    {
+      "path": "hosting-permissions-test.py",
+      "candidate_sha256": "18499012c0d6e49fbdfd005ba2a97d3f07951f0289e3a9a325958dcbf3f40da4",
+      "transformation": "authored distribution permission regression/preflight"
+    },
+    {
+      "path": "entrypoint-test.py",
+      "candidate_sha256": "a589e4eeb09c26794cc3c7bc69fb3ba0bf56926ab701cd3764a153189cc2a0e1",
+      "transformation": "authored distribution permission regression/preflight"
     }
   ]
 }

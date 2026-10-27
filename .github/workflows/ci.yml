@@ -10,5 +10,7 @@ jobs:
       - run: python3 scripts/check-tree.py
       - name: Python syntax
         run: python3 -c "import pathlib; [compile(p.read_text(), str(p), 'exec') for p in pathlib.Path('.').rglob('*.py')]"
+      - name: Public source and private credential permission boundaries
+        run: python3 hosting-permissions-test.py
       - name: Fresh native Linux build and synthetic suites
         run: sh scripts/test-linux.sh

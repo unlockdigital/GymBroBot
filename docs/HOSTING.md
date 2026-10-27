@@ -6,6 +6,7 @@ Set an A record for a hostname such as `workouts.example.com` to your VPS addres
 umask 077
 cp .env.example .env
 # Set PUBLIC_HOST and OWNER_TIMEZONE in .env.
+python3 scripts/prepare-hosting.py
 docker compose build init
 docker compose run --rm init
 docker compose run --rm app setup
@@ -31,3 +32,5 @@ The exclusive lock and SQLite backup produce coherent owner/workout/control data
 Restrict public ingress and stop public Caddy/app. Restore into a new empty private volume while retaining the original. Use `restore.override.example.yaml` and `RESTORE_VOLUME` consistently. Initialize UID/GID 1000 ownership and mode 0700 for the destination, then run the app's `restore YOUR_BACKUP_NAME` command through the override. Verify mounted volumes, integrity, owner login, history, plans and receipts. Rotate restored owner recovery/session generations and re-pair agents before reopening ingress. Older backups can revive historical credentials. Reconcile newer workouts and browser outboxes before accepting rollback. Interrupted restoration requires another empty destination.
 
 Linux crash tests cover process interruption and transaction rollback. Hardware power loss, public DNS/ACME and actual host reboot remain separate deployment checks.
+
+Distribution archives may retain mode0600 on public source templates. The hosting preparation command verifies release hashes and makes only Caddyfile/Caddyfile.agent readable as0644 for UID1000 bind mounts. Private .env and agent-cli.json stay0600; unsafe credential modes fail before template changes. Docker explicitly makes public ops.py readable inside the image and validates Python/native SQLite under the runtime UID. The actual-image entrypoint/proxy test exercises setup and both public configurations with synthetic state.
