@@ -18,4 +18,4 @@ window.fetch=async(input,options)=>{
 };
 window.addEventListener('offline',()=>{try{assertDurable();if(!localStorage.getItem('gymbro.pwa.offline-consent.v1'))location.reload();}catch(e){document.getElementById('device-status').textContent=e.message;}});
 
-try { await authorize(); await import('./core/app.js');document.documentElement.dataset.runtimeReady='true'; } catch(e) { document.getElementById('app').textContent=e.message; }
+try { await authorize(); await import('./core/app.js');await (await import('./agent-receipt.js')).mountAgentReceipt();document.documentElement.dataset.runtimeReady='true'; } catch(e) { document.getElementById('app').textContent=e.message; }

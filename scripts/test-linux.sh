@@ -24,3 +24,6 @@ printf '%s\n' 'Running slot-policy regression suite'
 docker run --rm --network none -v "$PWD/slot-policy-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs > slot-policy-test.log 2>&1
 printf '%s\n' 'Running rest-policy regression suite'
 docker run --rm --network none -v "$PWD/rest-policy-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs > rest-policy-test.log 2>&1
+
+printf '%s\n' 'Running authenticated receipt UI suite'
+docker run --rm --network none -v "$PWD/receipt-ui-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs > receipt-ui-test.log 2>&1

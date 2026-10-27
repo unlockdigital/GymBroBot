@@ -1,3 +1,4 @@
+import {mountAgentReceipt, clearAgentReceipt} from '/agent-receipt.js';
 import {mountDevice} from '/device.js';
 'use strict';
 const $=id=>document.getElementById(id);let current;
@@ -6,7 +7,7 @@ $('reset-recovery').onsubmit=async e=>{e.preventDefault();const f=e.target;try{c
 $('clear-recovery').onclick=()=>{$('recovery').textContent='';};
 addEventListener('pagehide',()=>{$('recovery').textContent='';$('access').reset();$('reset-recovery').reset();});
 const report=e=>$('status').textContent=e.message;
-async function status(){const s=await api('/auth/status');$('auth').hidden=s.authenticated;$('workspace').hidden=!s.authenticated;$('status').textContent=s.authenticated?'Owner signed in.':s.claimed?'Sign in or use your offline recovery capability. If enrollment or recovery delivery was interrupted, try the password you submitted, then replace the recovery capability using that password.':'Enroll using the capability printed by local setup.';if(!s.claimed)$('access').elements.action.value='claim';if(s.authenticated){await history();await calendar();}}
+async function status(){const s=await api('/auth/status');$('auth').hidden=s.authenticated;$('workspace').hidden=!s.authenticated;$('status').textContent=s.authenticated?'Owner signed in.':s.claimed?'Sign in or use your offline recovery capability. If enrollment or recovery delivery was interrupted, try the password you submitted, then replace the recovery capability using that password.':'Enroll using the capability printed by local setup.';if(!s.claimed)$('access').elements.action.value='claim';if(s.authenticated){await history();await calendar();await mountAgentReceipt();}else{clearAgentReceipt();}}
 $('access').onsubmit=async e=>{e.preventDefault();const f=e.target.elements;try{const d=await api('/auth/'+f.action.value,'POST',{secret:f.secret.value,password:f.password.value});f.secret.value='';if(d.recoverySecret){$('recovery').textContent='Save this recovery capability offline now: '+d.recoverySecret+' — then login with your password.';f.action.value='login';}await status();}catch(e){report(e);$('status').textContent+=' If the response was lost, sign in with the password you submitted and use Replace offline recovery capability.';}finally{f.password.value='';f.secret.value='';}};
 mountDevice();
 const names=['goblet squat','bodyweight squat','dumbbell floor press','wall push up','dumbbell row','prone arm raise'];for(const name of names){const l=document.createElement('label'),i=document.createElement('input');i.type='checkbox';i.value=name;i.name='exclude';l.append(i,document.createTextNode(name));$('exclusions').append(l);}

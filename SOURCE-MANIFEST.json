@@ -83,8 +83,8 @@
     },
     {
       "path": "runtime/public/agent-receipt.js",
-      "candidate_sha256": "6aafa607047ce2c95625c231f93e75c61e38bd32264fd0fdac4c64e88d7eb52a",
-      "transformation": "verbatim"
+      "candidate_sha256": "a00dca5f9a03eade044dac365c8ea4841ced6d904cbcf5f664db95677d254d1b",
+      "transformation": "authenticated receipt mounting with text-only bounded memory and render recovery"
     },
     {
       "path": "runtime/public/core/api.js",
@@ -118,8 +118,8 @@
     },
     {
       "path": "runtime/public/entry.js",
-      "candidate_sha256": "8680d2de58b4ca89eeae8fb7ccc538cddb02bf8dddd3f73303a6cf999bbf2d6c",
-      "transformation": "verbatim"
+      "candidate_sha256": "8df4338632db188e334688720277cd9ce853851c1530fb6da7cc46085b3ce390",
+      "transformation": "authenticated receipt mounting with text-only bounded memory and render recovery"
     },
     {
       "path": "runtime/public/icon-192.png",
@@ -168,8 +168,8 @@
     },
     {
       "path": "runtime/public/owner.js",
-      "candidate_sha256": "bd33869afc4f7263f8e0f4789789aee5124aef32992df8d7fa71d2ee95ac6f77",
-      "transformation": "verbatim"
+      "candidate_sha256": "0c7aa7e621bad7f5b306b95e81e8ec9f2d9978aad473788107c35d55854fd921",
+      "transformation": "authenticated receipt mounting with text-only bounded memory and render recovery"
     },
     {
       "path": "runtime/public/privacy.js",
@@ -183,8 +183,8 @@
     },
     {
       "path": "runtime/public/sw.js",
-      "candidate_sha256": "0c9213b9d833fe37043e546f454bca55dc605e5ce176939f5a3cbdeb7359532c",
-      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
+      "candidate_sha256": "0d27c0bc581942114fb5f0616c805529f786287bebdd5fcebab5dc4631c4ef78",
+      "transformation": "authenticated receipt mounting with text-only bounded memory and render recovery"
     },
     {
       "path": "runtime/rate.cjs",
@@ -423,7 +423,7 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "4d1f494a294abe241ae55e71ad0482b32a17f98c4e878acc3554edced990a47d",
+      "candidate_sha256": "f354a0ceae155d04ea0b2baa520a447d4566821a0b7d9edc00643f0948b0b8f5",
       "transformation": "reviewed public source distribution modes and actual nonroot entrypoint validation"
     },
     {
@@ -440,6 +440,11 @@
       "path": "entrypoint-test.py",
       "candidate_sha256": "a589e4eeb09c26794cc3c7bc69fb3ba0bf56926ab701cd3764a153189cc2a0e1",
       "transformation": "authored distribution permission regression/preflight"
+    },
+    {
+      "path": "receipt-ui-test.cjs",
+      "candidate_sha256": "006ed25fb7147ca49996cecd121b1ff388bd913d4e47b60e11357f56255284cc",
+      "transformation": "authored authenticated receipt UI regression"
     }
   ]
 }
