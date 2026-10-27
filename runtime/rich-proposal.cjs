@@ -17,14 +17,22 @@ function validate({proposal,input,history,baseline,requiresHold,catalog}){
   const group=p.group===undefined?undefined:text(p.group,40);if(group!==undefined){if(!groupMembers.has(group))groupMembers.set(group,new Set());const members=groupMembers.get(group);const identity=(e.name||e.id).toLowerCase();if(members.has(identity))fail('duplicate grouped exercise');members.add(identity);if(groupMembers.size>26)fail('group limit');}
   const reason=text(p.reason||'',2000);const timerSegments=p.timerSegments===undefined?1:num(p.timerSegments,1,4,true);
   const variants=p.variants===undefined?undefined:p.variants.map(k=>{const v=resolve(catalog,k);if(!v||v.measurement!==e.measurement||assigned(v)!==assigned(e)||!!v.bodyweightCapable!==!!e.bodyweightCapable||!input.equipment.includes(assigned(v))||excluded.has(v.id))fail('variant');return {name:v.name||v.id,canonical:v.id};});if(variants&&(!variants.length||variants.length>8))fail('variants');
-  const ownHistory=history.flatMap(s=>s.sets).filter(s=>s.exercise===e.id&&s.measurement_type!=='duration_seconds'&&s.weight>=0);const latest=ownHistory.filter(s=>s.setType==='working').at(-1)||ownHistory.filter(s=>!s.setType).at(-1);const explicit=input.calibrationLoads?.[e.id];
+  const ownHistory=history.flatMap(s=>s.sets).filter(s=>s.exercise===e.id&&s.measurement_type!=='duration_seconds'&&s.loadMode!=='assisted'&&s.weight>=0);const latest=ownHistory.filter(s=>s.setType==='working').at(-1)||ownHistory.filter(s=>!s.setType).at(-1);const explicit=input.calibrationLoads?.[e.id];
+  const assistedHistory=history.flatMap(s=>s.sets.map(x=>({...x,sessionDate:s.date}))).filter(s=>s.exercise===e.id&&s.loadMode==='assisted'&&(Date.parse(input.date)-Date.parse(s.sessionDate))/86400000>=0&&(Date.parse(input.date)-Date.parse(s.sessionDate))/86400000<=28&&s.measurement_type!=='duration_seconds'&&Number.isFinite(s.assistanceLb)&&(!s.setType||s.setType==='working'));
+  const latestRelevant=history.flatMap(s=>s.sets).filter(s=>s.exercise===e.id&&s.measurement_type!=='duration_seconds').at(-1);
+  const latestAssistance=assistedHistory.at(-1);const recentAssistance=assistedHistory.slice(-3);
+  const assistanceProgress=!requiresHold&&input.progression==='conservative'&&!baseline.trainingLoad.downshift&&recentAssistance.length===3&&recentAssistance.every(s=>s.rpe!==null&&s.rpe<=7);
+  const assistanceFloorFor=s=>latestAssistance?latestAssistance.assistanceLb*(assistanceProgress&&recentAssistance.every(x=>Number.isInteger(s.repsHigh)&&x.reps>=s.repsHigh)?0.975:1):explicit;
   const sets=p.sets.map((s,index)=>{
    obj(s,['type','repsLow','repsHigh','durationSeconds','loadLb','loadMode','rpe','restSeconds','notes']);
    if(!['warmup','working','backoff','drop','calibration'].includes(s.type))fail('set type');num(s.loadLb,0,input.maxLoadLb);num(s.rpe,1,10);num(s.restSeconds,0,900,true);text(s.notes||'',500);
    const mode=s.loadMode||'added';if(!['added','assisted','pure_bw'].includes(mode)||(mode!=='added'&&!e.bodyweightCapable)||(mode==='pure_bw'&&s.loadLb!==0))fail('load mode');
+   if(latestRelevant?.loadMode==='assisted'&&mode!=='assisted'&&(explicit!==s.loadLb||s.type!=='calibration'||p.sets.length!==1||s.rpe>6))fail('assistance mode transition requires owner calibration');
+   const assistanceFloor=assistanceFloorFor(s);
+   if(mode==='assisted'&&(s.loadLb<=0||s.loadLb>500||typeof assistanceFloor!=='number'||s.loadLb<assistanceFloor||(!latestAssistance&&s.rpe>6)))fail('assistance anchor or calibration');
    if(baseline.trainingLoad.downshift&&(s.rpe>6||p.sets.filter(x=>x.type!=='warmup').length>3))fail('readiness downshift');
    // Load increases are held on incomplete history. Novel weighted exercises require owner-selected calibration cap.
-   if(mode==='added'&&s.loadLb>0){const ceiling=latest?latest.weight*(requiresHold?1:1.025):explicit;if(typeof ceiling!=='number'||s.loadLb>ceiling)fail('load anchor or calibration');if(!latest&&s.rpe>6)fail('cold start effort');}
+   if(mode==='added'&&s.loadLb>0){const ceiling=latestRelevant?.loadMode==='assisted'?explicit:latest?latest.weight*(requiresHold?1:1.025):explicit;if(typeof ceiling!=='number'||s.loadLb>ceiling)fail('load anchor or calibration');if(!latest&&s.rpe>6)fail('cold start effort');}
    const timed=e.measurement==='duration';let repsLow=null,repsHigh=null,durationSeconds=null;
    if(timed){durationSeconds=num(s.durationSeconds,1,7200,true);if(s.repsLow!==undefined||s.repsHigh!==undefined)fail('timed reps');}else{repsLow=num(s.repsLow,1,200,true);repsHigh=num(s.repsHigh,repsLow,200,true);if(s.durationSeconds!==undefined)fail('rep duration');}
    total++;if(total>120)fail('session set cap');seconds+=(timed?durationSeconds*timerSegments:repsHigh*5)+s.restSeconds;

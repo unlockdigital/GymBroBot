@@ -18,8 +18,8 @@
     },
     {
       "path": "runtime/agent.cjs",
-      "candidate_sha256": "2cc4c492aefd7f6d7c8fd9529f34bfd5966c9cf1ec2946299a6a087ee4959149",
-      "transformation": "reviewed rich workout/catalog change"
+      "candidate_sha256": "8bf539d7bb55b2cf50806fbc0a42d0596bf731df88765a31834d598d2c20091d",
+      "transformation": "assisted history preserves fatigue with distinct help semantics"
     },
     {
       "path": "runtime/cli.cjs",
@@ -28,8 +28,8 @@
     },
     {
       "path": "runtime/history.cjs",
-      "candidate_sha256": "27f7cf62a7227883069eb2719535fa661c093da25660e766a993316590d7d50d",
-      "transformation": "reviewed rich workout/catalog change"
+      "candidate_sha256": "68e7300c941951fa8ff050811f425ef2f1c3a6bb81b9fb9ce95c281b248a4846",
+      "transformation": "assisted history preserves fatigue with distinct help semantics"
     },
     {
       "path": "runtime/owner.cjs",
@@ -53,8 +53,8 @@
     },
     {
       "path": "runtime/planner/bridge.cjs",
-      "candidate_sha256": "0a79a83cc34b036c24e14c30fa9c4ef05febad778e277d72c8508990b8640745",
-      "transformation": "reviewed rich workout/catalog change"
+      "candidate_sha256": "2498f0de0d1a3aec0a3b3e5d3596c2bfad4325c93b89ee9a4657c468137599ca",
+      "transformation": "assisted history preserves fatigue with distinct help semantics"
     },
     {
       "path": "runtime/planner/core/anchors.js",
@@ -73,8 +73,8 @@
     },
     {
       "path": "runtime/planner/planner.cjs",
-      "candidate_sha256": "a94016a4658e3d7f154738fb317483386b277915c72098478485198f67a2e0e1",
-      "transformation": "reviewed rich workout/catalog change"
+      "candidate_sha256": "a9f41f9bfb60fa62ce4939c592582386a7e69cf912a2dae9773acb1faca38ea9",
+      "transformation": "assisted history preserves fatigue with distinct help semantics"
     },
     {
       "path": "runtime/provision.cjs",
@@ -398,8 +398,8 @@
     },
     {
       "path": "runtime/proposal.cjs",
-      "candidate_sha256": "9db13051fcdc19b344c1373e8a0d7ef4774856444f2236812b92a91d4c450a03",
-      "transformation": "authored bounded service/test or integrated Linux regression runner"
+      "candidate_sha256": "fb6196e23c8901a1f58716200505a473e218da687f782b1aab2bf7db78045079",
+      "transformation": "assisted history preserves fatigue with distinct help semantics"
     },
     {
       "path": "runtime/plan-policy.cjs",
@@ -423,8 +423,8 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "6372ed0a866bfecb6498ad3c1ee9613af9c4def94ea51633eef5780cdc1406bd",
-      "transformation": "reviewed rich workout/catalog change"
+      "candidate_sha256": "68dec639ac2cac9ac0df43a61a65a81c5aa5b9c4ad0cfe76e1643f6c98f5c943",
+      "transformation": "assisted history preserves fatigue with distinct help semantics"
     },
     {
       "path": "scripts/prepare-hosting.py",
@@ -463,8 +463,8 @@
     },
     {
       "path": "runtime/rich-proposal.cjs",
-      "transformation": "reviewed rich workout/catalog change",
-      "candidate_sha256": "0940e2f99b88b8d3565fb4875ae1dfa327b844aff51a5b9acc3f512c49e025b4"
+      "transformation": "assisted history preserves fatigue with distinct help semantics",
+      "candidate_sha256": "5c84b590ac70b38c90d316a269ee77305e914f0039176d6b5c6472e8c4c7c2fd"
     },
     {
       "path": "runtime/private-plan-reader.cjs",
@@ -485,6 +485,16 @@
       "path": "rich-workout-test.cjs",
       "transformation": "reviewed rich workout/catalog change",
       "candidate_sha256": "56b0a01b6552dbe4c37b4433db5da5d1f37a2a637214256679b5ce6eeb4481cd"
+    },
+    {
+      "path": "runtime/assistance.cjs",
+      "candidate_sha256": "964a267ef1f33630ff02471ef2706060317679c941c77db9d314490ccfa33b6b",
+      "transformation": "assisted history preserves fatigue with distinct help semantics"
+    },
+    {
+      "path": "assisted-history-test.cjs",
+      "candidate_sha256": "4fb7ccf41afb566f1c009e923d4f3cf3a45c34693c0f8bc382232e3b34da0a6b",
+      "transformation": "assisted history preserves fatigue with distinct help semantics"
     }
   ]
 }

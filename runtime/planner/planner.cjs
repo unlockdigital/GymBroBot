@@ -39,10 +39,11 @@ function validate(i,catalog=CATALOG) {
     keys(s,['owner','date','sets']); if(s.owner!==i.owner) fail(); date(s.date); if(s.date>=i.date) fail();
     if(!Array.isArray(s.sets)||s.sets.length>50) fail();
     for(const x of s.sets) {
-      keys(x,['exercise','weight','unit','reps','rpe','id','created_at','setType','measurement_type','duration_seconds']);
+      keys(x,['exercise','weight','unit','reps','rpe','id','created_at','setType','measurement_type','duration_seconds','loadMode','assistanceLb']);
       if(x.id!==undefined&&(!Number.isSafeInteger(x.id)||x.id<1)) fail();
       if(x.created_at!==undefined&&(typeof x.created_at!=='string'||!Number.isFinite(Date.parse(x.created_at)))) fail();
       const e=catalog.find(e=>e.id===x.exercise); if(!e||x.unit!=='lb_total_external') fail();
+      if(x.loadMode!==undefined){if(x.loadMode!=='assisted'||!(e.bodyweightCapable??(e.equipment==='bodyweight'))||x.weight!==0)fail();num(x.assistanceLb,0.0000001,500);}else if(x.assistanceLb!==undefined)fail();
       num(x.weight,0,500); if(e.equipment==='bodyweight'&&!e.bodyweightCapable&&x.weight!==0) fail(); if(x.measurement_type==='duration_seconds'){num(x.duration_seconds,1,7200,true);if(x.reps!==null)fail();}else num(x.reps,1,200,true);
       if(x.rpe!==null) num(x.rpe,1,10);
     }
@@ -51,9 +52,9 @@ function validate(i,catalog=CATALOG) {
 function draft(i,{catalog=CATALOG}={}) {
   validate(i,catalog);
   // Allowlisted projection prevents owner identifiers, notes or arbitrary text reaching core/output.
-  const sessions=i.history.map(s=>({started_at:s.date,day_type:'full body',sets:s.sets.map(x=>({exercise:x.exercise,weight:x.weight,reps:x.reps,rpe:x.rpe,id:x.id,created_at:x.created_at,setType:x.setType,measurement_type:x.measurement_type,duration_seconds:x.duration_seconds}))}));
+  const sessions=i.history.map(s=>({started_at:s.date,day_type:'full body',sets:s.sets.map(x=>({exercise:x.exercise,weight:x.weight,reps:x.reps,rpe:x.rpe,id:x.id,created_at:x.created_at,setType:x.setType,measurement_type:x.measurement_type,duration_seconds:x.duration_seconds,loadMode:x.loadMode,assistanceLb:x.assistanceLb}))}));
   const context={todayDate:i.date,recentSessions:sessions};
-  const anchors=findExerciseAnchors({...context,recentSessions:sessions.map(s=>({...s,sets:s.sets.filter(x=>x.measurement_type!=='duration_seconds'&&(!x.setType||x.setType==='working'))}))}).byCanonical;
+  const anchors=findExerciseAnchors({...context,recentSessions:sessions.map(s=>({...s,sets:s.sets.filter(x=>x.loadMode!=='assisted'&&x.measurement_type!=='duration_seconds'&&(!x.setType||x.setType==='working'))}))}).byCanonical;
   const load=computeTrainingLoad(context);
   const downshift=load.lastNDaysFatigueIndex>=40;
   const goal=GOALS[i.goal];
@@ -63,8 +64,11 @@ function draft(i,{catalog=CATALOG}={}) {
     const candidates=catalog.filter(e=>e.measurement!=='duration'&&e.pattern===pattern&&i.equipment.includes(e.equipment)&&!i.constraints.exclude.includes(e.id));
     const e=candidates[0]; if(!e) {omitted.push(pattern+': equipment or exclusion'); continue;}
     const a=anchors[e.id]; const age=a?.lastSessionDate?(Date.parse(i.date)-Date.parse(a.lastSessionDate))/86400000:Infinity;
+    const relevantSets=i.history.flatMap(s=>s.sets.map(x=>({...x,sessionDate:s.date}))).filter(s=>s.exercise===e.id&&s.measurement_type!=='duration_seconds');
+    const latestModeSet=relevantSets.at(-1),latestRelevant=relevantSets.filter(s=>!s.setType||s.setType==='working').at(-1);
+    const assisted=latestModeSet?.loadMode==='assisted';
     const fresh=a&&age<=28&&a.lastWorkingWeight>0&&(e.equipment!=='bodyweight'||e.bodyweightCapable);
-    let reason='cold_start_calibrate', weight=null, sets=1, rpeCap=6;
+    let reason='cold_start_calibrate', weight=null, sets=1, rpeCap=6,reps=goal.reps;
     if(e.equipment==='bodyweight') {weight=0; reason='bodyweight_technique';}
     if(fresh) {
       sets=goal.sets; rpeCap=7; weight=a.lastWorkingWeight; reason='hold_anchor';
@@ -74,13 +78,14 @@ function draft(i,{catalog=CATALOG}={}) {
       // Conservative 0.5 lb total arithmetic granularity; operator must round DOWN to available equipment.
       weight=Math.floor(weight*2)/2;
     }
+    if(assisted){if(latestRelevant?.loadMode!=='assisted'){omitted.push(pattern+': assistance working anchor requires owner calibration');continue;}if((Date.parse(i.date)-Date.parse(latestRelevant.sessionDate))/86400000>28){omitted.push(pattern+': stale assistance requires owner calibration');continue;}weight=latestRelevant.assistanceLb;const prior=i.history.filter(s=>s.sets.some(x=>x.exercise===e.id&&x.measurement_type!=='duration_seconds')).at(-1);const priorCount=prior.sets.filter(x=>x.exercise===e.id&&x.loadMode==='assisted'&&(!x.setType||x.setType==='working')).length;sets=Math.min(goal.sets,Math.max(1,priorCount));reps=Math.min(goal.reps,latestRelevant.reps);rpeCap=7;reason='hold_assistance';if(weight>i.constraints.maxLoadLb){omitted.push(pattern+': assistance exceeds owner cap; explicit review required');continue;}if(latestRelevant.rpe>=9){sets=1;rpeCap=6;reason='assistance_effort_downshift';}}
     if(downshift) {sets=1; rpeCap=6; if(!fresh) reason+=';volume_downshift';}
-    if(weight!==null&&weight>i.constraints.maxLoadLb) {weight=Math.floor(i.constraints.maxLoadLb*2)/2; reason+=';owner_load_cap';}
-    const cost=sets*(goal.reps*5+goal.rest)+60;
+    if(!assisted&&weight!==null&&weight>i.constraints.maxLoadLb) {weight=Math.floor(i.constraints.maxLoadLb*2)/2; reason+=';owner_load_cap';}
+    const cost=sets*(reps*5+goal.rest)+60;
     if(seconds+cost>i.durationMin*60) {omitted.push(pattern+': duration budget');continue;}
     seconds+=cost;
-    exercises.push({name:e.id,bodyweightCapable:e.bodyweightCapable||e.equipment==='bodyweight',sets,reps:goal.reps,targetLoadLb:weight,loadUnit:'lb_total_external',historicalAverageRpe:a?.recentSets.some(s=>s.rpe!==null)?a.averageRpe:null,rpeCap,restSeconds:goal.rest,rule:reason,
-      explanation:fresh?`Last working load ${a.lastWorkingWeight} lb total; trend ${a.trend}; rule ${reason}.`:`Calibration: ${reason}; choose an easy technique load within the owner cap, round down to available equipment, stop before effort exceeds ${rpeCap}.`,
+    exercises.push({name:e.id,bodyweightCapable:e.bodyweightCapable||e.equipment==='bodyweight',sets,reps,targetLoadLb:weight,loadUnit:assisted?'lb_assistance':'lb_total_external',...(assisted?{loadMode:'assisted'}:{}),historicalAverageRpe:a?.recentSets.some(s=>s.rpe!==null)?a.averageRpe:null,rpeCap,restSeconds:goal.rest,rule:reason,
+      explanation:assisted?`Retain ${weight} lb assistance; help is not an added-load anchor; rule ${reason}.`:fresh?`Last working load ${a.lastWorkingWeight} lb total; trend ${a.trend}; rule ${reason}.`:`Calibration: ${reason}; choose an easy technique load within the owner cap, round down to available equipment, stop before effort exceeds ${rpeCap}.`,
       anchorAgeDays:Number.isFinite(age)?age:null});
   }
   return {policy:VERSION,compatibility:'standalone-draft-v1; live schema adapter required',status:exercises.length?'draft':'blocked',goal:i.goal,date:i.date,durationBudgetMin:i.durationMin,estimatedMinutes:Math.ceil(seconds/60),preparationMinutes:5,finishMinutes:3,loadCapLb:i.constraints.maxLoadLb,trainingLoad:{weeklyTotalSets:load.weeklyTotalSets,index:load.lastNDaysFatigueIndex,downshift},exercises,omitted,
