@@ -3,8 +3,8 @@ const assert=require('node:assert/strict'),path=require('node:path');
 const Database=require('/app/node_modules/better-sqlite3');
 const {create,timestamp}=require('/app/history.cjs');
 const db=new Database(':memory:');
-db.exec('CREATE TABLE sessions(id INTEGER PRIMARY KEY,started_at TEXT,identity_source TEXT,external_user_id TEXT); CREATE TABLE sets(id INTEGER PRIMARY KEY,session_id INTEGER,exercise TEXT,measurement_type TEXT,weight REAL,reps INTEGER,rpe REAL,created_at TEXT,notes TEXT,identity_source TEXT,external_user_id TEXT)');
-const session=db.prepare('INSERT INTO sessions VALUES(?,?,?,?)'),set=db.prepare("INSERT INTO sets VALUES(?,?,'bodyweight squat','reps',NULL,8,10,'2026-10-26T12:00:00Z','PRIVATE_NOTE',?,?)");
+db.exec('CREATE TABLE sessions(id INTEGER PRIMARY KEY,started_at TEXT,identity_source TEXT,external_user_id TEXT); CREATE TABLE sets(id INTEGER PRIMARY KEY,session_id INTEGER,exercise TEXT,measurement_type TEXT,weight REAL,reps INTEGER,rpe REAL,created_at TEXT,notes TEXT,duration_seconds INTEGER,identity_source TEXT,external_user_id TEXT)');
+const session=db.prepare('INSERT INTO sessions VALUES(?,?,?,?)'),set=db.prepare("INSERT INTO sets VALUES(?,?,'bodyweight squat','reps',NULL,8,10,'2026-10-26T12:00:00Z','PRIVATE_NOTE',NULL,?,?)");
 session.run(1,'2026-10-26T12:00:00Z','s','owner');set.run(1,1,'s','owner');
 for(let i=2;i<=152;i++){session.run(i,'2020-01-01','s','owner');set.run(i,i,'s','owner');}
 session.run(200,'2026-10-26T12:00:00Z','s','owner');session.run(201,'2026-10-27','s','other');set.run(201,201,'s','other');

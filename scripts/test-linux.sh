@@ -28,3 +28,5 @@ python3 scripts/run-stage.py rest-policy-test rest-policy-test.log docker run --
 
 printf '%s\n' 'Running authenticated receipt UI suite'
 python3 scripts/run-stage.py receipt-ui-test receipt-ui-test.log docker run --rm --network none -v "$PWD/receipt-ui-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs
+
+python3 scripts/run-stage.py rich-workout-test rich-workout-test.log docker run --rm --network none -v "$PWD/rich-workout-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs

@@ -13,3 +13,5 @@ backups/
 __pycache__/
 hardening-image-ids.txt
 test-results.json
+
+rich-workout-test.log

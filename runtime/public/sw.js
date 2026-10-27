@@ -1,5 +1,5 @@
 // Build/version must change whenever any public shell byte changes.
-const VERSION = 'fbd8bc390a6a9ae0';
+const VERSION = '8d79e5b077694c9a';
 const CACHE = 'gymbro-public-shell-' + VERSION;
 const ASSETS = ["/agent-receipt.js","/core/api.js", "/core/app.js", "/core/index.html", "/core/offline.js", "/core/styles.css", "/device.js", "/entry.js", "/icon-192.png", "/icon-512.png", "/manifest.webmanifest", "/overlay/config.js", "/overlay/mobility.js", "/overlay/sample-workout.js", "/overlay/telemetry.js", "/owner.css", "/owner.js", "/privacy.js", "/safety.js", "/"];
 const allowed = new Set(ASSETS);

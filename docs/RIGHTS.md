@@ -3,7 +3,7 @@
 | Material | Candidate handling | Review status |
 |---|---|---|
 | Original application/UI/route/planner code | Included under existing ISC notices | Confirm contributor ownership and source lineage before release |
-| Six exercise names and authored general metadata | Included; no copied descriptions/media | Authorship is stated in source; independent rights review pending |
+| 36 exercise labels and authored general metadata | Included; no copied descriptions/media | Authorship is stated in source; independent rights review pending |
 | Exercise GIFs, private catalog, injury/PT data | Excluded | Keep private until explicit rights/privacy decision |
 | PNG app icons | Included from candidate | Origin and redistribution rights require confirmation |
 | SQLite/npm/TypeScript/Caddy/Node/Debian dependencies | Referenced by lockfile/image pins | Generate SBOM and license/notice inventory from fresh build |

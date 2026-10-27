@@ -3,7 +3,7 @@ const crypto=require('node:crypto');
 const canonical=x=>Array.isArray(x)?'['+x.map(canonical).join(',')+']':x&&typeof x==='object'?'{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+canonical(x[k])).join(',')+'}':JSON.stringify(x);
 const hash=x=>crypto.createHash('sha256').update(canonical(x)).digest('hex');
 const fail=(status,message)=>{throw Object.assign(Error(message),{status});};
-function create({control,owner,id,training,planner,bridge,clock=()=>Date.now(),slotState=()=>({locked:false,occupied:false,version:null}),withPlanGuard=fn=>fn()}){
+function create({control,owner,id,training,planner,bridge,clock=()=>Date.now(),slotState=()=>({locked:false,occupied:false,version:null}),withPlanGuard=fn=>fn(),catalog=()=>planner.CATALOG}){
  control.exec(`CREATE TABLE IF NOT EXISTS agent_tokens(hash TEXT PRIMARY KEY, epoch TEXT NOT NULL, expires INTEGER NOT NULL, revoked INTEGER NOT NULL DEFAULT 0);
  CREATE TABLE IF NOT EXISTS agent_drafts(id TEXT PRIMARY KEY, body TEXT NOT NULL);
  CREATE TABLE IF NOT EXISTS agent_receipts(key TEXT PRIMARY KEY, digest TEXT NOT NULL, body TEXT NOT NULL);`);
@@ -11,7 +11,7 @@ function create({control,owner,id,training,planner,bridge,clock=()=>Date.now(),s
  const occupied=date=>control.prepare('SELECT id,body,approved FROM drafts WHERE approved=1 ORDER BY rowid').all().filter(r=>JSON.parse(r.body).date===date);
  const base=date=>hash({local:occupied(date),slot:slotState(date)});
  const openSlot=date=>{const slot=slotState(date);if(slot.locked||slot.occupied||occupied(date).length)fail(409,'Plan date occupied or workout already started');};
- const context=()=>{const data=training();return {scope,policy:'agent-workout/1',training:data,contextDigest:hash({scope,epoch:epoch(),data}),limitations:['Training history only; owner must provide current injury/symptom constraints and confirm timezone and total external pounds.']};};
+ const context=()=>{const data=training(),fullCatalog=catalog(),exerciseCatalog=fullCatalog.map(({id,name,equipment,pattern,measurement,bodyweightCapable,rights})=>({id,name:name||id,equipment,pattern,measurement:measurement||'reps',bodyweightCapable:!!bodyweightCapable,...(rights?{rights}:{})}));return {exerciseCatalog,scope,policy:'agent-workout/1',training:data,contextDigest:hash({scope,epoch:epoch(),data,fullCatalog}),limitations:['Training history only; owner must provide current injury/symptom constraints and confirm timezone and total external pounds.']};};
  const receipts=()=>control.prepare('SELECT body FROM agent_receipts ORDER BY rowid DESC LIMIT 20').all().map(r=>JSON.parse(r.body));
  function issue(){if(!owner.status().claimed)fail(403,'Enroll owner first');const token=crypto.randomBytes(32).toString('base64url');control.prepare('INSERT INTO agent_tokens(hash,epoch,expires) VALUES(?,?,?)').run(hash(token),epoch(),clock()+86400000);return token;}
  function auth(headers){const s=headers.get('authorization')||'';if(!/^Bearer [A-Za-z0-9_-]{43}$/.test(s))fail(401,'Unauthorized');const row=control.prepare('SELECT * FROM agent_tokens WHERE hash=?').get(hash(s.slice(7)));if(!row||row.revoked||row.expires<=clock()||row.epoch!==epoch())fail(401,'Unauthorized');return s.slice(7);}
@@ -20,16 +20,16 @@ function create({control,owner,id,training,planner,bridge,clock=()=>Date.now(),s
  if(method==='GET'&&path==='context')return context();
  if(method==='GET'&&path.startsWith('readback/')){const receipt=control.prepare('SELECT body FROM agent_receipts WHERE key=?').get(path.slice(9));if(!receipt)fail(404,'Receipt absent');const r=JSON.parse(receipt.body);const saved=control.prepare('SELECT body,approved FROM drafts WHERE id=?').get(r.id);if(!saved?.approved)fail(409,'Saved plan changed');const executable=bridge.plan(JSON.parse(saved.body),r.id);if(hash(executable)!==r.planDigest)fail(409,'Saved plan changed');return {...r,plan:executable};}
  if(method==='POST'&&path==='draft'){
-  if(Object.keys(b).some(k=>!['contextDigest','date','goal','durationMin','equipment','exclude','maxLoadLb','progression','calibrationLoads','units','timeZone','constraintsConfirmed','proposal'].includes(k)))fail(400,'Unknown field');
+  if(Object.keys(b).some(k=>!['contextDigest','date','goal','durationMin','equipment','exclude','maxLoadLb','progression','calibrationLoads','units','timeZone','constraintsConfirmed','proposal','equipmentAssignments'].includes(k)))fail(400,'Unknown field');
   if(b.units!=='lb_total_external'||b.constraintsConfirmed!==true||b.timeZone!==Intl.DateTimeFormat().resolvedOptions().timeZone)fail(400,'Confirm units, server timezone and current constraints');
   openSlot(b.date);
   const c=context();if(b.contextDigest!==c.contextDigest)fail(409,'Refresh context');
-  const adapted=bridge.historyFromRows(c.training,b.date);
+  const adapted=bridge.historyFromRows(c.training,b.date,'local-owner',catalog());
   const completeness=c.training.diagnostics;
   adapted.requiresHold=adapted.requiresHold||!completeness||completeness.requiresHold!==false;
   const historyAssessment={requiresHold:adapted.requiresHold,fatigueStatus:adapted.requiresHold?'unknown_or_incomplete':'available',completeness:completeness||{unknown:true},adaptation:adapted.diagnostics};
-  const d=planner.draft({owner:'local-owner',date:b.date,goal:b.goal,durationMin:b.durationMin,equipment:b.equipment,constraints:{owner:'local-owner',exclude:b.exclude,maxLoadLb:b.maxLoadLb,progression:adapted.requiresHold?'hold':b.progression},history:adapted.history});
-  if(b.proposal!==undefined){try{Object.assign(d,require('./proposal.cjs').validate({proposal:b.proposal,input:b,history:adapted.history,baseline:d,requiresHold:adapted.requiresHold,catalog:planner.CATALOG}));}catch(_){fail(400,'Invalid or unsafe custom proposal');}}
+  const d=b.proposal?.schemaVersion===2?require('./rich-proposal.cjs').baseline(b,adapted.history):planner.draft({owner:'local-owner',date:b.date,goal:b.goal,durationMin:b.durationMin,equipment:b.equipment,constraints:{owner:'local-owner',exclude:b.exclude,maxLoadLb:b.maxLoadLb,progression:adapted.requiresHold?'hold':b.progression},history:adapted.history},{catalog:catalog()});
+  if(b.proposal!==undefined){try{Object.assign(d,(b.proposal.schemaVersion===2?require('./rich-proposal.cjs'):require('./proposal.cjs')).validate({proposal:b.proposal,input:b,history:adapted.history,baseline:d,requiresHold:adapted.requiresHold,catalog:catalog()}));}catch(_){fail(400,'Invalid or unsafe custom proposal');}}
   if(d.status!=='draft')fail(400,'Blocked draft');
   for(const e of d.exercises){if(e.targetLoadLb===null){const n=b.calibrationLoads?.[e.name];if(typeof n!=='number'||!Number.isFinite(n)||n<0||n>d.loadCapLb)fail(400,'Explicit calibration required');e.selectedCalibrationLoadLb=n;}}
   d.historyAssessment=historyAssessment;

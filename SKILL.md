@@ -32,3 +32,14 @@ To submit your own exact prescription, keep the existing confirmed request field
 ```
 
 Use known catalog exercise IDs. The server rejects unknown/duplicate exercises, unavailable equipment, exclusions, unsafe anchor progression, excessive loads/volume/time and missing cold-start calibration. The server returns the exact normalized plan for conversational approval. A rejection requires a revised draft; preserve explicit approval for the returned digest. Custom sets/reps/loads remain unchanged when accepted. RPE/rest are preserved in plan metadata and coaching text; automatic rest-timer behavior remains a separate UI check.
+
+
+## Detailed prescriptions and the owner catalog
+
+Read `context.exerciseCatalog` and use exact IDs. The owner can add authored metadata through the authenticated Exercise catalog form. The default metadata seed has 36 exercises; owner additions support further movements. A private overlay can contribute private IDs with unknown equipment. Confirm those explicitly through `equipmentAssignments: {"exercise id":"machine"}` together with the available equipment list.
+
+For a detailed custom plan, send `proposal.schemaVersion: 2`, `name`, `dayType`, `warmup`, `cooldown`, and ordered `exercises`. Each exercise has `exerciseId`, optional safe `slotId`, `block` (`prep`, `strength`, `accessory`, `core`), optional `group`/`variants`, `reason`, and `sets`. Each set includes `type` (`warmup`, `working`, `backoff`, `drop`, `calibration`), `loadLb`, optional `loadMode` (`added`, `assisted`, `pure_bw`), `rpe`, `restSeconds`, optional `notes`, and either `repsLow`/`repsHigh` or `durationSeconds`. Timed exercises can specify `timerSegments` for bilateral holds. All loads mean total external pounds or assistance magnitude as explicitly marked. The server preserves each set instead of collapsing a ramp to one load.
+
+Current hard bounds are 40 exercise slots, 12 sets per slot, 120 sets per session, 26 group labels, 5–240 minutes, and bounded payloads. Constraints, catalog existence, owner-selected load caps, working anchors, calibration caps and fatigue rules still apply. Unknown/private equipment requires conversation confirmation. These bounds describe validation; they do not establish clinical suitability.
+
+Show the full canonical returned plan, set types, distinct loads/reps/durations, groups, notes, uncertainties and exact target date before approval. Commit that stored digest after the user approves. Preserve the original idempotency key after a lost response. The server checks date occupancy and started workouts before saving. Read back the receipt and saved executable plan, then point to its date in the app. No provider credentials belong in the app.

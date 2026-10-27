@@ -18,18 +18,18 @@
     },
     {
       "path": "runtime/agent.cjs",
-      "candidate_sha256": "b4bdd4596e5a7451dd54d101482975cd24e76eb5849d7535934499a67a6508c6",
-      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
+      "candidate_sha256": "2cc4c492aefd7f6d7c8fd9529f34bfd5966c9cf1ec2946299a6a087ee4959149",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/cli.cjs",
-      "candidate_sha256": "7758204e0cf7afd2ec1436dab8b0b92785786876444ac41ca7279fa7734684fd",
-      "transformation": "verbatim"
+      "candidate_sha256": "aa5896965dcddafb7584dbf8e7ae6c12806ad3759244584b9cb039e0de0ba160",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/history.cjs",
-      "candidate_sha256": "f0d515f1cbbae607f67aac3588ffb3246f8b810236b761b662469fbee26744d5",
-      "transformation": "verbatim"
+      "candidate_sha256": "27f7cf62a7227883069eb2719535fa661c093da25660e766a993316590d7d50d",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/owner.cjs",
@@ -53,8 +53,8 @@
     },
     {
       "path": "runtime/planner/bridge.cjs",
-      "candidate_sha256": "a9ea86640274e567aeaacf5be3a8ea2ce3b94347bec05056261dd57377250258",
-      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
+      "candidate_sha256": "0a79a83cc34b036c24e14c30fa9c4ef05febad778e277d72c8508990b8640745",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/planner/core/anchors.js",
@@ -73,8 +73,8 @@
     },
     {
       "path": "runtime/planner/planner.cjs",
-      "candidate_sha256": "cfec1695404c0cd47a58a9c104cff1c9dc7916768a1275d9c44892a1a62898f8",
-      "transformation": "verbatim"
+      "candidate_sha256": "a94016a4658e3d7f154738fb317483386b277915c72098478485198f67a2e0e1",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/provision.cjs",
@@ -93,8 +93,8 @@
     },
     {
       "path": "runtime/public/core/app.js",
-      "candidate_sha256": "f54a2695be1c7d5e3f57850314d4d02777222a104bd71b06511bd6743651287b",
-      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
+      "candidate_sha256": "31838ceb534ddb9b1bd5bffaff619fb8f701a4752ed03dd46cbff1f85ac6ee67",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/public/core/index.html",
@@ -133,8 +133,8 @@
     },
     {
       "path": "runtime/public/index.html",
-      "candidate_sha256": "416abc55502fa2bb2dec185106fa5bd544bca344d24faac45f33fcdf8abdbd58",
-      "transformation": "verbatim"
+      "candidate_sha256": "4bfbac9ddd7505fa66438f583cbe5b15de85201e20a32ad685df616e6897ab8b",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/public/manifest.webmanifest",
@@ -168,8 +168,8 @@
     },
     {
       "path": "runtime/public/owner.js",
-      "candidate_sha256": "0c7aa7e621bad7f5b306b95e81e8ec9f2d9978aad473788107c35d55854fd921",
-      "transformation": "authenticated receipt mounting with text-only bounded memory and render recovery"
+      "candidate_sha256": "23a70259a22ab12a124b026261596591877500b03e027d7b6013345b1f382984",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/public/privacy.js",
@@ -183,8 +183,8 @@
     },
     {
       "path": "runtime/public/sw.js",
-      "candidate_sha256": "7ce8b967fff1b1de2165d524aa66df5eb915a1eb6f3d56d4b4bff61a76e3a546",
-      "transformation": "reviewed receipt refresh and safe stage-specific CI diagnostics/proxy capability test"
+      "candidate_sha256": "e981e6a419c17e42f902b06a5059472a3510d044f4147f0ad5569089eb75360e",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/rate.cjs",
@@ -203,8 +203,8 @@
     },
     {
       "path": "runtime/server.cjs",
-      "candidate_sha256": "339db98d4e6eee86a9d043de2958c37698dbe00e4a550773d9357a3367d574b0",
-      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
+      "candidate_sha256": "01f3f0faaf9e899f9fcf0ad6a72d2a769b1f077c7d6b931646f9a3b2b7308f5e",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "runtime/setup.cjs",
@@ -343,8 +343,8 @@
     },
     {
       "path": "SKILL.md",
-      "candidate_sha256": "1ac9112746b19e302ddafce6f4ed923261527061b83558add7a9a87fca0975f2",
-      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
+      "candidate_sha256": "6c58642c2b26ff938e49e6ef4baedaf960c416544a020438297ad4474aba3308",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "hardening.cjs",
@@ -353,8 +353,8 @@
     },
     {
       "path": "history-test.cjs",
-      "candidate_sha256": "cbed9c8e03245d1ea47774fe09231e1917eac7f80436adb2015e13d476587661",
-      "transformation": "verbatim"
+      "candidate_sha256": "5f06dcbf3cebcb0f50bdc2353f0fab0b64cdaca3e47410ac902f5e38489156d3",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "provision-test.cjs",
@@ -423,8 +423,8 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "bfe6dd80db6152d2e8567f4bc303f2b3e9f593250beed41ff6a2daa26d99cb7d",
-      "transformation": "reviewed receipt refresh and safe stage-specific CI diagnostics/proxy capability test"
+      "candidate_sha256": "6372ed0a866bfecb6498ad3c1ee9613af9c4def94ea51633eef5780cdc1406bd",
+      "transformation": "reviewed rich workout/catalog change"
     },
     {
       "path": "scripts/prepare-hosting.py",
@@ -455,6 +455,36 @@
       "path": "ci-diagnostics-test.py",
       "candidate_sha256": "5a9b2fb4b2df9010fb13a0f048604ebc7a35882db069d800e8a6f3941d37747b",
       "transformation": "synthetic rehearsal free-date race fixture and bounded phase/HTTP/source diagnostics"
+    },
+    {
+      "path": "runtime/legacy-plan-mapper.ts",
+      "transformation": "reviewed rich workout/catalog change",
+      "candidate_sha256": "b73cea5092d401455d2da7a90185f67cdc771fd79654ecf5d01e50f5af26a573"
+    },
+    {
+      "path": "runtime/rich-proposal.cjs",
+      "transformation": "reviewed rich workout/catalog change",
+      "candidate_sha256": "0940e2f99b88b8d3565fb4875ae1dfa327b844aff51a5b9acc3f512c49e025b4"
+    },
+    {
+      "path": "runtime/private-plan-reader.cjs",
+      "transformation": "reviewed rich workout/catalog change",
+      "candidate_sha256": "def3c58b928f2ef16432f15051d3b159d6c8c093acfe394204a23ed7e528ed6b"
+    },
+    {
+      "path": "runtime/catalog.cjs",
+      "transformation": "reviewed rich workout/catalog change",
+      "candidate_sha256": "be4f7d87069c4e326d6e5c1952ef063f28cdc620bdae67846ec3ea978a190ba8"
+    },
+    {
+      "path": "runtime/rich-plan.cjs",
+      "transformation": "reviewed rich workout/catalog change",
+      "candidate_sha256": "48d509132fcb8d6fd24bf078187ae2cb63c838dbd2190cf7c91288636df5e4a4"
+    },
+    {
+      "path": "rich-workout-test.cjs",
+      "transformation": "reviewed rich workout/catalog change",
+      "candidate_sha256": "56b0a01b6552dbe4c37b4433db5da5d1f37a2a637214256679b5ce6eeb4481cd"
     }
   ]
 }

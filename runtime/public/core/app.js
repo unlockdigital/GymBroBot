@@ -1159,7 +1159,7 @@ function draftFor(ex) {
   // 185 even if the user just logged 175 for set 1. If the plan entry has
   // no weight (bodyweight movements), we still honor its reps/rpe but fall
   // through for the weight from the nearest real source.
-  const p = isTimed ? null : plannedSet(ex);
+  const p = plannedSet(ex);
   if (p) {
     const repsFromPlan =
       p.repsLow != null && p.repsHigh != null && p.repsLow !== p.repsHigh
@@ -1168,13 +1168,14 @@ function draftFor(ex) {
     const weightFromPlan = p.weight != null
       ? p.weight
       : (lastInSession?.weight ?? ex.last?.weight ?? ex.targetWeight ?? 0);
-    const plannedMode = ex.bodyweight_capable && p.loadMode === 'assisted'
-      ? 'assisted'
+    const plannedMode = ex.bodyweight_capable && ['added', 'assisted', 'pure_bw'].includes(p.loadMode)
+      ? p.loadMode
       : null;
     return {
-      reps: repsFromPlan ?? (ex.targetRepsLow || 10),
-      durationSeconds: null,
+      reps: isTimed ? null : (repsFromPlan ?? (ex.targetRepsLow || 10)),
+      durationSeconds: isTimed ? (p.durationSeconds ?? ex.targetDuration ?? 30) : null,
       weight: weightFromPlan,
+      note: p.notes || '',
       rpe: null,
       assistanceMode: plannedMode || lastInSession?.assistanceMode || ex.last?.assistanceMode || defaultMode,
       variantIndex,
@@ -1296,7 +1297,7 @@ function initSession(plan) {
 function initPlanGroups() {
   const s = state.session;
   if (!s) return;
-  const labelToLetter = {};
+  const labelToLetter = Object.create(null);
   let next = s.nextSupersetLetter || 'A';
   for (const ex of s.exercises) {
     if (!ex.group) continue;
@@ -1458,6 +1459,9 @@ function findSupersetPartner(ex) {
 //  added (weight 0) → null (degenerate; renders as bodyweight)
 function formatSetNotes(ex, loggedSet) {
   const notes = [];
+  const index = ex.sets.findIndex(s => s === loggedSet || (loggedSet.clientSetId && s.clientSetId === loggedSet.clientSetId));
+  const prescribed = index >= 0 ? ex.setPlan?.[index] : null;
+  if (['warmup', 'working', 'backoff', 'drop', 'calibration'].includes(prescribed?.type)) notes.push('planned_set_type=' + prescribed.type);
   const userNote = cleanUserNote(loggedSet.note);
   if (userNote) notes.push(userNote);
   if (ex.isometricHold || ex.holdSeconds) {
@@ -2865,7 +2869,7 @@ function renderActive() {
           <button class="rep-btn" data-action="dec-duration">−5s</button>
           <div style="text-align:center">
             <div class="rep-value" data-action="edit-duration">${fmtTime(d.durationSeconds || 0)}</div>
-            <div class="rep-value-label">TARGET ${fmtTime(ex.targetDuration || 30)}</div>
+            <div class="rep-value-label">TARGET ${fmtTime(plannedSet(ex)?.durationSeconds || ex.targetDuration || 30)}</div>
           </div>
           <button class="rep-btn" data-action="inc-duration">+5s</button>
         </div>
@@ -5539,6 +5543,9 @@ function updateKeypadBuffer() {
 let restTickHandle = null;
 let workTimerTickHandle = null;
 function prescribedRestSeconds(ex) {
+  const index = Math.max(0, (ex?.sets?.length || 1) - 1);
+  const planned = ex?.setPlan?.[index]?.restSeconds;
+  if (Number.isInteger(planned) && planned >= 0 && planned <= 900) return planned;
   const seconds = ex?.restSeconds;
   return Number.isInteger(seconds) && seconds >= 30 && seconds <= 300 ? seconds : DEFAULT_REST_SECONDS;
 }
