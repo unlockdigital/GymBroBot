@@ -16,9 +16,11 @@ with os.fdopen(fd,'wb') as out:
  except OSError:raise SystemExit('FAIL '+stage+': process-start-failure; raw output suppressed') from None
 if result.returncode:
  data=p.read_bytes();text=data.decode(errors='replace')
- markers=['AssertionError','PermissionError','ModuleNotFoundError','SyntaxError','SQLITE_BUSY','SQLITE_CONSTRAINT','EINTEGRITY','EACCES','ENOTFOUND','ECONNREFUSED','ETIMEDOUT','EBADENGINE','permission denied','operation not permitted']
+ markers=['AssertionError','PermissionError','ModuleNotFoundError','SyntaxError','SQLITE_BUSY','SQLITE_CONSTRAINT','EINTEGRITY','EACCES','ENOTFOUND','ECONNREFUSED','ETIMEDOUT','EBADENGINE','permission denied','operation not permitted','Synthetic integration assertion failed','Agent request rejected','Private transport failed']
  kinds=[m for m in markers if m.lower() in text.lower()]
- sites=sorted(set(re.findall(r'(?:/app/|/tests/)[a-zA-Z0-9_./-]+\.(?:cjs|js|py):[0-9]+(?::[0-9]+)?',text)))[:5]
- print('FAIL '+stage+': exit='+str(result.returncode)+' categories='+','.join(kinds)+' sites='+','.join(sites)+' bytes='+str(len(data))+' sha256='+hashlib.sha256(data).hexdigest(),flush=True)
+ sites=sorted(set(re.findall(r'(?:/(?:app|tests)/[a-zA-Z0-9_./-]+\.(?:cjs|js|py)|/test\.(?:cjs|js|py)):[0-9]+(?::[0-9]+)?',text)))[:5]
+ phases=re.findall(r'Synthetic integration assertion failed phase=([a-z0-9-]{1,80})',text)
+ statuses=sorted(set(re.findall(r'Agent request rejected \(HTTP ([0-9]{3})\)',text)))
+ print('FAIL '+stage+': phase='+(phases[-1] if phases else 'unknown')+' http='+','.join(statuses)+' exit='+str(result.returncode)+' categories='+','.join(kinds)+' sites='+','.join(sites)+' bytes='+str(len(data))+' sha256='+hashlib.sha256(data).hexdigest(),flush=True)
  raise SystemExit(result.returncode if result.returncode>0 else 1)
 print('PASS '+stage,flush=True)

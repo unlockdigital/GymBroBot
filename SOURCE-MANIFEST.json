@@ -378,8 +378,8 @@
     },
     {
       "path": "test.cjs",
-      "candidate_sha256": "3c29dd61b37b088f43b5c4dc1bb1af12b3041665a8a6cd50466e60013b457ed1",
-      "transformation": "verbatim"
+      "candidate_sha256": "9233051da781f8ea0084e9e1c164fdedff7685392baa55584b39eb6c9f2c075f",
+      "transformation": "synthetic rehearsal free-date race fixture and bounded phase/HTTP/source diagnostics"
     },
     {
       "path": "durability-test.py",
@@ -448,13 +448,13 @@
     },
     {
       "path": "scripts/run-stage.py",
-      "candidate_sha256": "6a88477c2753ced3c87c69e80e8cc76fb848423731a7b45618702a9689612bd2",
-      "transformation": "authored bounded CI diagnostics and synthetic privacy controls"
+      "candidate_sha256": "118d321f312f1b0d3b64ddd1c49b89ed956c515a30692f933d61003155936d7e",
+      "transformation": "synthetic rehearsal free-date race fixture and bounded phase/HTTP/source diagnostics"
     },
     {
       "path": "ci-diagnostics-test.py",
-      "candidate_sha256": "3c8d38b3b1385dce2a836544366c9341f308c5454101a13db7824df5390e803c",
-      "transformation": "authored bounded CI diagnostics and synthetic privacy controls"
+      "candidate_sha256": "5a9b2fb4b2df9010fb13a0f048604ebc7a35882db069d800e8a6f3941d37747b",
+      "transformation": "synthetic rehearsal free-date race fixture and bounded phase/HTTP/source diagnostics"
     }
   ]
 }
