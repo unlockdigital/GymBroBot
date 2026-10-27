@@ -4,7 +4,7 @@ services:
     build:
       context: .
       args:
-        NODE_IMAGE: ${NODE_IMAGE:-node@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34}
+        NODE_IMAGE: ${NODE_IMAGE:-node@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d}
     user: '0:0'
     command: [init-volumes]
     volumes: [data:/app/data, socket:/run/gymbro, agent_socket:/run/gymbro-agent, backups:/backups, caddy_data:/data, caddy_config:/config, agent_caddy_data:/agent-data, agent_caddy_config:/agent-config]
@@ -24,7 +24,7 @@ services:
     network_mode: none
     stop_grace_period: 30s
   caddy:
-    image: ${CADDY_IMAGE:-caddy@sha256:133b5eb7ef9d42e34756ba206b06d84f4e3eb308044e268e182c2747083f09de}
+    image: ${CADDY_IMAGE:-caddy@sha256:504a44d7d74bd2bc28a66afc4774912fc21223ca8a67734af1c54ab2f999b489}
     user: '1000:1000'
     restart: unless-stopped
     read_only: true
@@ -37,7 +37,7 @@ services:
     volumes: [./Caddyfile:/etc/caddy/Caddyfile:ro, socket:/run/gymbro:ro, caddy_data:/data, caddy_config:/config]
     tmpfs: [/tmp:mode=1777,size=16m]
   agent-proxy:
-    image: ${CADDY_IMAGE:-caddy@sha256:133b5eb7ef9d42e34756ba206b06d84f4e3eb308044e268e182c2747083f09de}
+    image: ${CADDY_IMAGE:-caddy@sha256:504a44d7d74bd2bc28a66afc4774912fc21223ca8a67734af1c54ab2f999b489}
     user: '1000:1000'
     restart: unless-stopped
     read_only: true

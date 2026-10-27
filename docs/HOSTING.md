@@ -1,6 +1,6 @@
 # VPS hosting and recovery
 
-Set an A record for a hostname such as `workouts.example.com` to your VPS address. Add AAAA only with tested IPv6 routing and firewall rules. Caddy serves trusted public HTTPS once DNS, inbound ports 80/443 and certificate issuance work. Keep agent TCP 9443 closed to the Internet; Compose binds it to loopback. Review current supported image/security updates before exposing this candidate.
+Set an A record for a hostname such as `workouts.example.com` to your VPS address. Add AAAA only with tested IPv6 routing and firewall rules. Caddy serves trusted public HTTPS once DNS, inbound ports 80/443 and certificate issuance work. Keep agent TCP 9443 closed to the Internet; Compose binds it to loopback. Pinned Node 22.23.4/Caddy 2.11.7 and current Debian security repositories have a Linux arm64 build/regression result. Complete the remaining amd64, SBOM/OS scan and deployment gates before exposing this candidate.
 
 ```sh
 umask 077

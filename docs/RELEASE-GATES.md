@@ -5,7 +5,7 @@ Publication remains blocked until each gate has evidence for the exact commit an
 - Full tree and every reachable Git ref pass a maintained secret scanner and private-identifier denylist. Pattern scanning alone provides bounded assurance.
 - Independent privacy review confirms data flows, default training context, recovery export, logs, browser storage and credentials.
 - Provenance and redistribution inventory covers every source and asset, including icons and dependency notices.
-- Fresh supported Linux amd64/arm64 dependency builds pass current advisory and OS-image review; the historical pinned Debian snapshot requires update assessment.
+- Fresh supported Linux amd64/arm64 dependency builds pass current advisory and OS-image review; current pins use Node 22.23.4/Caddy 2.11.7 and active Debian security repositories. Fresh patched Linux arm64 build and synthetic suites passed in independent review; exact Linux amd64, final private-copy, SBOM and full OS scanning remain open.
 - Exact package passes owner enrollment/recovery, persistent workout flow, model-free planner, agent digest/approval/readback, revocation, concurrent writes and backup/restore.
 - Actual isolated private-copy rehearsal preserves all prior application data and schema. Evidence for predecessor versions is recorded separately.
 - Domain/HTTPS/firewall/restricted SSH policy pass on the intended deployment without touching the live service.

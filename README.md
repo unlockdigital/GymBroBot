@@ -2,7 +2,7 @@
 
 GymBroBot is a self-hosted single-owner training web app. Keep your workout history on your server, log strength and cardio sessions, and create a basic workout with the local rule-based planner. A separately authorized local coding agent can read bounded training context, propose a workout in conversation, save the approved draft, and verify the saved plan.
 
-This source candidate is undergoing release review. The included planner supports six exercise choices. The current package uses Node 22 and Linux Docker with persistent SQLite storage. Model-provider authentication stays with your agent client; the app requires zero model-provider keys.
+This source candidate is undergoing release review. The included planner supports six exercise choices. The current package pins Node 22.23.4 and Caddy 2.11.7 with Linux Docker with persistent SQLite storage. Model-provider authentication stays with your agent client; the app requires zero model-provider keys.
 
 ## Host it at your domain
 

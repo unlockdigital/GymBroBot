@@ -323,13 +323,13 @@
     },
     {
       "path": "Dockerfile",
-      "candidate_sha256": "3e56682360c0caa475c61e6f22d3abf37d31fd71f314f05abad688fd73f1e4a1",
-      "transformation": "verbatim"
+      "candidate_sha256": "850dd7a14c05387a026ef577eec93bd30d72bf1cce63c375f60ffa0f52630055",
+      "transformation": "reviewed Node 22.23.4/Caddy 2.11.7 immutable pins and active Debian security repositories; regression proxy pin matches Compose"
     },
     {
       "path": "compose.yaml",
-      "candidate_sha256": "0f792915a1c86dcb6a958850aa014d8158fcf64d51c6a9640099c4715112a358",
-      "transformation": "verbatim"
+      "candidate_sha256": "54dbac52964af5353b074b60b79afa81d96152ba08e2444e2917ce46f8b7ef87",
+      "transformation": "reviewed Node 22.23.4/Caddy 2.11.7 immutable pins and active Debian security repositories; regression proxy pin matches Compose"
     },
     {
       "path": "ops.py",
@@ -388,8 +388,8 @@
     },
     {
       "path": "rehearse.py",
-      "candidate_sha256": "8fc052f6e4bf1546125194e60c8430a46b1566a17d8d94e5f0e5d09080eb5349",
-      "transformation": "verbatim"
+      "candidate_sha256": "8b5aa0baaa7e7faef60fd6c03a5424b4d0486d872b25071e7c95a4ea2a05bc1c",
+      "transformation": "reviewed Node 22.23.4/Caddy 2.11.7 immutable pins and active Debian security repositories; regression proxy pin matches Compose"
     },
     {
       "path": "synthetic-ca.crt",

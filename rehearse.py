@@ -1,6 +1,6 @@
 import subprocess as sp,pathlib,uuid,time,json,tempfile,shutil
 r=pathlib.Path(__file__).resolve().parent;n='gymbro-integrated-'+uuid.uuid4().hex[:8];vols=[n+'-'+x for x in ['data','socket','backup','ca','cc','agent-socket','restore']];cs=[];out=[];tmp=pathlib.Path(tempfile.mkdtemp(dir=r,prefix='synthetic-'))
-image='gymbro-vps-agent:recovery-sanitized-20261027';caddy='caddy@sha256:133b5eb7ef9d42e34756ba206b06d84f4e3eb308044e268e182c2747083f09de'
+image='gymbro-vps-agent:recovery-sanitized-20261027';caddy='caddy@sha256:504a44d7d74bd2bc28a66afc4774912fc21223ca8a67734af1c54ab2f999b489'
 def run(*a,input=None,ok=True):
  p=sp.run(['docker',*a],input=input,text=True,capture_output=True)
  if ok and p.returncode:raise RuntimeError('Docker '+a[0]+' failed: '+p.stderr[-1500:])
