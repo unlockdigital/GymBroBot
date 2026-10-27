@@ -1,0 +1,14 @@
+{$PUBLIC_HOST} {
+ header Strict-Transport-Security "max-age=31536000"
+ @agent path /agent /agent/*
+ respond @agent 404
+ reverse_proxy unix//run/gymbro/app.sock {
+  header_up X-Gymbro-Client-IP {http.request.remote.host}
+  header_up Host {$PUBLIC_HOST}
+  header_up X-Forwarded-Proto https
+  header_up -X-Forwarded-Host
+  header_up -X-Forwarded-For
+  header_up -Forwarded
+  header_up -X-Gymbro-Gateway-Token
+ }
+}

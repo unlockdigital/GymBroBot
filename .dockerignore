@@ -1,0 +1,7 @@
+*
+!Dockerfile
+!runtime
+!runtime/**
+!ops.py
+runtime/data
+runtime/node_modules

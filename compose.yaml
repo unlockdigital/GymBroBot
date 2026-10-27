@@ -1,0 +1,62 @@
+services:
+  init:
+    image: gymbro-vps-agent:hardening-20261027
+    build:
+      context: .
+      args:
+        NODE_IMAGE: ${NODE_IMAGE:-node@sha256:048ed02c5fd52e86fda6fbd2f6a76cf0d4492fd6c6fee9e2c463ed5108da0e34}
+    user: '0:0'
+    command: [init-volumes]
+    volumes: [data:/app/data, socket:/run/gymbro, agent_socket:/run/gymbro-agent, backups:/backups, caddy_data:/data, caddy_config:/config, agent_caddy_data:/agent-data, agent_caddy_config:/agent-config]
+  app:
+    image: gymbro-vps-agent:hardening-20261027
+    command: [serve]
+    restart: unless-stopped
+    init: true
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    environment:
+      PUBLIC_ORIGIN: https://${PUBLIC_HOST:?Set PUBLIC_HOST}
+      TZ: ${OWNER_TIMEZONE:-America/Chicago}
+    volumes: [data:/app/data, socket:/run/gymbro, agent_socket:/run/gymbro-agent, backups:/backups]
+    tmpfs: [/tmp:mode=1777,size=16m]
+    network_mode: none
+    stop_grace_period: 30s
+  caddy:
+    image: ${CADDY_IMAGE:-caddy@sha256:133b5eb7ef9d42e34756ba206b06d84f4e3eb308044e268e182c2747083f09de}
+    user: '1000:1000'
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    environment:
+      PUBLIC_HOST: ${PUBLIC_HOST:?Set PUBLIC_HOST}
+    ports: ['80:80', '443:443']
+    volumes: [./Caddyfile:/etc/caddy/Caddyfile:ro, socket:/run/gymbro:ro, caddy_data:/data, caddy_config:/config]
+    tmpfs: [/tmp:mode=1777,size=16m]
+  agent-proxy:
+    image: ${CADDY_IMAGE:-caddy@sha256:133b5eb7ef9d42e34756ba206b06d84f4e3eb308044e268e182c2747083f09de}
+    user: '1000:1000'
+    restart: unless-stopped
+    read_only: true
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    ports: ['127.0.0.1:9443:9443']
+    networks: [agent_private]
+    volumes: [./Caddyfile.agent:/etc/caddy/Caddyfile:ro, agent_socket:/run/gymbro-agent:ro, agent_caddy_data:/data, agent_caddy_config:/config]
+    tmpfs: [/tmp:mode=1777,size=16m]
+volumes:
+  agent_socket:
+  agent_caddy_data:
+  agent_caddy_config:
+  data:
+  socket:
+  backups:
+  caddy_data:
+  caddy_config:
+networks:
+  agent_private:
+    driver: bridge

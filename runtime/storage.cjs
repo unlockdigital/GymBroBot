@@ -1,0 +1,23 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),crypto=require('node:crypto'),Database=require('better-sqlite3');
+const root=path.join(__dirname,'data');
+function check(file,dir=false){let at=path.parse(file).root;for(const part of file.slice(at.length).split('/').filter(Boolean)){at=path.join(at,part);assert(!fs.lstatSync(at).isSymbolicLink(),'Symlink denied');}const s=fs.lstatSync(file);assert(s.uid===process.getuid()&&(s.mode&0o077)===0&&(dir?s.isDirectory():s.isFile()&&s.nlink===1),'Private owned path required');return s;}
+function open({profile='fresh',schemaSha256,owner}={}){
+assert(['fresh','private-copy'].includes(profile));check(root,true);const file=path.join(root,'workout.sqlite'),fresh=!fs.existsSync(file);if(fresh)fs.closeSync(fs.openSync(file,fs.constants.O_CREAT|fs.constants.O_EXCL|fs.constants.O_RDWR|fs.constants.O_NOFOLLOW,0o600));const identity=check(file);for(const ext of ['-wal','-shm','-journal'])if(fs.existsSync(file+ext))check(file+ext);/* SQLite performs journal recovery before integrity and schema checks. */const db=new Database(file,{fileMustExist:true});
+try{
+const schema=fs.readFileSync(path.join(__dirname,'vendor/route-core-schema-v2/core/schema.sql'),'utf8');
+if(fresh){assert(profile==='fresh','Private-copy profile requires an explicitly prepared private copy');db.transaction(()=>db.exec(schema))();}
+const contract=d=>d.prepare("SELECT type,name,tbl_name,sql FROM sqlite_master WHERE name NOT LIKE 'sqlite_%' ORDER BY type,name").all();
+const expected=new Database(':memory:');try{expected.exec(schema);if(profile==='fresh')assert.deepEqual(contract(db),contract(expected),'Baseline schema differs; select reviewed private-copy profile');else{
+const full=db.prepare('SELECT type,name,tbl_name,sql FROM sqlite_master ORDER BY type,name').all();assert.equal(crypto.createHash('sha256').update(JSON.stringify(full)).digest('hex'),schemaSha256,'Explicit complete schema pin required');
+function columns(d,t){return d.pragma(`table_xinfo(${t})`).map(c=>({...c,dflt_value:t==='sets'&&c.name==='measurement_type'&&c.dflt_value==='\"reps\"'?"'reps'":t==='supersets'&&c.name==='kind'&&c.dflt_value==='\"superset\"'?"'superset'":c.dflt_value}));}
+for(const t of ['sessions','sets','cardio_blocks','supersets','body_metrics','miniapp_write_receipts']){assert.deepEqual(columns(db,t),columns(expected,t),'Selected table contract mismatch');assert(!full.some(x=>x.type==='trigger'&&x.tbl_name===t),'Selected-table trigger denied');}
+assert(owner&&typeof owner.identitySource==='string'&&typeof owner.externalUserId==='string','Explicit copy owner required');assert.equal(db.prepare('SELECT count(*) n FROM users WHERE identity_source=? AND external_user_id=?').get(owner.identitySource,owner.externalUserId).n,1,'Copy owner must resolve uniquely');
+for(const t of ['sets','cardio_blocks','supersets'])assert.equal(db.prepare(`SELECT count(*) n FROM ${t} c LEFT JOIN sessions s ON s.id=c.session_id WHERE c.session_id IS NOT NULL AND (s.id IS NULL OR c.identity_source IS NOT s.identity_source OR c.external_user_id IS NOT s.external_user_id)`).get().n,0,'Child ownership corruption');
+}}finally{expected.close();}
+assert.deepEqual(db.pragma('integrity_check'),[{integrity_check:'ok'}]);assert.equal(db.pragma('foreign_key_check').length,0);const pinnedSchema=JSON.stringify(contract(db));db.pragma('trusted_schema=OFF');if(profile==='private-copy')assert.equal(db.pragma('journal_mode',{simple:true}),'delete','Closed DELETE-format private copy required');db.pragma('journal_mode=DELETE');db.pragma('synchronous=FULL');db.pragma('busy_timeout=5000');
+function guard(){check(root,true);const s=check(file);assert(s.ino===identity.ino&&s.dev===identity.dev,'File changed');assert.equal(JSON.stringify(contract(db)),pinnedSchema,'Schema changed');}
+return {function(name,options,fn){guard();if(name!=="agent_session_ms")throw Error("Function denied");return db.function(name,options,fn);},prepare(sql){guard();assert(!/\b(ATTACH|DETACH|VACUUM|load_extension)\b/i.test(sql));if(/\bPRAGMA\b/i.test(sql))assert(sql==='PRAGMA table_info(sets)');const st=db.prepare(sql);return Object.fromEntries(['get','all','run'].map(m=>[m,(...a)=>{guard();return st[m](...a);} ]));},exec(sql){guard();assert(/^\s*CREATE TABLE IF NOT EXISTS miniapp_write_receipts\s*\(/.test(sql));/* Already validated existing table. */},transaction(fn){const tx=db.transaction(fn);return(...args)=>{guard();return tx(...args);};},close(){db.close();}};
+}catch(e){if(db.open)db.close();throw e;}
+}
+module.exports={open,check};

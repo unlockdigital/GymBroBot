@@ -1,0 +1,19 @@
+{
+  "name": "gymbro-standalone-candidate",
+  "version": "0.1.1-hardening.20261027",
+  "private": true,
+  "engines": {
+    "node": ">=22 <23"
+  },
+  "scripts": {
+    "start": "node server.cjs",
+    "init": "node setup.cjs",
+    "verify": "node verify.cjs"
+  },
+  "dependencies": {
+    "better-sqlite3": "12.8.0",
+    "bindings": "1.5.0",
+    "file-uri-to-path": "1.0.0",
+    "typescript": "5.9.3"
+  }
+}

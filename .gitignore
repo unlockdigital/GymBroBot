@@ -1,0 +1,13 @@
+node_modules/
+.env
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+agent-cli.json
+pairing/
+data/
+backups/
+*.log
+*.tar.gz
+__pycache__/

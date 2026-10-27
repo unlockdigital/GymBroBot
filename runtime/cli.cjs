@@ -1,0 +1,10 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),https=require('node:https');
+const file=process.env.GYMBRO_AGENT_CREDENTIAL||path.join(__dirname,'data/agent-cli.json');const st=fs.lstatSync(file);if(!st.isFile()||st.isSymbolicLink()||st.nlink!==1||st.uid!==process.getuid()||(st.mode&0o777)!==0o600)throw Error('Owned 0600 credential required');
+const c=JSON.parse(fs.readFileSync(file)),url=new URL(c.origin);
+if(c.serverName!=='agent.gymbro.internal')throw Error('Pinned agent identity required');
+if(url.hostname!=='127.0.0.1'||url.protocol!=='https:'||url.username||url.password||url.pathname!=='/')throw Error('Loopback TLS required');
+const cmd=process.argv[2];if(!['context','draft','commit','readback','revoke'].includes(cmd))throw Error('Use context, draft, commit, readback KEY, revoke; JSON input on stdin');
+if(cmd==='readback'&&!/^[-a-zA-Z0-9_]{16,100}$/.test(process.argv[3]||''))throw Error('Receipt key required');
+const payload=['draft','commit'].includes(cmd)?fs.readFileSync(0):Buffer.from('{}');if(payload.length>32768)throw Error('Input limit');
+const req=https.request(new URL('/agent/'+cmd+(cmd==='readback'?'/'+process.argv[3]:''),url),{method:['context','readback'].includes(cmd)?'GET':'POST',ca:c.ca,servername:c.serverName,headers:{Host:c.serverName,Authorization:'Bearer '+c.token,'Content-Type':'application/json'},timeout:10000},res=>{let n=0,chunks=[];res.on('data',b=>{n+=b.length;if(n>262144)req.destroy();else chunks.push(b);});res.on('end',()=>{if(res.statusCode!==200){console.error('Agent request rejected (HTTP '+res.statusCode+'); refresh context or check pairing.');process.exitCode=1;return;}process.stdout.write(Buffer.concat(chunks).toString()+'\n');});});req.on('error',()=>{console.error('Private transport failed');process.exitCode=1;});req.on('timeout',()=>req.destroy());req.end(['context','readback'].includes(cmd)?undefined:payload);

@@ -1,0 +1,14 @@
+{
+ admin off
+ auto_https disable_redirects
+}
+https://agent.gymbro.internal:9443 {
+ tls internal
+ reverse_proxy unix//run/gymbro-agent/agent.sock {
+  header_up Host agent.gymbro.internal
+  header_up X-Forwarded-Proto https
+  header_up -X-Forwarded-Host
+  header_up -X-Forwarded-For
+  header_up -Forwarded
+ }
+}

@@ -1,0 +1,2 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path');const data=path.join(__dirname,'data');require('./storage.cjs').check(data,true);const {origin}=JSON.parse(fs.readFileSync(path.join(data,'config.json')));const owner=require('./owner.cjs').open({file:path.join(data,'owner.sqlite'),origin,approval:'PRIVATE_STANDALONE'});try{console.log('Replacement local enrollment capability (ten minutes):\n'+owner.renewClaim().claimSecret);}finally{owner.close();}

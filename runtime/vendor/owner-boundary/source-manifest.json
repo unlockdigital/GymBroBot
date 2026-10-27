@@ -1,0 +1,12 @@
+[
+  {
+    "source": "dashboard/src/lib/app-session.ts",
+    "destination": "extracted/app-session.ts",
+    "sha256": "8f42e911ae298569852f56ed7324a3b2c3699a12edc35c671e68c6087e5a3016"
+  },
+  {
+    "source": "dashboard/src/lib/miniapp-auth-policy.ts",
+    "destination": "extracted/miniapp-auth-policy.ts",
+    "sha256": "80ca70ae6ed372a59f3314ddb91a093c1ee16271a333a60bff999bb64be14118"
+  }
+]

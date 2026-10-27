@@ -1,0 +1,10 @@
+'use strict';
+const assert=require('node:assert/strict'),path=require('node:path');
+const source='/app',Database=require(path.join(source,'node_modules/better-sqlite3'));
+const db=new Database(':memory:');db.exec('CREATE TABLE drafts(id TEXT PRIMARY KEY,body TEXT,approved INTEGER)');
+let now=1000,data={sessions:[],sets:[]},generation='one';
+const api=require('/app/agent.cjs').create({control:db,owner:{status:()=>({claimed:true}),epoch:()=>generation},id:{identitySource:'synthetic',externalUserId:'one'},training:()=>data,planner:require(path.join(source,'planner/planner.cjs')),bridge:require(path.join(source,'planner/bridge.cjs')),clock:()=>now});
+const token=api.issue(),headers=new Headers({Authorization:'Bearer '+token}),call=(p,b,m='POST')=>api.handle(m,p,headers,b);
+const draft=()=>call('draft',{contextDigest:call('context',{},'GET').contextDigest,date:'2026-10-27',goal:'general',durationMin:30,equipment:['bodyweight'],exclude:[],maxLoadLb:0,progression:'hold',units:'lb_total_external',timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone,constraintsConfirmed:true});
+const commit=d=>call('commit',{id:d.id,date:d.date,version:d.version,digest:d.digest,approved:true,idempotencyKey:'synthetic-expiry-key'});
+let d=draft();now+=600001;assert.throws(()=>commit(d),e=>e.status===409);d=draft();data={sessions:[{id:1,started_at:'2026-10-20'}],sets:[]};assert.throws(()=>commit(d),e=>e.status===409);now+=86400001;assert.throws(()=>call('context',{},'GET'),e=>e.status===401);db.close();console.log('PASS: draft expiry, changed training snapshot, token expiry');

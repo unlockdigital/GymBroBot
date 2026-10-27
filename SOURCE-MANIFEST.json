@@ -1,0 +1,400 @@
+{
+  "version": 1,
+  "files": [
+    {
+      "path": "runtime/LICENSE",
+      "candidate_sha256": "5eb521a4aadead44867f1ddece04d47a59d8ec7c06d2f2a6663b6f2d8f0f042e",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/admission.cjs",
+      "candidate_sha256": "a41f0919d108b8802a2f75eed466352ab633ebd08abac7ee81a5ad06345e9c42",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/agent-surface.cjs",
+      "candidate_sha256": "d7979dd2e211c8983ec76c4dca25e8ee470b95214ce53fc3b269715019b92138",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/agent.cjs",
+      "candidate_sha256": "3cfa29e61e7381060d420c77955405aba9f389be94058c46612a9d6ea1326000",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/cli.cjs",
+      "candidate_sha256": "7758204e0cf7afd2ec1436dab8b0b92785786876444ac41ca7279fa7734684fd",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/history.cjs",
+      "candidate_sha256": "f0d515f1cbbae607f67aac3588ffb3246f8b810236b761b662469fbee26744d5",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/owner.cjs",
+      "candidate_sha256": "4f7324e14ad804e6b255e8a34cd18aef7b361acdb9d6fe388ee8139cff98e3a5",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/package-lock.json",
+      "candidate_sha256": "df777e4361948beaddd65380cef8e22f8896f50802e5b0bdd2640ecf91014d40",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/package.json",
+      "candidate_sha256": "dd03b1342e3d8ddb763824fd70b60aca796f4c7143aacd7f5ca66c62b08344e7",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/planner/LICENSE",
+      "candidate_sha256": "5eb521a4aadead44867f1ddece04d47a59d8ec7c06d2f2a6663b6f2d8f0f042e",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/planner/bridge.cjs",
+      "candidate_sha256": "27a7d745600abe4962eb9ea2191a5d0b07223e14d6a8be66bee7e4a70cd07cda",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/planner/core/anchors.js",
+      "candidate_sha256": "5d31b852e09339b652eecf0303451461cbbedfacee43ee7e67d74eae223f35ee",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/planner/core/compute-utils.js",
+      "candidate_sha256": "6f586c37e13c7c7ce3b44716ba5784be6066aa8a049731d1b1965d58db9cb920",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/planner/core/training-load.js",
+      "candidate_sha256": "48899ca76ae51887d16a09a2eb7f1d20ee74af791c02244c8db89fdabb57c8f0",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/planner/planner.cjs",
+      "candidate_sha256": "cfec1695404c0cd47a58a9c104cff1c9dc7916768a1275d9c44892a1a62898f8",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/provision.cjs",
+      "candidate_sha256": "f1b319694cd74abbdfee7333b74fb9d3163bc418fb32839d2d97a64d2f36e6b1",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/agent-receipt.js",
+      "candidate_sha256": "6aafa607047ce2c95625c231f93e75c61e38bd32264fd0fdac4c64e88d7eb52a",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/core/api.js",
+      "candidate_sha256": "c038373862b15572fd36d1fa1098588f35a12e2149d8053ba9e0935a5e8d9733",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/core/app.js",
+      "candidate_sha256": "fd31d1d0d02ac96fcc65306029f869ab359cd751f0f9bce8cf7d9438925be2fd",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/core/index.html",
+      "candidate_sha256": "c3147b246c0b1b92e34a9837e3d4ba4469525a818577fe5cc66f92ff0341abb5",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/core/offline.js",
+      "candidate_sha256": "95006fa66b90356a85e00a125173d6d2ce70b0d50400f1703ee613e9492256bc",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/core/styles.css",
+      "candidate_sha256": "7758cf10674daaba70b5a9f627967d99591c0c14352f5374acf05d8fd60128b8",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/device.js",
+      "candidate_sha256": "b6131e53c441272652b69b9adc13427a79c2c05bae1bb146c4db11502be57709",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/entry.js",
+      "candidate_sha256": "8680d2de58b4ca89eeae8fb7ccc538cddb02bf8dddd3f73303a6cf999bbf2d6c",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/icon-192.png",
+      "candidate_sha256": "5951b79cfcd0e8b7b51d9bd2f4f3c5cd443af373c0b65d5b3878405ec21bdf75",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/icon-512.png",
+      "candidate_sha256": "be44e299b28427cdf18a0dd7293d0c50165aa3aa03c8cf0a26def95a6aa1a923",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/index.html",
+      "candidate_sha256": "416abc55502fa2bb2dec185106fa5bd544bca344d24faac45f33fcdf8abdbd58",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/manifest.webmanifest",
+      "candidate_sha256": "7c0e85c75818bb9d67fceeace2e98bc72ff10a8da2090716a6fb26304e54f596",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/overlay/config.js",
+      "candidate_sha256": "39f173dc5961f687d3d0bc2aad15a86175d4dc5e6dc1f15e77b7736a8150c400",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/overlay/mobility.js",
+      "candidate_sha256": "4ce06ae04261b8129777b4d6e52747639cce25491a2cf9c2c64dada564d939e3",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/overlay/sample-workout.js",
+      "candidate_sha256": "cce931ab546c0c02b64c5ff7119dfaac14a5c516db5154c3dc59adf29e3fc892",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/overlay/telemetry.js",
+      "candidate_sha256": "b83e5abf52a01830da805f857d847198df7f81cb08b029801bb161fed50ed04c",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/owner.css",
+      "candidate_sha256": "42fc17010e3a77c786973cd9897bb760a51b8bc80cc181792b58fa10610fcbfc",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/owner.js",
+      "candidate_sha256": "bd33869afc4f7263f8e0f4789789aee5124aef32992df8d7fa71d2ee95ac6f77",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/privacy.js",
+      "candidate_sha256": "7478b6638c8a5577e23981a9cad23efc5c9fe791eed235590e08c2219e880219",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/safety.js",
+      "candidate_sha256": "06572042c68a080e60079d86046f80e8e255bb4da77123bdb75ccf5672386e58",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/public/sw.js",
+      "candidate_sha256": "0142bbd307300dd25180635ae74b905ead88b885ae4f2bc4c7a9e84ea7c312b9",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/rate.cjs",
+      "candidate_sha256": "76123913f100784d6dfa177b65390c68ef93e6e09f6a87c96a534350866418b7",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/recover-local.cjs",
+      "candidate_sha256": "f3d9f70587a35b5c8c4c25bc9fc32425db45f3beeab3ed0d5c42853664ad2665",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/renew-claim.cjs",
+      "candidate_sha256": "6d76303ca2a80132d62523a80669af42667bb421f737a9c9fd98bd24baeb728d",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/server.cjs",
+      "candidate_sha256": "64916a7fd380fdb005322e1711d65254138a8e2e88238ebe8c4a826e6dcd857f",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/setup.cjs",
+      "candidate_sha256": "72e23f1cc738b65fed090c89d2acdb74607558e6a3a7d96f516e8c15b10cc2c7",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/storage.cjs",
+      "candidate_sha256": "3aeb43d2ce2e10c966d62943da5ac52bd305b562012c3d9eafba3c5cec04a736",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/superset.cjs",
+      "candidate_sha256": "9bda7ba8557127ac495f54aa644cfbcfbf8021cb8d5e38c873623a911d21f895",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/owner-boundary/contract.cjs",
+      "candidate_sha256": "33db011ffc2e2d21a4c8d452946381bed1bbbb358abdc5e63ac520b624937e45",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/owner-boundary/extracted/app-session.ts",
+      "candidate_sha256": "8f42e911ae298569852f56ed7324a3b2c3699a12edc35c671e68c6087e5a3016",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/owner-boundary/extracted/miniapp-auth-policy.ts",
+      "candidate_sha256": "80ca70ae6ed372a59f3314ddb91a093c1ee16271a333a60bff999bb64be14118",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/owner-boundary/source-manifest.json",
+      "candidate_sha256": "dbf32657848721e23bd71656fe1d96fc559c69f8354d6f4a77620240c837d025",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/schema.sql",
+      "candidate_sha256": "9e33b57cbba5834f556c46a888f25afda37aacf4463e5a16a01b3c852b85f8d7",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/cardio.ts",
+      "candidate_sha256": "ddfc0b1346a423be81ae91b0dbfd44310926e4a3b04388d247d8c897c2fe5667",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/cardioItem.ts",
+      "candidate_sha256": "23706a04a39092ed6f7a5c3a2156a70803ad0d737a234524ae74cea3e538fa35",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/exercise-canonical.ts",
+      "candidate_sha256": "d62299de2858aa2a685fe4f6754d56ba8f26087006b6817c88bbaf8e2ca18aa1",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/miniapp-day-type.ts",
+      "candidate_sha256": "1bd091d95c4150b79a9835285e07a3e3cd7cb5152b121f91cb410463e151e8d1",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/miniapp-idempotency.ts",
+      "candidate_sha256": "c64119f5e994954669e6e2eb6c058e12809a66d952d3cb7645020e6719fd47c6",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/session.ts",
+      "candidate_sha256": "b4ba32bde1f2548b42c5213bcd3860c97db2c061790fa057fa5da37403c132f4",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/sessionItem.ts",
+      "candidate_sha256": "ba72e74627a0e1d4a4ddd03ba3fbdb6afba0435285d85ac7197508365bc38acf",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/set.ts",
+      "candidate_sha256": "1c4f9bd761348bbb745b2eb1111d24bb6a8a93e1e0c52a8e49d194a387b762fd",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/core/source/setItem.ts",
+      "candidate_sha256": "c809bae19d8840b7c3d86629f12ff9ee187028f887a495e02feb7e1ec2d5e0af",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/loader.cjs",
+      "candidate_sha256": "9ee6ef402d8ba0ef9c807158f0c376fb4b43a9ec6406adb6b2265a2d5f2753df",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/vendor/route-core-schema-v2/manifest.json",
+      "candidate_sha256": "5cc23452f098fca604b9ff32c5ab62a1d1f1a679ca7314b82a3276f167bdc0a7",
+      "transformation": "replace private schema evidence path with generic provenance label; preserve schema digest"
+    },
+    {
+      "path": ".dockerignore",
+      "candidate_sha256": "24d99803709eedf48032a09c05c8129ce602b73d1a50669af28a1779a6ede3f2",
+      "transformation": "verbatim"
+    },
+    {
+      "path": ".env.example",
+      "candidate_sha256": "2766fee78addba8b2c07402977efed55347f26d1cf583c4f953ffa968e4c2f3e",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "Caddyfile",
+      "candidate_sha256": "a3d99e7ee2cfdedea774a038657d6df3b255d51a0647497012a6023a23e86951",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "Caddyfile.agent",
+      "candidate_sha256": "abcf272be2ca57f64c91764bec5d87c1c08acdb1df499276d57c31c5ef673c2e",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "Dockerfile",
+      "candidate_sha256": "3e56682360c0caa475c61e6f22d3abf37d31fd71f314f05abad688fd73f1e4a1",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "compose.yaml",
+      "candidate_sha256": "0f792915a1c86dcb6a958850aa014d8158fcf64d51c6a9640099c4715112a358",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "ops.py",
+      "candidate_sha256": "ef06c4ad1ede31575729aac079e36fa6434cfe33571e10e227a374b92d485265",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "restore.override.example.yaml",
+      "candidate_sha256": "dd43303090916a5ba7b6b8bbe105b9362d8afbdc92175408cbc4e4aac6de6e5b",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "SKILL.md",
+      "candidate_sha256": "581bb440288a1b97d484ad3d0db9f9553052e381929bca9809bd242104085b2a",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "hardening.cjs",
+      "candidate_sha256": "dd9659265ab1bb5e15305c417904eec8f2cc6b0019430465f3915ae8b9bad353",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "history-test.cjs",
+      "candidate_sha256": "cbed9c8e03245d1ea47774fe09231e1917eac7f80436adb2015e13d476587661",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "provision-test.cjs",
+      "candidate_sha256": "b0ef2cac6792ad1a685b22e04e440368cb9bc8c8536c73d3b2f5ae227a9ed4bc",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "recovery-test.cjs",
+      "candidate_sha256": "5798d465eb4fcdab16caacb8b021af7dfaa418c26263c0c0cd2b649616bb4f40",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "sanitization-test.cjs",
+      "candidate_sha256": "bd68a31732b992e940ada1f867498476a2a5ae3288c9b50f286de3bf90b2d4aa",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "unit.cjs",
+      "candidate_sha256": "7c95523f110dd165cbc9815269debf9f268a8d0e5c67a5d0277fefeed37bf6ca",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "test.cjs",
+      "candidate_sha256": "3c29dd61b37b088f43b5c4dc1bb1af12b3041665a8a6cd50466e60013b457ed1",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "durability-test.py",
+      "candidate_sha256": "1c943137ef55865acf580f879f16d4d6d220810b4b9a344c9012d8b36eb419c7",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "rehearse.py",
+      "candidate_sha256": "8fc052f6e4bf1546125194e60c8430a46b1566a17d8d94e5f0e5d09080eb5349",
+      "transformation": "verbatim"
+    },
+    {
+      "path": "synthetic-ca.crt",
+      "candidate_sha256": "0bf02ff0e2b0e62ad2f101ccf3e319e11a15d8e54c6fbd0f63576b87df3de77a",
+      "transformation": "verbatim"
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Apply with the SAME Compose project name as the retained deployment.
+# Retain this override for every later operation against the restored data.
+volumes:
+  data:
+    external: true
+    name: ${RESTORE_VOLUME:?Set a new empty owned restore volume name}

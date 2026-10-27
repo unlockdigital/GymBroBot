@@ -1,0 +1,14 @@
+name: Candidate safety and Linux tests
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  candidate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - run: python3 scripts/check-tree.py
+      - name: Python syntax
+        run: python3 -c "import pathlib; [compile(p.read_text(), str(p), 'exec') for p in pathlib.Path('.').rglob('*.py')]"
+      - name: Fresh native Linux build and synthetic suites
+        run: sh scripts/test-linux.sh

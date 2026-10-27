@@ -1,0 +1,41 @@
+'use strict';
+const assert=require('assert/strict'),fs=require('fs'),cp=require('child_process');
+const {clientKey}=require('/app/rate.cjs');
+assert.equal(clientKey('::ffff:192.0.2.1'),clientKey('192.0.2.1'));assert.equal(clientKey('::ffff:c000:201'),clientKey('192.0.2.1'));
+assert.equal(clientKey('2001:db8:1:2::1'),clientKey('2001:0db8:1:2:ffff::123'));
+for(const ip of ['1.2.3.4, 2.3.4.5','::1%lo','garbage',' 192.0.2.1'])assert.equal(clientKey(ip),null);
+let time=100000;const origin='https://workouts.example.com';
+const req=(ip='192.0.2.1',cookie)=>new Request(origin+'/auth/login',{method:'POST',headers:{Origin:origin,'x-gymbro-client-ip':ip,Authorization:'PWA',...(cookie?{Cookie:cookie}:{})}});
+// Count real boundary factory calls through the loaded contract export.
+const contract=require('/app/vendor/owner-boundary/contract.cjs'),factory=contract.createBoundary;let builds=0,failBuild=false;contract.createBoundary=(...a)=>{builds++;if(failBuild)throw Error('injected boundary failure');return factory(...a);};
+let owner=require('/app/owner.cjs').open({file:'/app/data/owner.sqlite',origin,now:()=>time,approval:'PRIVATE_STANDALONE'});
+const claim=owner.provision(),password='synthetic-password-123';
+for(let i=0;i<1000;i++)assert.equal(owner.claim(req('198.51.100.'+(i%250+1)),'bad',password).ok,false);
+const enrolled=owner.claim(req(),claim.claimSecret,password);assert(enrolled.ok);
+for(let i=0;i<1000;i++)assert.equal(owner.authenticate(req()).ok,false);assert.equal(builds,0);
+for(let i=1;i<=12;i++)assert.equal(owner.login(req('198.51.100.'+i),'wrong-password-123').ok,false);
+const login=owner.login(req(),password);assert(login.ok);const cookie=login.cookie.split(';')[0];assert.equal(builds,1);
+for(let i=0;i<100;i++)assert(owner.authenticate(req(undefined,cookie)).ok);assert.equal(builds,1);
+for(let i=0;i<4;i++)owner.login(req(),'wrong-password-123');assert.equal(owner.login(req(),password).status,429);
+owner.close();owner=require('/app/owner.cjs').open({file:'/app/data/owner.sqlite',origin,now:()=>time,approval:'PRIVATE_STANDALONE'});assert.equal(owner.login(req(),password).status,429);
+// IPv6 privacy address rotation within a /64 cannot reset quota.
+for(let i=1;i<=5;i++)owner.login(req('2001:db8:1:2::'+i),'wrong-password-123');assert.equal(owner.login(req('2001:db8:1:2::abcd'),password).status,429);
+for(let i=0;i<1000;i++)assert.equal(owner.recover(req(),'wrong-capability',password).ok,false);
+const recovered=owner.recover(req(),enrolled.recoverySecret,password);assert(recovered.ok);assert.equal(owner.authenticate(req(undefined,cookie)).ok,false);assert.equal(builds,2);
+// Exhaust global KDF budget; local recovery remains independent.
+for(let i=1;i<40;i++)owner.login(req('203.0.113.'+i),'wrong-password-123');assert.equal(owner.login(req('192.0.2.99'),password).status,429);
+const local=owner.recoverLocal(recovered.recoverySecret,password);assert(local.ok);
+time+=60001;const fresh=owner.login(req(),password);assert(fresh.ok);owner.logout();failBuild=true;assert.throws(()=>owner.authenticate(req(undefined,fresh.cookie.split(';')[0])));failBuild=false;assert.equal(owner.authenticate(req(undefined,fresh.cookie.split(';')[0])).ok,false);
+const probe=new(require('/app/node_modules/better-sqlite3'))('/app/data/owner.sqlite');
+const count=probe.prepare('SELECT count(*) n FROM throttle').get().n;
+probe.transaction(()=>{for(let i=count;i<4096;i++)probe.prepare('INSERT INTO throttle VALUES (?,?,1)').run('synthetic:'+i,time);})();
+assert.equal(owner.login(req('192.0.2.177'),password).status,429);assert.equal(probe.prepare('SELECT count(*) n FROM throttle').get().n,4096);
+assert(!JSON.stringify(probe.prepare('SELECT kind FROM throttle').all()).includes('192.0.2.'));
+time+=60001;assert(owner.login(req('192.0.2.177'),password).ok);assert(probe.prepare('SELECT count(*) n FROM throttle').get().n<=2);probe.close();
+owner.close();
+const db=new(require('/app/node_modules/better-sqlite3'))('/app/data/control.sqlite');db.close();fs.chmodSync('/app/data/control.sqlite',0o600);
+fs.writeFileSync('/app/data/config.json',JSON.stringify({origin,transport:'caddy-unix'}),{mode:0o600});
+const consoleResult=cp.spawnSync('python3',['/app/ops.py','recover-local'],{input:JSON.stringify({secret:local.recoverySecret,password}),encoding:'utf8'});assert.equal(consoleResult.status,0,consoleResult.stderr);assert(JSON.parse(consoleResult.stdout).ok);
+assert.notEqual(cp.spawnSync('node',['/app/provision.cjs']).status,0);assert(!fs.existsSync('/app/data/agent-cli.json'));assert(!fs.readdirSync('/app/data').some(x=>x.startsWith('.agent-cli-')));
+let t=0;const admission=require('/app/admission.cjs').create(()=>t);for(let i=0;i<200;i++)assert(admission.allow());assert(!admission.allow());t=1000;assert(admission.allow());
+console.log('PASS canonical IPv4/IPv6, 1000 invalid claim/recovery attempts preserve capability, independent owner IP login, shared-IP and IPv6 quota, persistent KDF overload, local recovery, anonymous fast path, generation cache/revocation, provisioning missing CA cleanup, ingress budget');

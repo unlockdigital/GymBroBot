@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "key": "session",
+      "source": "dashboard/src/app/api/miniapp/session/route.ts",
+      "destination": "core/source/session.ts",
+      "sha256": "b4ba32bde1f2548b42c5213bcd3860c97db2c061790fa057fa5da37403c132f4",
+      "transformation": "verbatim",
+      "selection": "route"
+    },
+    {
+      "key": "set",
+      "source": "dashboard/src/app/api/miniapp/set/route.ts",
+      "destination": "core/source/set.ts",
+      "sha256": "1c4f9bd761348bbb745b2eb1111d24bb6a8a93e1e0c52a8e49d194a387b762fd",
+      "transformation": "verbatim",
+      "selection": "route"
+    },
+    {
+      "key": "cardio",
+      "source": "dashboard/src/app/api/miniapp/cardio/route.ts",
+      "destination": "core/source/cardio.ts",
+      "sha256": "ddfc0b1346a423be81ae91b0dbfd44310926e4a3b04388d247d8c897c2fe5667",
+      "transformation": "verbatim",
+      "selection": "route"
+    },
+    {
+      "key": "sessionItem",
+      "source": "dashboard/src/app/api/miniapp/session/[id]/route.ts",
+      "destination": "core/source/sessionItem.ts",
+      "sha256": "ba72e74627a0e1d4a4ddd03ba3fbdb6afba0435285d85ac7197508365bc38acf",
+      "transformation": "verbatim",
+      "selection": "route"
+    },
+    {
+      "key": "setItem",
+      "source": "dashboard/src/app/api/miniapp/set/[id]/route.ts",
+      "destination": "core/source/setItem.ts",
+      "sha256": "c809bae19d8840b7c3d86629f12ff9ee187028f887a495e02feb7e1ec2d5e0af",
+      "transformation": "verbatim",
+      "selection": "route"
+    },
+    {
+      "key": "cardioItem",
+      "source": "dashboard/src/app/api/miniapp/cardio/[id]/route.ts",
+      "destination": "core/source/cardioItem.ts",
+      "sha256": "23706a04a39092ed6f7a5c3a2156a70803ad0d737a234524ae74cea3e538fa35",
+      "transformation": "verbatim",
+      "selection": "route"
+    },
+    {
+      "key": "miniapp-idempotency",
+      "source": "dashboard/src/lib/miniapp-idempotency.ts",
+      "destination": "core/source/miniapp-idempotency.ts",
+      "sha256": "c64119f5e994954669e6e2eb6c058e12809a66d952d3cb7645020e6719fd47c6",
+      "transformation": "verbatim",
+      "selection": "leaf helper"
+    },
+    {
+      "key": "miniapp-day-type",
+      "source": "dashboard/src/lib/miniapp-day-type.ts",
+      "destination": "core/source/miniapp-day-type.ts",
+      "sha256": "1bd091d95c4150b79a9835285e07a3e3cd7cb5152b121f91cb410463e151e8d1",
+      "transformation": "verbatim",
+      "selection": "leaf helper"
+    },
+    {
+      "key": "exercise-canonical",
+      "source": "dashboard/src/lib/exercise-canonical.ts",
+      "destination": "core/source/exercise-canonical.ts",
+      "sha256": "d62299de2858aa2a685fe4f6754d56ba8f26087006b6817c88bbaf8e2ca18aa1",
+      "transformation": "verbatim",
+      "selection": "leaf helper"
+    }
+  ],
+  "schema": {
+    "destination": "core/schema.sql",
+    "sha256": "9e33b57cbba5834f556c46a888f25afda37aacf4463e5a16a01b3c852b85f8d7",
+    "source": "reviewed-schema-baseline",
+    "transform": "six allowlisted table DDL and nine explicit indexes; single-quote reps/superset/circuit literals; preserve order, defaults, constraints, receipt primary key"
+  }
+}
