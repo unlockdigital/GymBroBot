@@ -1,11 +1,15 @@
 #!/bin/sh
 set -eu
 cd "$(dirname "$0")/.."
-IMAGE=gymbro-vps-agent:recovery-sanitized-20261027
+IMAGE=gymbro-vps-agent:security-20261027
+PROXY_IMAGE=gymbro-caddy:security-20261027
+export GYMBRO_APP_IMAGE="$IMAGE" GYMBRO_CADDY_IMAGE="$PROXY_IMAGE"
+python3 scripts/check-security-baseline.py
 python3 hosting-permissions-test.py
 python3 ci-diagnostics-test.py
 python3 scripts/prepare-hosting.py
 python3 scripts/run-stage.py hardening-build hardening-build.log docker build -f Dockerfile -t "$IMAGE" .
+python3 scripts/run-stage.py patched-proxy-build patched-proxy-build.log docker build -f Dockerfile.proxy -t "$PROXY_IMAGE" .
 python3 entrypoint-test.py "$IMAGE"
 python3 scripts/run-stage.py hardening-unit hardening-unit.log docker run --rm --network none --tmpfs /app/data:uid=1000,gid=1000,mode=0700 -v "$PWD/hardening.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs
 python3 scripts/run-stage.py durability-test durability-test.log docker run --rm --network none --tmpfs /app/data:uid=1000,gid=1000,mode=0700 --tmpfs /backups:uid=1000,gid=1000,mode=0700 -v "$PWD/durability-test.py:/test.py:ro" --entrypoint python3 "$IMAGE" /test.py

@@ -5,3 +5,8 @@
 !ops.py
 runtime/data
 runtime/node_modules
+!Dockerfile.proxy
+!proxy
+!proxy/**
+proxy/source
+proxy/caddy-v2.11.7.zip

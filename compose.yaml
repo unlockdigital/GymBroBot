@@ -1,15 +1,15 @@
 services:
   init:
-    image: gymbro-vps-agent:hardening-20261027
+    image: gymbro-vps-agent:security-20261027
     build:
       context: .
       args:
-        NODE_IMAGE: ${NODE_IMAGE:-node@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d}
+        NODE_IMAGE: ${NODE_IMAGE:-node@sha256:8eb619e402eaede1748a3c8173bffab391592812e85136452f781741c7242ddf}
     user: '0:0'
     command: [init-volumes]
     volumes: [data:/app/data, socket:/run/gymbro, agent_socket:/run/gymbro-agent, backups:/backups, caddy_data:/data, caddy_config:/config, agent_caddy_data:/agent-data, agent_caddy_config:/agent-config]
   app:
-    image: gymbro-vps-agent:hardening-20261027
+    image: gymbro-vps-agent:security-20261027
     command: [serve]
     restart: unless-stopped
     init: true
@@ -24,7 +24,11 @@ services:
     network_mode: none
     stop_grace_period: 30s
   caddy:
-    image: ${CADDY_IMAGE:-caddy@sha256:504a44d7d74bd2bc28a66afc4774912fc21223ca8a67734af1c54ab2f999b489}
+    build:
+      context: .
+      dockerfile: Dockerfile.proxy
+    image: ${CADDY_IMAGE:-gymbro-caddy:security-20261027}
+    pull_policy: never
     user: '1000:1000'
     restart: unless-stopped
     read_only: true
@@ -37,7 +41,8 @@ services:
     volumes: [./Caddyfile:/etc/caddy/Caddyfile:ro, socket:/run/gymbro:ro, caddy_data:/data, caddy_config:/config]
     tmpfs: [/tmp:mode=1777,size=16m]
   agent-proxy:
-    image: ${CADDY_IMAGE:-caddy@sha256:504a44d7d74bd2bc28a66afc4774912fc21223ca8a67734af1c54ab2f999b489}
+    image: ${CADDY_IMAGE:-gymbro-caddy:security-20261027}
+    pull_policy: never
     user: '1000:1000'
     restart: unless-stopped
     read_only: true

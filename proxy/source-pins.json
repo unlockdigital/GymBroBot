@@ -1,0 +1,12 @@
+{
+  "module": "github.com/caddyserver/caddy/v2",
+  "version": "v2.11.7",
+  "module_sum": "h1:yj0Y4fYZGPkSvibBJ1sTWE33xC0fxztVyXEW5iIdUT4=",
+  "source_commit": "72dd0fb067f6d7826c7f79907670ba4a713bfe37",
+  "source_zip_sha256": "c5b3a3304999625d751b2d2284cb037b9530bf563d1a62b720a7aa6765b0a5d9",
+  "go_toolchain": "go1.26.10",
+  "x_net": "v0.60.0",
+  "chi": "v5.4.0",
+  "patched_go_mod_sha256": "52cd25ca9a145e37402126f758a95b9f60898613ad9b45be20699d4002a0aefa",
+  "patched_go_sum_sha256": "10bfcac6d3c71691ac492d51a12ecb3b99df5d594db54af7fbfd32364f3f6c98"
+}

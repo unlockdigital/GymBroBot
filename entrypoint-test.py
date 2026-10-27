@@ -1,9 +1,9 @@
 """Synthetic actual-image nonroot entrypoint and public proxy bind-mount checks."""
 from pathlib import Path
-import subprocess,sys,re,hashlib,uuid
+import subprocess,sys,re,hashlib,uuid,os
 root=Path(__file__).resolve().parent
-image=sys.argv[1] if len(sys.argv)>1 else 'gymbro-vps-agent:recovery-sanitized-20261027'
-caddy='caddy@sha256:504a44d7d74bd2bc28a66afc4774912fc21223ca8a67734af1c54ab2f999b489'
+image=sys.argv[1] if len(sys.argv)>1 else 'gymbro-vps-agent:security-20261027'
+caddy=os.environ.get('GYMBRO_CADDY_IMAGE','gymbro-caddy:security-20261027')
 def run(stage,args):
  print('RUN '+stage,flush=True)
  name='gymbro-entrypoint-'+uuid.uuid4().hex[:12]

@@ -1,13 +1,13 @@
 # VPS hosting and recovery
 
-Set an A record for a hostname such as `workouts.example.com` to your VPS address. Add AAAA only with tested IPv6 routing and firewall rules. Caddy serves trusted public HTTPS once DNS, inbound ports 80/443 and certificate issuance work. Keep agent TCP 9443 closed to the Internet; Compose binds it to loopback. Pinned Node 22.23.4/Caddy 2.11.7 and current Debian security repositories have a Linux arm64 build/regression result. Complete the remaining amd64, SBOM/OS scan and deployment gates before exposing this candidate.
+Set an A record for a hostname such as `workouts.example.com` to your VPS address. Add AAAA only with tested IPv6 routing and firewall rules. Caddy serves trusted public HTTPS once DNS, inbound ports 80/443 and certificate issuance work. Keep agent TCP 9443 closed to the Internet; Compose binds it to loopback. The security candidate builds Node22.23.4/Debian13 with active Node/Python SQLite3.53.4 and a source-patched Caddy2.11.7 scratch proxy. See [the security baseline](SECURITY-BASELINE.md) for exact dependencies and verification limits. Complete final image/advisory, merged private-copy and public deployment gates before exposure.
 
 ```sh
 umask 077
 cp .env.example .env
 # Set PUBLIC_HOST and OWNER_TIMEZONE in .env.
 python3 scripts/prepare-hosting.py
-docker compose build init
+docker compose build init caddy
 docker compose run --rm init
 docker compose run --rm app setup
 docker compose up -d app caddy agent-proxy

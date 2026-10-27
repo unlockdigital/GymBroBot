@@ -38,13 +38,13 @@
     },
     {
       "path": "runtime/package-lock.json",
-      "candidate_sha256": "ee83e7f80968ae3d0d9a5345576e0d83416bad8a2b45ae24a965fec3ec3d894f",
-      "transformation": "add official registry tarball URLs and SHA512 integrity for 39 existing exact dependency versions; preserve prior package metadata and versions"
+      "candidate_sha256": "5dbeb2b5c026e167091a0b104b4c43f0e5f5c91f56a96a00b663322df4590089",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "runtime/package.json",
-      "candidate_sha256": "dd03b1342e3d8ddb763824fd70b60aca796f4c7143aacd7f5ca66c62b08344e7",
-      "transformation": "verbatim"
+      "candidate_sha256": "aa5cea0bd560874a6deaa1120c8fd62dbba3a7e083d9215f5843796b5c58463e",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "runtime/planner/LICENSE",
@@ -303,13 +303,13 @@
     },
     {
       "path": ".dockerignore",
-      "candidate_sha256": "24d99803709eedf48032a09c05c8129ce602b73d1a50669af28a1779a6ede3f2",
-      "transformation": "verbatim"
+      "candidate_sha256": "6a7721ac48fa55013c95fe585f6c2c62ef243c1dd85c6695cf7bb859eb200249",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": ".env.example",
-      "candidate_sha256": "2766fee78addba8b2c07402977efed55347f26d1cf583c4f953ffa968e4c2f3e",
-      "transformation": "verbatim"
+      "candidate_sha256": "a8b5b5f84d7e681791bca8545e4ac58d0c854c02215a2c45a0a21e898039b300",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "Caddyfile",
@@ -323,13 +323,13 @@
     },
     {
       "path": "Dockerfile",
-      "candidate_sha256": "626a8a0a41cf1c573d595f86ed734bc735e45c42600a93fd62ee78fcaec19548",
-      "transformation": "reviewed public source distribution modes and actual nonroot entrypoint validation"
+      "candidate_sha256": "b3db01370d13511909a580e41976527c4439818f50c87def3020cb8c67a78f25",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "compose.yaml",
-      "candidate_sha256": "54dbac52964af5353b074b60b79afa81d96152ba08e2444e2917ce46f8b7ef87",
-      "transformation": "reviewed Node 22.23.4/Caddy 2.11.7 immutable pins and active Debian security repositories; regression proxy pin matches Compose"
+      "candidate_sha256": "e4e6f2c25d4ab81fb6df5c777bc32d47a6789d205c3d07e6893be7575110cd4c",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "ops.py",
@@ -388,8 +388,8 @@
     },
     {
       "path": "rehearse.py",
-      "candidate_sha256": "8b5aa0baaa7e7faef60fd6c03a5424b4d0486d872b25071e7c95a4ea2a05bc1c",
-      "transformation": "reviewed Node 22.23.4/Caddy 2.11.7 immutable pins and active Debian security repositories; regression proxy pin matches Compose"
+      "candidate_sha256": "f0ce64493b490bb30da04b6b9bf7b7f57fa354ca472f1a510861eaf4776db47b",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "synthetic-ca.crt",
@@ -423,8 +423,8 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "68dec639ac2cac9ac0df43a61a65a81c5aa5b9c4ad0cfe76e1643f6c98f5c943",
-      "transformation": "assisted history preserves fatigue with distinct help semantics"
+      "candidate_sha256": "1ae32dd85d7e10780f903fca876f6c2bded6544f4ea6862c6482df9e39b67e5f",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "scripts/prepare-hosting.py",
@@ -438,8 +438,8 @@
     },
     {
       "path": "entrypoint-test.py",
-      "candidate_sha256": "ffa14421a48ea2b53461b0277bc77caa21366018c325ec3bdb16bec56149a921",
-      "transformation": "reviewed receipt refresh and safe stage-specific CI diagnostics/proxy capability test"
+      "candidate_sha256": "8664b42cd67b252b37f60605edf93297a90f3427f0c1490fd68d6dacf27241fd",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "receipt-ui-test.cjs",
@@ -495,6 +495,56 @@
       "path": "assisted-history-test.cjs",
       "candidate_sha256": "4fb7ccf41afb566f1c009e923d4f3cf3a45c34693c0f8bc382232e3b34da0a6b",
       "transformation": "assisted history preserves fatigue with distinct help semantics"
+    },
+    {
+      "path": "Dockerfile.proxy",
+      "candidate_sha256": "0b0ded29aa953afee99adf19c225329d155c7d0dde264066ea9005253c2ffb78",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "docs/HOSTING.md",
+      "candidate_sha256": "3a9fe729b57fdfd960e5eb6b670482f1bec4506ce999b3e7de4302bb80240b6f",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "docs/SECURITY-BASELINE.md",
+      "candidate_sha256": "5601e0f9adde504ed27256f5003668a4adf926f098f8002f5e304128a4630842",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "proxy/LICENSE",
+      "candidate_sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "proxy/build-proxy.py",
+      "candidate_sha256": "bcfbad739301f036b9540729387d7f5aa6a84adc286342f06edba0c31fb0763e",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "proxy/patched.go.mod",
+      "candidate_sha256": "52cd25ca9a145e37402126f758a95b9f60898613ad9b45be20699d4002a0aefa",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "proxy/patched.go.sum",
+      "candidate_sha256": "10bfcac6d3c71691ac492d51a12ecb3b99df5d594db54af7fbfd32364f3f6c98",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "proxy/source-pins.json",
+      "candidate_sha256": "8ced4baf5c1f086025f476724ac70298d5b8f9bc6336195c57d8717c9e2821fc",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "runtime/THIRD_PARTY_NOTICES.md",
+      "candidate_sha256": "a4d73e4438081f5629e19558edc3adf1cf812ed9fccbf2e7ddf272342a0e7501",
+      "transformation": "actual npm notices with whitespace normalized for repository distribution"
+    },
+    {
+      "path": "scripts/check-security-baseline.py",
+      "candidate_sha256": "5da874c61d8c00d7cb68ff3bcfd0a4d0bae73659e3eb8d62a6b28eac0afba12e",
+      "transformation": "reviewed source-built SQLite/proxy and image security update"
     }
   ]
 }

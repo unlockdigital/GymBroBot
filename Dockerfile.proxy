@@ -1,0 +1,14 @@
+ARG GO_IMAGE=golang@sha256:632dff7351799a5a9954a48dc06670ade72ee44e8c351cdc0e5a57af2fea21af
+FROM ${GO_IMAGE} AS build
+ARG TARGETARCH
+RUN apt-get update && apt-get install -y --no-install-recommends python3 ca-certificates && rm -rf /var/lib/apt/lists/*
+WORKDIR /recipe
+COPY proxy/ ./
+RUN python3 build-proxy.py --arch "${TARGETARCH:-$(go env GOARCH)}"
+FROM scratch
+COPY --from=build /output/ /
+USER 1000:1000
+ENV PATH=/usr/bin XDG_CONFIG_HOME=/config XDG_DATA_HOME=/data
+EXPOSE 80 443 443/udp
+ENTRYPOINT ["/usr/bin/caddy"]
+CMD ["run","--config","/etc/caddy/Caddyfile","--adapter","caddyfile"]
