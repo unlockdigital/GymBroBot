@@ -1,0 +1,5 @@
+{
+  "core_commit": "REPLACE_WITH_REVIEWED_40_HEX_COMMIT",
+  "image_digest": "REPLACE_WITH_BUILT_SHA256_IMAGE_DIGEST",
+  "overlay_commit": "REPLACE_WITH_PRIVATE_OVERLAY_COMMIT"
+}

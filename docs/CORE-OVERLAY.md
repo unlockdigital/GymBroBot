@@ -18,3 +18,5 @@ An urgent private-only fix gets a tracked extraction item; promotion blocks whil
 ## Existing private history
 
 Preserve the current private repository and its recovery bundle. Establish a fresh independent public history from this reviewed tree. Existing local/remote private commits remain private. Reusing the same GitHub repository name would require an explicit archival/replacement operation and verification of every reachable ref, PR attachment and release artifact before visibility changes. A new public repository provides a clear publication boundary and preserves the existing operational record.
+
+The executable promotion preflight is `python3 scripts/verify-core-pin.py /path/to/core /private/path/pin.json`. Start from `PRIVATE-PIN.example.json`; placeholder values fail closed. It verifies exact core HEAD, an immutable image reference and a completely clean core checkout. The private deployment CI must invoke it before each pin bump and deployment. Private overlay commits and image contents require their separate build/provenance checks.
