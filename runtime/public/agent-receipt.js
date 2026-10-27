@@ -4,10 +4,11 @@ function renderReceipt() {
   let panel = document.getElementById('agent-receipt');
   if (!latest) { panel?.remove(); return; }
   const host = document.getElementById('workspace') || document.querySelector('#app .body') || document.getElementById('app');
-  if (!host || panel?.parentElement === host) return;
+  const receiptKey = JSON.stringify(latest);
+  if (!host || (panel?.parentElement === host && panel.dataset.receiptKey === receiptKey)) return;
   panel?.remove();
   panel = document.createElement('aside'); panel.id = 'agent-receipt';
-  panel.setAttribute('aria-label', 'Agent save receipt');
+  panel.setAttribute('aria-label', 'Agent save receipt'); panel.dataset.receiptKey = receiptKey;
   panel.style.cssText = 'margin:8px 0;padding:8px;border:1px solid currentColor;border-radius:8px;overflow-wrap:anywhere;font-size:12px;flex-shrink:0';
   const details = document.createElement('details'), summary = document.createElement('summary'), text = document.createElement('p');
   summary.textContent = `Agent saved ${latest.date} · View receipt`;

@@ -83,8 +83,8 @@
     },
     {
       "path": "runtime/public/agent-receipt.js",
-      "candidate_sha256": "a00dca5f9a03eade044dac365c8ea4841ced6d904cbcf5f664db95677d254d1b",
-      "transformation": "authenticated receipt mounting with text-only bounded memory and render recovery"
+      "candidate_sha256": "ddd2a448fcfe4cac6ea284503b3e4c10175808fea8cc09784f22e9648c2ba0a3",
+      "transformation": "reviewed receipt refresh and safe stage-specific CI diagnostics/proxy capability test"
     },
     {
       "path": "runtime/public/core/api.js",
@@ -183,8 +183,8 @@
     },
     {
       "path": "runtime/public/sw.js",
-      "candidate_sha256": "0d27c0bc581942114fb5f0616c805529f786287bebdd5fcebab5dc4631c4ef78",
-      "transformation": "authenticated receipt mounting with text-only bounded memory and render recovery"
+      "candidate_sha256": "7ce8b967fff1b1de2165d524aa66df5eb915a1eb6f3d56d4b4bff61a76e3a546",
+      "transformation": "reviewed receipt refresh and safe stage-specific CI diagnostics/proxy capability test"
     },
     {
       "path": "runtime/rate.cjs",
@@ -423,8 +423,8 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "f354a0ceae155d04ea0b2baa520a447d4566821a0b7d9edc00643f0948b0b8f5",
-      "transformation": "reviewed public source distribution modes and actual nonroot entrypoint validation"
+      "candidate_sha256": "bfe6dd80db6152d2e8567f4bc303f2b3e9f593250beed41ff6a2daa26d99cb7d",
+      "transformation": "reviewed receipt refresh and safe stage-specific CI diagnostics/proxy capability test"
     },
     {
       "path": "scripts/prepare-hosting.py",
@@ -438,13 +438,23 @@
     },
     {
       "path": "entrypoint-test.py",
-      "candidate_sha256": "a589e4eeb09c26794cc3c7bc69fb3ba0bf56926ab701cd3764a153189cc2a0e1",
-      "transformation": "authored distribution permission regression/preflight"
+      "candidate_sha256": "ffa14421a48ea2b53461b0277bc77caa21366018c325ec3bdb16bec56149a921",
+      "transformation": "reviewed receipt refresh and safe stage-specific CI diagnostics/proxy capability test"
     },
     {
       "path": "receipt-ui-test.cjs",
-      "candidate_sha256": "006ed25fb7147ca49996cecd121b1ff388bd913d4e47b60e11357f56255284cc",
-      "transformation": "authored authenticated receipt UI regression"
+      "candidate_sha256": "4254cd60b68d68563c10972bff95ef63a3121202bafe30cd87573df9980f0e69",
+      "transformation": "reviewed receipt refresh and safe stage-specific CI diagnostics/proxy capability test"
+    },
+    {
+      "path": "scripts/run-stage.py",
+      "candidate_sha256": "6a88477c2753ced3c87c69e80e8cc76fb848423731a7b45618702a9689612bd2",
+      "transformation": "authored bounded CI diagnostics and synthetic privacy controls"
+    },
+    {
+      "path": "ci-diagnostics-test.py",
+      "candidate_sha256": "3c8d38b3b1385dce2a836544366c9341f308c5454101a13db7824df5390e803c",
+      "transformation": "authored bounded CI diagnostics and synthetic privacy controls"
     }
   ]
 }
