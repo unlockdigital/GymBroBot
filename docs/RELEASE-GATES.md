@@ -13,3 +13,5 @@ Publication remains blocked until each gate has evidence for the exact commit an
 - Public documentation, support scope, privacy policy, security reporting and clean source history are reviewed.
 
 CI is an initial safety net. It does not establish all these gates. Preserve the existing private repository; public visibility changes happen only after these gates pass.
+
+The bounded external-agent proposal path has synthetic service validation for exact exercise order, sets/reps/load/RPE/rest and the existing digest approval/readback. Authoritative date-slot checks reject UI/private occupied dates and sessions that have begun. Exact new HTTP/CLI/browser workflow and a human conversational approval remain acceptance gates. The six-entry catalog limits the supported vocabulary; richer private plan/catalog projection remains open.

@@ -22,3 +22,13 @@ Goals: general, strength, hypertrophy, muscular_endurance. Equipment: bodyweight
 The API trusts the agent's report of conversational assent. This procedure provides exact payload binding and audit receipts within that trust model. Production writes and broad administrative/SQL tools are outside this workflow.
 
 Require context completeness diagnostics before assessing training. If `requiresHold` is true or metadata is missing, describe fatigue as uncertain, retain progression hold, and show the draft historyAssessment and exercise warnings during approval.
+
+## Agent-authored prescription candidate
+
+To submit your own exact prescription, keep the existing confirmed request fields and add:
+
+```json
+{"proposal":{"schemaVersion":1,"exercises":[{"exerciseId":"wall push up","sets":2,"reps":7,"loadLb":0,"rpeCap":6,"restSeconds":60,"reason":"Use fewer repetitions while rebuilding consistency."}]}}
+```
+
+Use known catalog exercise IDs. The server rejects unknown/duplicate exercises, unavailable equipment, exclusions, unsafe anchor progression, excessive loads/volume/time and missing cold-start calibration. The server returns the exact normalized plan for conversational approval. A rejection requires a revised draft; preserve explicit approval for the returned digest. Custom sets/reps/loads remain unchanged when accepted. RPE/rest are preserved in plan metadata and coaching text; automatic rest-timer behavior remains a separate UI check.

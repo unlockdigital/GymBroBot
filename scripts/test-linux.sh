@@ -13,3 +13,11 @@ docker image inspect "$IMAGE" --format '{{json .Id}}' > hardening-image-ids.txt
 
 docker run --rm --network none --tmpfs /app/data:uid=1000,gid=1000,mode=0700 -v "$PWD/recovery-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs > recovery-test.log 2>&1
 docker run --rm --network none --tmpfs /app/data:uid=1000,gid=1000,mode=0700 -v "$PWD/sanitization-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs > sanitization-test.log 2>&1
+
+# Exact custom prescription, slot/transaction policy and source rest behavior.
+printf '%s\n' 'Running proposal regression suite'
+docker run --rm --network none -v "$PWD/proposal-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs > proposal-test.log 2>&1
+printf '%s\n' 'Running slot-policy regression suite'
+docker run --rm --network none -v "$PWD/slot-policy-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs > slot-policy-test.log 2>&1
+printf '%s\n' 'Running rest-policy regression suite'
+docker run --rm --network none -v "$PWD/rest-policy-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs > rest-policy-test.log 2>&1

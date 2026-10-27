@@ -18,8 +18,8 @@
     },
     {
       "path": "runtime/agent.cjs",
-      "candidate_sha256": "3cfa29e61e7381060d420c77955405aba9f389be94058c46612a9d6ea1326000",
-      "transformation": "verbatim"
+      "candidate_sha256": "b4bdd4596e5a7451dd54d101482975cd24e76eb5849d7535934499a67a6508c6",
+      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
     },
     {
       "path": "runtime/cli.cjs",
@@ -53,8 +53,8 @@
     },
     {
       "path": "runtime/planner/bridge.cjs",
-      "candidate_sha256": "27a7d745600abe4962eb9ea2191a5d0b07223e14d6a8be66bee7e4a70cd07cda",
-      "transformation": "verbatim"
+      "candidate_sha256": "a9ea86640274e567aeaacf5be3a8ea2ce3b94347bec05056261dd57377250258",
+      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
     },
     {
       "path": "runtime/planner/core/anchors.js",
@@ -93,8 +93,8 @@
     },
     {
       "path": "runtime/public/core/app.js",
-      "candidate_sha256": "fd31d1d0d02ac96fcc65306029f869ab359cd751f0f9bce8cf7d9438925be2fd",
-      "transformation": "verbatim"
+      "candidate_sha256": "f54a2695be1c7d5e3f57850314d4d02777222a104bd71b06511bd6743651287b",
+      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
     },
     {
       "path": "runtime/public/core/index.html",
@@ -183,8 +183,8 @@
     },
     {
       "path": "runtime/public/sw.js",
-      "candidate_sha256": "0142bbd307300dd25180635ae74b905ead88b885ae4f2bc4c7a9e84ea7c312b9",
-      "transformation": "verbatim"
+      "candidate_sha256": "0c9213b9d833fe37043e546f454bca55dc605e5ce176939f5a3cbdeb7359532c",
+      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
     },
     {
       "path": "runtime/rate.cjs",
@@ -203,8 +203,8 @@
     },
     {
       "path": "runtime/server.cjs",
-      "candidate_sha256": "64916a7fd380fdb005322e1711d65254138a8e2e88238ebe8c4a826e6dcd857f",
-      "transformation": "verbatim"
+      "candidate_sha256": "339db98d4e6eee86a9d043de2958c37698dbe00e4a550773d9357a3367d574b0",
+      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
     },
     {
       "path": "runtime/setup.cjs",
@@ -213,8 +213,8 @@
     },
     {
       "path": "runtime/storage.cjs",
-      "candidate_sha256": "3aeb43d2ce2e10c966d62943da5ac52bd305b562012c3d9eafba3c5cec04a736",
-      "transformation": "verbatim"
+      "candidate_sha256": "d9f15b491cc6982826c701f7c8feb76ac0a61ae7e87eb472f95bb08436cb9fd6",
+      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
     },
     {
       "path": "runtime/superset.cjs",
@@ -343,8 +343,8 @@
     },
     {
       "path": "SKILL.md",
-      "candidate_sha256": "581bb440288a1b97d484ad3d0db9f9553052e381929bca9809bd242104085b2a",
-      "transformation": "verbatim"
+      "candidate_sha256": "1ac9112746b19e302ddafce6f4ed923261527061b83558add7a9a87fca0975f2",
+      "transformation": "reviewed exact external-agent proposal, date-slot transaction policy and rest execution"
     },
     {
       "path": "hardening.cjs",
@@ -395,6 +395,36 @@
       "path": "synthetic-ca.crt",
       "candidate_sha256": "0bf02ff0e2b0e62ad2f101ccf3e319e11a15d8e54c6fbd0f63576b87df3de77a",
       "transformation": "verbatim"
+    },
+    {
+      "path": "runtime/proposal.cjs",
+      "candidate_sha256": "9db13051fcdc19b344c1373e8a0d7ef4774856444f2236812b92a91d4c450a03",
+      "transformation": "authored bounded service/test or integrated Linux regression runner"
+    },
+    {
+      "path": "runtime/plan-policy.cjs",
+      "candidate_sha256": "eb683873117880d0a940c13e4c1bdbc20c1b4241165a92f344a107f635c2b4ec",
+      "transformation": "authored bounded service/test or integrated Linux regression runner"
+    },
+    {
+      "path": "proposal-test.cjs",
+      "candidate_sha256": "a416cee879dfbea19f54fa5de30df629e4dba63d2fa118e5e17d482b665d2376",
+      "transformation": "authored bounded service/test or integrated Linux regression runner"
+    },
+    {
+      "path": "slot-policy-test.cjs",
+      "candidate_sha256": "ddcf6584e9d1035bbafc6da35cef935a3d710e9a2b718e737ba1b37193e7da3d",
+      "transformation": "authored bounded service/test or integrated Linux regression runner"
+    },
+    {
+      "path": "rest-policy-test.cjs",
+      "candidate_sha256": "2f4b5d9ae5cdba88175c9bc0cd5ee29458df9faeebcb569a88c3a8ba004dbce4",
+      "transformation": "authored bounded service/test or integrated Linux regression runner"
+    },
+    {
+      "path": "scripts/test-linux.sh",
+      "candidate_sha256": "b90984d608c371589aa6d91638cba6cbf8755bce008dd87eaad9a4a47547d69d",
+      "transformation": "authored bounded service/test or integrated Linux regression runner"
     }
   ]
 }

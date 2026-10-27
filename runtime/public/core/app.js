@@ -4800,9 +4800,9 @@ const actions = {
         state.activeExerciseId = nextSlot.id;
         state.draft = draftFor(nextSlot);
       }
-      startRest(DEFAULT_REST_SECONDS);
+      startRest(prescribedRestSeconds(ex));
     } else {
-      startRest(DEFAULT_REST_SECONDS);
+      startRest(prescribedRestSeconds(ex));
     }
     renderPreservingScroll();
 
@@ -5538,6 +5538,11 @@ function updateKeypadBuffer() {
 // ---------------------------------------------------------
 let restTickHandle = null;
 let workTimerTickHandle = null;
+function prescribedRestSeconds(ex) {
+  const seconds = ex?.restSeconds;
+  return Number.isInteger(seconds) && seconds >= 30 && seconds <= 300 ? seconds : DEFAULT_REST_SECONDS;
+}
+
 function startRest(seconds) {
   state.rest = { endsAt: Date.now() + seconds * 1000, duration: seconds };
   state.view = 'rest';

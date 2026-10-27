@@ -11,3 +11,5 @@ backups/
 *.log
 *.tar.gz
 __pycache__/
+hardening-image-ids.txt
+test-results.json
