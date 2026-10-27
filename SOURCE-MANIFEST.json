@@ -38,8 +38,8 @@
     },
     {
       "path": "runtime/package-lock.json",
-      "candidate_sha256": "df777e4361948beaddd65380cef8e22f8896f50802e5b0bdd2640ecf91014d40",
-      "transformation": "verbatim"
+      "candidate_sha256": "ee83e7f80968ae3d0d9a5345576e0d83416bad8a2b45ae24a965fec3ec3d894f",
+      "transformation": "add official registry tarball URLs and SHA512 integrity for 39 existing exact dependency versions; preserve prior package metadata and versions"
     },
     {
       "path": "runtime/package.json",
