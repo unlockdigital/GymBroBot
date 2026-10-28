@@ -553,8 +553,8 @@
     },
     {
       "path": "README.md",
-      "candidate_sha256": "ff4cf2ca803f715c0ad2fc27cdbb7bbf53d22408e5db145f7947e7fe342fc0e5",
-      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
+      "candidate_sha256": "92975ca8b2fad4bafd04123f4b70d3895cb043326459d7fd113b13f2603be120",
+      "transformation": "source-only public repository identity, security reporting or current deployment evidence"
     },
     {
       "path": "PRIVACY.md",
@@ -563,8 +563,8 @@
     },
     {
       "path": "SECURITY.md",
-      "candidate_sha256": "dd77335df6b6c4c86f55caff2089923b856b3a32f9c463dc9013507cccb5cbde",
-      "transformation": "reviewed release acceptance, deployment or documentation addition"
+      "candidate_sha256": "e6fd3b4e0b186b5930cf34bfd4c834be025866ab4ae6f3f4eac7aded50f7a161",
+      "transformation": "source-only public repository identity, security reporting or current deployment evidence"
     },
     {
       "path": "CONTRIBUTING.md",
@@ -593,18 +593,18 @@
     },
     {
       "path": "docs/RELEASE-STATUS.md",
-      "candidate_sha256": "67dc3f381e885b80b411e68dc2a07b324c9b33537b1286f50fe1536b83ebde23",
-      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
+      "candidate_sha256": "3500844832714fa7f136949b7f646d64cb6c5d3d7bee12ddf9db266f784796d2",
+      "transformation": "source-only public repository identity, security reporting or current deployment evidence"
     },
     {
       "path": "docs/ROADMAP.md",
-      "candidate_sha256": "3ef106cda86dafffc0d78c20e5d6554304d4a00e529dc316ce62d7ac10e15970",
-      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
+      "candidate_sha256": "a0a2ff790a0cc45eb767b9f6c574e49c833eeea2abe8f3284c890559a433348e",
+      "transformation": "source-only public repository identity, security reporting or current deployment evidence"
     },
     {
       "path": "docs/CORE-OVERLAY.md",
-      "candidate_sha256": "dd44a682f9dfe9b8413a64295dd5b5fa4989181a6fb2de8f034dd729d0da87f7",
-      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
+      "candidate_sha256": "65aa4280a1897990c14e4839ca4f76fe90d7a552ff388341c19f0ed3a82a7ebf",
+      "transformation": "source-only public repository identity, security reporting or current deployment evidence"
     },
     {
       "path": "docs/RIGHTS.md",
@@ -670,6 +670,11 @@
       "path": "docs/UPGRADING.md",
       "candidate_sha256": "dbfda031aa3d12922fb8657455d402c083afd28175fa77c3feeb56a5a5c3a940",
       "transformation": "public-safe release evidence, operator guide or maintained synthetic Compose validation"
+    },
+    {
+      "path": ".github/ISSUE_TEMPLATE/config.yml",
+      "candidate_sha256": "29b344fd4d53f04cb52fbf709139a80190ca3a31e42c7dbe992dd975ddf19926",
+      "transformation": "source-only public repository identity, security reporting or current deployment evidence"
     }
   ]
 }

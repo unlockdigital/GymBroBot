@@ -1,6 +1,6 @@
 # Release status
 
-Status date: October 28, 2026. This is a developer release candidate with completed bounded security, Linux/Compose and automated everyday-use acceptance. The existing private production deployment remains on its current version.
+Status date: October 28, 2026. This is a source preview with completed bounded security, Linux/Compose and automated everyday-use acceptance. The existing private production deployment remains on its current version.
 
 ## Completed evidence
 
@@ -18,14 +18,14 @@ Subsequent documentation and test-only additions preserve all 78 image inputs in
 
 A disposable real DNS hostname and Let’s Encrypt DNS-01 issuance were verified, along with trusted HTTPS/HTTP2 from the VPS. External access to its temporary 8443 listener timed out. The test certificate was revoked and its resources removed; the owner removed the temporary DNS records.
 
-Isolated Linux OpenSSH tests verified the restricted tunnel and rejected shell/exec/PTY, remote or alternative-destination forwarding and host-key mismatch. Intended-host effective SSH policy, Docker/provider/host firewall behavior and standard public 443 reachability remain deployment-specific checks.
+Isolated Linux OpenSSH tests verified the restricted tunnel and rejected shell/exec/PTY, remote or alternative-destination forwarding and host-key mismatch. A subsequent exact-path fixed-marker experiment passed over trusted public HTTPS on the existing 443 route, then restored the original proxy configuration and normal authentication responses. Public 22/80/443 were reachable from the test client; 8443/9443 timed out. Effective host/provider firewall rules and intended-host restricted SSH policy remain unverified because administrative reads were unavailable. Reachability tests establish the observed behavior at the test time.
 
 Native Safari/iOS installation, Linux arm64 and hardware power-loss behavior remain support limits. Automated WebKit coverage supports the tested browser flows. Physical phone installation is outside this candidate's required automated gate.
 
 ## Remaining publication and adoption work
 
-1. Stage only the reviewed clean history in a separate repository and audit its reachable refs, metadata, CI and distribution artifacts. Keep the existing private GitHub history, PR pages and Actions records private. Resolve the final repository name/cutover and enable private vulnerability reporting before public visibility.
-2. Record the final source/image/SBOM/security evidence for a release tag and recheck advisory expiry/current vendor updates before distribution or deployment.
+1. Maintain the audited clean source in `unlockdigital/GymBroBot` and its private security-reporting channel. The independent source history and repository metadata were checked; historic GitHub history, PR pages and Actions records remain in the separately named private repository. Repeat final-ref and metadata checks for later source publication.
+2. Keep source/image/SBOM/security evidence attached to the reviewed source commit and recheck advisory expiry/current vendor updates before deployment. Current publication covers source; release artifacts and tagged stable releases are outside this preview.
 3. For a real deployment, verify its trusted public 443 route, firewall and effective restricted SSH policy. A shared VPS proxy needs a reviewed integration.
 4. Rehearse the exact core plus required private overlay and browser/media workflows, then deliberately adopt the recorded core/image version with backup and rollback. The broader private source snapshot and its dependency consolidation remain separate from live production until reviewed for adoption.
 

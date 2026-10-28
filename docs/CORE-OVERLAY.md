@@ -11,7 +11,7 @@ A deployment records one reviewed core commit and built image digest, its overla
 3. Run CI and build the candidate images; retain source, image and package evidence.
 4. Rehearse the reviewed core plus overlay against a disposable private storage copy. Compare pre-existing rows and verify recovery.
 5. Change the private deployment's recorded core/image version with a fresh backup and rollback reference.
-6. Publish the reviewed source/tag when the distribution gates pass.
+6. Publish the reviewed source change when the source-distribution checks pass. This preview publishes source without release artifacts.
 
 This process is promotion: a tested shared-core version becomes the selected private deployment version, with a recorded update and recovery procedure. Urgent private fixes should receive a tracked general-core patch and synthetic regression before the next normal update.
 
@@ -25,8 +25,8 @@ Run `python3 scripts/verify-core-pin.py /path/to/core /private/path/pin.json` us
 
 ## Repository transition
 
-Keep the original repository private while staging the independent clean history in an empty private repository. Audit every published ref/object, metadata and distribution artifact before changing visibility. The existing repository also has old PR pages and Actions records, which require separate review if it is reused.
+The shared source repository is `unlockdigital/GymBroBot`. The historic development repository remains private under its distinct archive name. Their GitHub identities and histories are separate. Audit every published ref/object and repository metadata before changing visibility or adding historical material. Private PR pages and Actions records remain with the private repository.
 
-Choose distinct repository names for the private archive and public source. A case-only spelling change does not create a separate GitHub repository identity. If the public repository takes over the existing name, first update old remotes/automation so private branches cannot be pushed into the new destination through that name. Rename/archive/cutover operations remain a separate deliberate release action.
+Private clones and automation must point explicitly to the private repository. A case-only spelling change does not create a separate GitHub repository identity. During the name handoff, inspected local private remotes were retargeted and local push guards added. Inspect other computers and deployment automation before pushing from a historic checkout; these local guards cover only the configured clones.
 
 The public [project history](PROJECT-HISTORY.md) can preserve the development timeline while private records stay in the archive. Additional historical commits require their own content, metadata and rights review.

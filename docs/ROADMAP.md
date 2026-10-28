@@ -4,7 +4,7 @@
 
 The bounded thirteen-advisory decision, combined Linux/Compose rehearsal and current-source Chromium/WebKit acceptance are complete. Private dependency consolidation has landed on its integration branch and the six superseded PRs are closed. Private main and production retain their existing versions while broader source adoption is reviewed.
 
-Stage the clean history in a separate private repository, audit its reachable objects and GitHub-hosted metadata, enable private vulnerability reporting, and publish explicitly selected refs after final source/security/distribution checks. Verify intended-host public routing and rehearse the required private overlay before adopting the shared core in daily production.
+The shared source uses `unlockdigital/GymBroBot`; the historic repository retains its private history under its distinct name. Maintain the audited source and private vulnerability-reporting channel. Source is the preview distribution. Verify effective intended-host firewall/SSH policy and rehearse the required private overlay before adopting the shared core in daily production. The bounded public HTTPS marker test on the existing 443 route has passed.
 
 ## Daily development and shared releases
 

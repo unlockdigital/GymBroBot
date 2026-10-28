@@ -6,7 +6,9 @@ Host root, Docker administrators, explicitly configured private hook code and th
 
 Read the [security baseline](docs/SECURITY-BASELINE.md), [release status](docs/RELEASE-STATUS.md), [privacy policy](PRIVACY.md) and [hosting/recovery guide](docs/HOSTING.md). Each release records its source commit, image/platform digests, package inventory/SBOM, scan date and advisory dispositions. Accepted findings must retain evidence, an expiry and triggers that invalidate the exception. A scanner suppression alone is not an applicability decision.
 
-Before public launch, the maintainer must enable a private vulnerability-reporting destination and list supported release versions. Use that private channel for vulnerability details. Keep credentials, owner records, recovery exports and production logs out of public issues and PRs. Share synthetic reproductions where possible.
+Report suspected vulnerabilities privately through [GitHub private vulnerability reporting](https://github.com/unlockdigital/GymBroBot/security/advisories/new). Include the affected source commit, deployment topology and a synthetic reproduction. Keep credentials, owner records, recovery exports and production logs out of reports. Share the minimum technical information needed to reproduce the issue.
+
+The current `main` preview is the maintained source line. There are no tagged stable releases or published release artifacts. Security corrections land on the maintained source line; operators review and test an exact commit before adopting it. Older snapshots and independently modified deployments need their own update and applicability review. The dated advisory exceptions in the security baseline retain their November 11, 2026 expiry.
 
 Rotate or revoke exposed credentials. Keep encrypted off-host backups and rehearse restore into an empty volume. Recovery or rollback can change session generations and invalidate agent credentials; old backups require revocation/rotation before public ingress resumes. Keep private extension files and certificate stores in separate backup coverage.
 

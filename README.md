@@ -4,7 +4,7 @@ GymBroBot is a self-hosted training web app for one owner. Keep your workout his
 
 A local rule-based planner works without a model-provider key. You can also connect your coding agent, ask it to review your training and design a workout, approve the proposed draft in conversation, and have it save that exact plan into the app. Provider sign-in and subscription access stay with your agent client.
 
-This repository is a release candidate. Read [release status](docs/RELEASE-STATUS.md) before using it for important training records or public hosting.
+This repository is a source preview. Build it on your machine or VPS using the instructions below; distribution currently consists of the reviewed source. Read [release status](docs/RELEASE-STATUS.md) before using it for important training records or public hosting.
 
 ## Training features
 
@@ -24,6 +24,8 @@ The supported build target is Linux amd64 with Docker Engine and Compose v2. The
 Choose an unused hostname, set its A record to your VPS address, and allow public TCP 80/443. Add AAAA only after verifying IPv6 routing and firewall behavior. Keep the agent endpoint private. Follow [hosting and recovery](docs/HOSTING.md) for the complete setup and backup procedure.
 
 ```sh
+git clone https://github.com/unlockdigital/GymBroBot.git
+cd GymBroBot
 umask 077
 cp .env.example .env
 # Set PUBLIC_HOST and OWNER_TIMEZONE in .env.
@@ -55,4 +57,4 @@ Run `python3 scripts/check-tree.py` and `sh scripts/test-linux.sh` in a supporte
 
 [Core and private deployment](docs/CORE-OVERLAY.md) explains how a general fix discovered in daily use becomes a reviewed core change and a tested deployment update. The [upgrade guide](docs/UPGRADING.md) covers stable storage identity, distinct image versions and rollback. The existing private application remains on its current deployment while that transition is prepared.
 
-See [privacy](PRIVACY.md), [security](SECURITY.md), [rights](docs/RIGHTS.md), [release gates](docs/RELEASE-GATES.md), [browser acceptance](docs/BROWSER-ACCEPTANCE.md), [the roadmap](docs/ROADMAP.md) and [project history](docs/PROJECT-HISTORY.md). The repository carries its existing ISC license; third-party components retain their notices. Exercise GIFs, personal health records and private integration data are excluded from the public source selection.
+See [privacy](PRIVACY.md), [security and private reporting](SECURITY.md), [rights](docs/RIGHTS.md), [release gates](docs/RELEASE-GATES.md), [browser acceptance](docs/BROWSER-ACCEPTANCE.md), [the roadmap](docs/ROADMAP.md) and [project history](docs/PROJECT-HISTORY.md). The repository carries its existing ISC license; third-party components retain their notices. Exercise GIFs, personal health records and private integration data are excluded from the public source selection.
