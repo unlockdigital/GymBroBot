@@ -14,6 +14,8 @@ Status date: October 28, 2026. This is a source preview with completed bounded s
 
 Subsequent documentation and test-only additions preserve all 78 image inputs in [the build-input record](IMAGE-INPUTS.json). A different source/image/profile requires proportional revalidation. Disposable rehearsal resources were removed and cleanup independently verified.
 
+The proposed canonical-history fallback changes two runtime files beyond that tested image. Its synthetic regression checks exact recorded-ID fallback, rejection of name/alias-only canonical values, recognized-label precedence, older schemas, owner isolation, assistance and explicit unit holds. The recorded image/advisory decision remains tied to its existing source and digests; a build containing this runtime change needs fresh image-specific validation before deployment. This change performs no migration or historical-data rewrite.
+
 ## Hosting evidence
 
 A disposable real DNS hostname and Let’s Encrypt DNS-01 issuance were verified, along with trusted HTTPS/HTTP2 from the VPS. External access to its temporary 8443 listener timed out. The test certificate was revoked and its resources removed; the owner removed the temporary DNS records.
