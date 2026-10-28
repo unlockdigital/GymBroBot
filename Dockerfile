@@ -18,6 +18,11 @@ COPY --from=build /opt/sqlite /opt/sqlite
 COPY ops.py /app/ops.py
 # Service/CLI execution requires Node only; package managers remain in the build stage.
 RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack /usr/local/bin/pnpm /usr/local/bin/pnpx /usr/local/bin/yarn /usr/local/bin/yarnpkg
+# Operations use Node, SQLite and filesystem APIs. Remove unused vulnerable CLIs
+# while retaining Debian package metadata for honest package-based scanning.
+RUN rm -f /usr/bin/mount /usr/bin/umount /usr/bin/nsenter /usr/bin/infocmp \
+    && test ! -e /bin/mount && test ! -e /bin/umount \
+    && test ! -e /usr/bin/nsenter && test ! -e /usr/bin/infocmp
 ENV LD_LIBRARY_PATH=/opt/sqlite/lib
 RUN chmod 0444 /app/ops.py && chmod -R a+rX /opt/sqlite
 USER 1000:1000

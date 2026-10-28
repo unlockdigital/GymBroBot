@@ -1,15 +1,32 @@
 # Security build baseline
 
-The application uses official Node22.23.4 on Debian13/trixie slim, with current Debian security updates installed during the build. Native better-sqlite3 13.0.3 is compiled from the checksum-pinned npm source and embeds SQLite3.53.4. Upstream prebuilt addon files are removed. Python backup/recovery operations load a separately compiled shared SQLite3.53.4 from the same amalgamation through the image's LD_LIBRARY_PATH. Both active versions are asserted during build and native testing. Preserve that environment setting for Python operations.
+The release profile is Linux amd64 using the checked Compose topology: the app serves through Unix sockets with no network, a nonroot UID, zero effective capabilities, no-new-privileges, read-only root filesystem and scoped private mounts. Public HTTPS and private agent TLS terminate in separate proxy containers. Fixed-path root volume initialization is operator-only. Additional executable private hooks require separate review.
 
-The proxy is a locally source-built Caddy2.11.7 security variant. Its pinned Go1.26.10 compiler, x/net0.60.0 and chi5.4.0 address the reviewed upstream advisories. Dockerfile.proxy fetches the checksum-pinned official source module, verifies the locked dependency graph, retains actual compiled-module notices and creates a static scratch image. Embedded Go fallback roots and timezone data support HTTPS without host trust-store mounts. Rebuild this proxy as Go/root-store updates are released. Preserve its modification notice and all included third-party notices.
+## Built components
 
-The example environment, Dockerfile and Compose defaults refer to this same baseline. Run python3 scripts/check-security-baseline.py to reject a sample environment that silently overrides it with an older image. Build both init and caddy before starting Compose. The proxy image uses pull_policy never to select the reviewed local build; a published distribution must record a verified registry/platform digest before changing that policy.
+| Component | Selected baseline |
+|---|---|
+| Application runtime | Official Node 22.23.4 on Debian 13/trixie slim; active security repositories |
+| Node SQLite | better-sqlite3 13.0.3 compiled from checksum-pinned npm source, SQLite 3.53.4 |
+| Python operations SQLite | SQLite 3.53.4 compiled from the same amalgamation and loaded through `/opt/sqlite/lib` |
+| HTTPS proxy | Modified Caddy 2.11.7 built with Go 1.26.10, x/net 0.60.0 and chi 5.4.0 |
 
-The npm lock has five dependencies with official registry tarball URLs and SHA512 integrity pins. Runtime package managers are removed from the application image. Npm audit reports zero advisory hits for this locked graph; it does not assess native SQLite, Python, the OS or Caddy. Actual dependency texts are in runtime/THIRD_PARTY_NOTICES.md. The proxy embeds separate notices for its compiled Go modules.
+The Docker build asserts the active Node and Python SQLite versions. Preserve the image's `LD_LIBRARY_PATH` for maintenance operations. Upstream native addon prebuilds and runtime package managers are removed. The reviewed surface patch also removes unused mount, umount, nsenter and infocmp commands, while retaining package records for honest scanning.
 
-Native Linux amd64 testing of the isolated security candidate passed all twelve synthetic suites, actual nonroot enrollment setup, both proxy configurations, TLS-pinned CLI context/draft/commit/retry/readback, authorization/header boundaries, exact backup/empty-volume restore and credential revocation. These tests used synthetic owner/data state. Historical private-copy evidence predates this native dependency upgrade and needs a new rehearsal before production adoption.
+The proxy builds from a checksum-pinned source graph into a static scratch image. It embeds public root certificates, timezone data, the modification notice and compiled-module license notices. Rebuild it when the compiler, root store or relevant modules receive security updates.
 
-The patched proxy's actual-image scan reports zero critical/high/medium/low findings and one UNKNOWN module advisory concerning OpenPGP. Its compiled package inventory excludes that package. Keep the raw finding and code-not-present disposition visible. The actual application-image scan covers93 Debian packages and reports0 critical,64 high,96 medium,77 low and6 unknown package/advisory rows. Those rows correspond to93 distinct advisory IDs, including13 high IDs. Remaining high findings concern local util-linux/ACL/ncurses paths, absent systemd-homed/Perl archive code and Python HTML/XML/archive/SSL APIs that operations does not call. These are proposed applicability dispositions and remain visible in raw scans. Active patched SQLite versions do not automatically clear findings against other OS code. Final public exposure requires an independent disposition review or additional removal/patching.
+Sample environment, Dockerfile and Compose defaults must select this same baseline. `scripts/check-security-baseline.py` rejects unsafe sample overrides. Build both `init` and `caddy`; the proxy uses `pull_policy: never` to select the local reviewed build. A future registry distribution needs verified platform digests before changing that policy.
 
-Record resolved Debian packages, both final image digests, source commit and full SBOM/scan results for each release: apt inputs are current security repositories and can change between builds. Required follow-up includes the exact merged-source Linux/private-copy/browser/offline checks, Linux arm64 validation, actual public DNS/ACME and final advisory review. A successful dependency scan provides bounded evidence for the scanned image and advisory database.
+## Advisory decision
+
+The named thirteen high advisory IDs have individual bounded applicability dispositions in [the advisory decisions](ADVISORY-DECISIONS.md) and [machine-readable record](ADVISORY-DECISIONS.json). They concern removed/missing command implementations or Python/library paths absent from the supported execution flow. Retained affected packages remain visible in the raw scan. This is a scoped code-path determination, not an upstream patch claim.
+
+The review expires November 11, 2026. New images/packages, imports, extensions, subprocess paths, privilege/network changes, vendor guidance or stable fixes trigger earlier review. Keep the runtime surface regression in CI. An arbitrary privileged host invocation or executable overlay is outside the approved public-core profile.
+
+The reviewed proxy image has zero rated vulnerability findings and an UNKNOWN module advisory whose affected OpenPGP package is absent from the compiled package list. Keep that finding and its evidence visible. The npm lock has five dependencies with official tarball URLs and SHA512 pins; its audit reports zero advisory hits for that graph. Neither statement covers the application OS or unknown defects.
+
+## Release evidence
+
+Record exact source, architecture, final image/config digests, resolved package inventory, native-component hashes, SBOMs, scanner/database timestamps, tests and advisory dispositions for each release. Apt inputs resolve from active security repositories and may change between builds. An earlier image's exception cannot silently approve a new image.
+
+Native application/proxy, owner security, agent contracts, rich/assisted training and backup/restore tests have passed on the reviewed baseline. The exact final integrated build must additionally carry the everyday acceptance correction and its regression. See [release status](RELEASE-STATUS.md) and [release gates](RELEASE-GATES.md) for the source-specific limits. Linux arm64, complete native-device behavior and intended-host public reachability remain separate support claims.

@@ -1,30 +1,58 @@
 # GymBroBot
 
-GymBroBot is a self-hosted single-owner training web app. Keep your workout history on your server, log strength and cardio sessions, and create a basic workout with the local rule-based planner. A separately authorized local coding agent can read bounded training context, propose a workout in conversation, save the approved draft, and verify the saved plan.
+GymBroBot is a self-hosted training web app for one owner. Keep your workout history on your server, build and log detailed strength and cardio sessions, and use your results to plan the next workout. Run it at your own domain or subdomain on a Linux VPS and open it from your computer or phone.
 
-This source candidate is undergoing release review. The owner catalog supports 36 initial metadata entries and further owner additions; detailed agent proposals preserve per-set prescriptions. The current package pins Node 22.23.4 and Caddy 2.11.7 with Linux Docker with persistent SQLite storage. Model-provider authentication stays with your agent client; the app requires zero model-provider keys.
+A local rule-based planner works without a model-provider key. You can also connect your coding agent, ask it to review your training and design a workout, approve the proposed draft in conversation, and have it save that exact plan into the app. Provider sign-in and subscription access stay with your agent client.
 
-## Host it at your domain
+This repository is a release candidate. Read [release status](docs/RELEASE-STATUS.md) before using it for important training records or public hosting.
 
-Use a Linux VPS with Docker Engine and Compose v2. Run the documented hosting preparation step to normalize the two public proxy-template modes while preserving credential privacy. Point your domain or subdomain at its public IP, configure public TCP 80/443, and restrict SSH to your administrative policy. Follow [hosting and recovery](docs/HOSTING.md). Users can reach the trusted HTTPS URL from any Internet-connected browser. Your browser device must be able to reach the server for online synchronization.
+## Training features
 
-On Safari, save a bookmark for browser access or use Share → Add to Home Screen for a launcher. Safari may offer Open as Web App. Native Safari/iOS installation remains unverified. Chromium and isolated WebKit tests cover preceding candidate flows with real loopback-server outages; release verification must target the exact release revision.
+- Owner-managed exercise catalog with 36 initial metadata entries and further owner additions.
+- Ordered preparation, strength, accessory and core blocks, rotating variants, supersets and circuits.
+- Individual warmup, working, backoff, drop and calibration sets with distinct load, rep range or duration, RPE target, rest and notes.
+- Explicit added-weight, assisted and bodyweight modes, with conservative calibration when changing modes.
+- Persistent workout history, strength/cardio logging, edits, recovery and retry-safe saves.
+- Optional offline access on a consented device, durable queues and recovery safeguards.
 
-## Work with your coding agent
+The built-in planner provides transparent rules for its supported templates. External agents can propose the richer workout format through the same application validation and save boundary. Current equipment, constraints and calibration decisions need owner confirmation. Missing or inconsistent history stays visible and can hold progression.
 
-[Agent instructions](SKILL.md) describe context → draft → conversational approval → commit → readback. The agent connection uses a separate application credential and a restricted SSH tunnel to the private agent endpoint. The provider running your agent receives the context shared in that conversation. Direct commit trusts the agent's report of your approval. Current pairing requires a maintenance command and expires after 24 hours.
+## Install at your domain
 
-## Development and release
+The supported build target is Linux amd64 with Docker Engine and Compose v2. The application and patched proxy are built from pinned sources; the build requires Internet access to the referenced registries and repositories. Linux arm64 remains a separate verification target.
 
-Run `python3 scripts/check-tree.py` and `sh scripts/test-linux.sh` in the supported Docker environment. [Release gates](docs/RELEASE-GATES.md) describe pending evidence. [Core and private deployment](docs/CORE-OVERLAY.md) defines the improvement and promotion path. Public publication stays gated until privacy, rights, dependencies and the exact source revision pass review.
+Choose an unused hostname, set its A record to your VPS address, and allow public TCP 80/443. Add AAAA only after verifying IPv6 routing and firewall behavior. Keep the agent endpoint private. Follow [hosting and recovery](docs/HOSTING.md) for the complete setup and backup procedure.
 
-The ISC license permits use, modification, distribution and commercial use under its terms. [Rights inventory](docs/RIGHTS.md) records redistribution review status. Exercise GIFs and the existing private exercise corpus are excluded from this candidate.
+```sh
+umask 077
+cp .env.example .env
+# Set PUBLIC_HOST and OWNER_TIMEZONE in .env.
+python3 scripts/prepare-hosting.py
+docker compose build init caddy
+docker compose run --rm init
+docker compose run --rm app setup
+docker compose up -d app caddy agent-proxy
+```
 
+Open the trusted HTTPS URL and claim the instance with the temporary setup capability. Store your recovery capability securely. Confirm your timezone and the load-unit convention before logging or designing workouts.
 
-## Detailed workout and catalog candidate
+On Safari, a bookmark gives quick browser access. Share → Add to Home Screen adds a launcher; the exact options depend on the browser/device version. Headless Chromium and WebKit verification is described in the release status. Native Safari/iOS installation has its own acceptance scope.
 
-The workout interface supports owner-authored exercise metadata and schema-v2 agent proposals with per-set loads, rep ranges, effort targets, rest, timed sets, preparation/core/accessory blocks, rotating variants and circuit groups. Manage authored metadata in the authenticated Exercise catalog section. The bundled seed contains 36 authored labels/equipment tags and carries no descriptions or exercise media. The rule-based planner can select matching catalog movements for its supported squat/push/pull templates. External agents can propose the wider supported format through the same validated approval and readback contract.
+## Connect your agent
 
-Existing private `workout_plans` rows are read through extracted generic mapper functions in a coherent owner-scoped snapshot. Explicit private hooks can preserve the existing preparation helpers and private catalog metadata. Set `privatePlanHooks` to an absolute owned-0600 `.cjs` path and `privatePlanHooksSha256` to its reviewed SHA256 in private-copy config. Keep this source and its private metadata outside the public repository. Unknown equipment remains unknown until confirmed; media remains a separate private provider. Core files contain no private hook dataset.
+Use [agent setup](docs/AGENTS.md), then give your local agent the repository's [workout skill](SKILL.md). The normal interaction is:
 
-This slice has synthetic service/SQLite/browser evidence. Exact Linux deployment and real private-copy rehearsal are separate acceptance gates. Existing private production remains the stable baseline until those checks pass.
+1. Read bounded training context and confirm the date, equipment and current constraints.
+2. Design and revise the workout in conversation.
+3. Show the validated, canonical draft and ask for approval.
+4. Save the approved draft and verify its receipt and plan through application readback.
+
+The connection uses a separate, revocable application credential through a restricted SSH tunnel. Direct commit records the agent's assertion of conversational approval. Authorized training context enters the chosen agent provider's processing environment. GymBroBot never needs that provider's account credentials.
+
+## Develop and release
+
+Run `python3 scripts/check-tree.py` and `sh scripts/test-linux.sh` in a supported Docker environment. CI uses synthetic data. Real records, credentials, private overlays and operational evidence belong outside this repository.
+
+[Core and private deployment](docs/CORE-OVERLAY.md) explains how a general fix discovered in daily use becomes a reviewed core change and a tested deployment update. The existing private application remains on its current deployment while that transition is prepared.
+
+See [privacy](PRIVACY.md), [security](SECURITY.md), [rights](docs/RIGHTS.md), [release gates](docs/RELEASE-GATES.md) and [the roadmap](docs/ROADMAP.md) and [project history](docs/PROJECT-HISTORY.md). The repository carries its existing ISC license; third-party components retain their notices. Exercise GIFs, personal health records and private integration data are excluded from the public source selection.

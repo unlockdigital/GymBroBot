@@ -1,0 +1,373 @@
+{
+  "schemaVersion": 1,
+  "decision": "BASELINE_SECURITY_REVIEW_COMPLETE_FINAL_RELEASE_BINDING_REQUIRED",
+  "scope": {
+    "baseCommit": "81bd29654c8669ac9c36962a06910ab8aab50bb5",
+    "appImage": "sha256:02e5d6fe197a9303b1d9fcda411436148256f01bba8897e4448887f9d3920fd2",
+    "proxyImage": "sha256:9ee978d97b08832cb848fab859a4ca97d43cc2b6f5b51488db932f226129aff7",
+    "architecture": "linux/amd64",
+    "sourcePinsSha256": "04993841ab87ec074eb4b7f960bd76df29532e622b75157fc16356f00f5605fe",
+    "patchSha256": "27ca6e576c52546813a38f7113f52f01a7e7cebafb9749873da95fcf04233de2",
+    "scanSha256": "b512a666c965b957c16750b037eb4cda45c8aeae880d798196873d4802ae078f",
+    "releaseProfile": "Public core with checked-in compose.yaml and no additional executable private hooks"
+  },
+  "createdAt": "2026-10-28T05:38:36.542074+00:00",
+  "expiresAt": "2026-11-11T23:59:59Z",
+  "findings": [
+    {
+      "id": "CVE-2026-76642",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "bsdutils": "1:2.41.5-0+deb13u1",
+        "libblkid1": "2.41.5-0+deb13u1",
+        "liblastlog2-2": "2.41.5-0+deb13u1",
+        "libmount1": "2.41.5-0+deb13u1",
+        "libsmartcols1": "2.41.5-0+deb13u1",
+        "libuuid1": "2.41.5-0+deb13u1",
+        "login": "1:4.16.0-2+really2.41.5-0+deb13u1",
+        "mount": "2.41.5-0+deb13u1",
+        "util-linux": "2.41.5-0+deb13u1"
+      },
+      "impactStatement": "Mount helper/post-hook privilege escalation requires privileged mount execution. The candidate removes mount/umount; operations never call libmount. The serving process has zero effective capabilities.",
+      "vendorRemedy": "Upstream util-linux 2.41.6 or 2.42.3; Debian trixie remains affected.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-76642",
+        "https://github.com/util-linux/util-linux/security/advisories/GHSA-m25x-3hj9-m26f"
+      ]
+    },
+    {
+      "id": "CVE-2026-78408",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_present",
+      "installedPackages": {
+        "bsdutils": "1:2.41.5-0+deb13u1",
+        "libblkid1": "2.41.5-0+deb13u1",
+        "liblastlog2-2": "2.41.5-0+deb13u1",
+        "libmount1": "2.41.5-0+deb13u1",
+        "libsmartcols1": "2.41.5-0+deb13u1",
+        "libuuid1": "2.41.5-0+deb13u1",
+        "login": "1:4.16.0-2+really2.41.5-0+deb13u1",
+        "mount": "2.41.5-0+deb13u1",
+        "util-linux": "2.41.5-0+deb13u1"
+      },
+      "impactStatement": "The flawed nsenter executable is removed. Operations never invoke nsenter or accept an inherited root-opened cgroup migration descriptor. Container PID/cgroup namespaces and mounts stay isolated.",
+      "vendorRemedy": "Upstream advisory lists 2.41.6/2.42.3; Debian additionally references commit 286dd3ff41526b582ef48830de239dffbaa61f90 in 2.42.4. Use the Debian fixed revision when available.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-78408",
+        "https://github.com/util-linux/util-linux/security/advisories/GHSA-55fx-f4gg-cfhj"
+      ]
+    },
+    {
+      "id": "CVE-2026-78409",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "bsdutils": "1:2.41.5-0+deb13u1",
+        "libblkid1": "2.41.5-0+deb13u1",
+        "liblastlog2-2": "2.41.5-0+deb13u1",
+        "libmount1": "2.41.5-0+deb13u1",
+        "libsmartcols1": "2.41.5-0+deb13u1",
+        "libuuid1": "2.41.5-0+deb13u1",
+        "login": "1:4.16.0-2+really2.41.5-0+deb13u1",
+        "mount": "2.41.5-0+deb13u1",
+        "util-linux": "2.41.5-0+deb13u1"
+      },
+      "impactStatement": "The candidate removes mount and exposes no libmount API. The exploit needs a privileged fstab-authorized X-mount.subdir path, attacker-controlled source and Linux >=6.15. Upstream lists >=2.42 while Debian flags 2.41.5; retain the distro finding and resolve by missing path.",
+      "vendorRemedy": "Upstream 2.41.6/2.42.3; vendor affected-range conflict retained explicitly.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-78409",
+        "https://github.com/util-linux/util-linux/security/advisories/GHSA-8f2p-47x3-43mv"
+      ]
+    },
+    {
+      "id": "CVE-2026-78410",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "bsdutils": "1:2.41.5-0+deb13u1",
+        "libblkid1": "2.41.5-0+deb13u1",
+        "liblastlog2-2": "2.41.5-0+deb13u1",
+        "libmount1": "2.41.5-0+deb13u1",
+        "libsmartcols1": "2.41.5-0+deb13u1",
+        "libuuid1": "2.41.5-0+deb13u1",
+        "login": "1:4.16.0-2+really2.41.5-0+deb13u1",
+        "mount": "2.41.5-0+deb13u1",
+        "util-linux": "2.41.5-0+deb13u1"
+      },
+      "impactStatement": "Restricted bind-mount pathname replacement needs privileged mount plus fstab X-mount.owner/group/mode hooks. The candidate removes mount and umount; trusted operations never execute this path.",
+      "vendorRemedy": "Upstream 2.41.6/2.42.3; Debian trixie remains affected.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-78410",
+        "https://github.com/util-linux/util-linux/security/advisories/GHSA-rh77-686x-2f2m"
+      ]
+    },
+    {
+      "id": "CVE-2026-54369",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "libacl1": "2.3.2-2+b1"
+      },
+      "impactStatement": "libacl1 remains installed for OS compatibility. Python operations use SQLite backup, byte copy, chown and chmod on fixed private paths; they never call acl_*_file APIs or launch ACL-preserving utilities. Node serves as UID1000 with zero capabilities. Root init-volumes performs only fixed-path chown/chmod/makedirs, without ACL calls or untrusted requests.",
+      "vendorRemedy": "acl 2.4.0 adds new *_at ABI; Debian schedules a point-release fix and warns individual backports/ABI conflicts. Prefer the Debian package over replacing libacl ad hoc.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-54369"
+      ]
+    },
+    {
+      "id": "CVE-2025-69720",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_present",
+      "installedPackages": {
+        "libncursesw6": "6.5+20250216-2",
+        "libtinfo6": "6.5+20250216-2",
+        "ncurses-base": "6.5+20250216-2",
+        "ncurses-bin": "6.5+20250216-2"
+      },
+      "impactStatement": "The vulnerable analyze_string implementation belongs to infocmp. The candidate removes that executable. Retained ncurses libraries/terminfo data do not contain that command implementation.",
+      "vendorRemedy": "Upstream ncurses 6.5-20251213; Debian fixed source 6.6+20251231-1, with no trixie fix at review.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2025-69720"
+      ]
+    },
+    {
+      "id": "CVE-2026-15308",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "libpython3.13-minimal": "3.13.5-2+deb13u5",
+        "libpython3.13-stdlib": "3.13.5-2+deb13u5",
+        "python3.13": "3.13.5-2+deb13u5",
+        "python3.13-minimal": "3.13.5-2+deb13u5"
+      },
+      "impactStatement": "Repeated incremental HTMLParser.feed on hostile declarations causes the flaw. ops.py and its loaded import closure contain no html parser. Browser HTML uses browser/JavaScript paths. Python reads local JSON/SQLite/files only.",
+      "vendorRemedy": "CPython 3.13.15 (commit 7933f4bf7131aa4140750f9404f5de0aa2969ced); Debian trixie 3.13.5-2+deb13u5 remains affected.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-15308"
+      ]
+    },
+    {
+      "id": "CVE-2026-19445",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "libpython3.13-minimal": "3.13.5-2+deb13u5",
+        "libpython3.13-stdlib": "3.13.5-2+deb13u5",
+        "python3.13": "3.13.5-2+deb13u5",
+        "python3.13-minimal": "3.13.5-2+deb13u5"
+      },
+      "impactStatement": "Python never imports ssl/_ssl or opens a TLS server, and defines no SNI callback/context switch. Caddy terminates TLS; app communication uses Unix sockets. Network-none reinforces this separate code-path evidence.",
+      "vendorRemedy": "CPython 3.13.16 fix d8717ed01717a9641686e6e6f83f0ab8af235e2c; Debian trixie remains affected.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-19445"
+      ]
+    },
+    {
+      "id": "CVE-2026-19553",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "libpython3.13-minimal": "3.13.5-2+deb13u5",
+        "libpython3.13-stdlib": "3.13.5-2+deb13u5",
+        "python3.13": "3.13.5-2+deb13u5",
+        "python3.13-minimal": "3.13.5-2+deb13u5"
+      },
+      "impactStatement": "Python never imports ssl/asyncio or calls wrap_bio, create_connection or start_tls. Caddy handles TLS; no Python hostname-verification path processes remote traffic.",
+      "vendorRemedy": "CPython 3.13.16 fix f4e43ba525187282f2011da0e6ffc0d2b08d8062. For a future TLS caller, pass a nonempty server_hostname and adopt a fixed package.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-19553"
+      ]
+    },
+    {
+      "id": "CVE-2026-7210",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "libpython3.13-minimal": "3.13.5-2+deb13u5",
+        "libpython3.13-stdlib": "3.13.5-2+deb13u5",
+        "python3.13": "3.13.5-2+deb13u5",
+        "python3.13-minimal": "3.13.5-2+deb13u5"
+      },
+      "impactStatement": "Python imports no XML, pyexpat or ElementTree module and parses no XML. Installed libexpat is >=2.8.0, but the separate Python hash-salt fix remains absent; the libexpat version alone establishes only partial remediation.",
+      "vendorRemedy": "CPython 3.13.14 (fc9b11ff49cbc82e6f917d07a61517a2b5f3145f) plus libexpat >=2.8.0 are both required. Debian trixie Python remains affected.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-7210"
+      ]
+    },
+    {
+      "id": "CVE-2026-82049",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_in_execute_path",
+      "installedPackages": {
+        "libpython3.13-minimal": "3.13.5-2+deb13u5",
+        "libpython3.13-stdlib": "3.13.5-2+deb13u5",
+        "python3.13": "3.13.5-2+deb13u5",
+        "python3.13-minimal": "3.13.5-2+deb13u5"
+      },
+      "impactStatement": "ops.py never imports tarfile or extracts an archive. Its backup/restore copies four named regular files and SQLite snapshots with symlink/empty-volume checks. shutil does not load tarfile along the exercised operations import closure.",
+      "vendorRemedy": "CPython 3.13 branch commit b8f23e307097552eaea2604383a12ab280520d0d; Debian still marks 3.13.15 and trixie unfixed. No guessed fixed trixie revision.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-82049"
+      ]
+    },
+    {
+      "id": "CVE-2026-16742",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_present",
+      "installedPackages": {
+        "libsystemd0": "257.13-1~deb13u1",
+        "libudev1": "257.13-1~deb13u1"
+      },
+      "impactStatement": "Only libsystemd0/libudev1 shared libraries are installed. systemd-homed executable/service and a homed-managed user are absent. Source-package matching creates the retained rows; affected home-record authentication code is absent.",
+      "vendorRemedy": "Upstream systemd 262, 261.2, 260.4, 259.8 or 258.10; Debian unstable fix 261.2-1. Retained trixie libraries alone do not implement homed.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-16742",
+        "https://github.com/systemd/systemd/security/advisories/GHSA-jm29-p7hh-vjhv"
+      ]
+    },
+    {
+      "id": "CVE-2026-9538",
+      "status": "not_affected",
+      "justification": "vulnerable_code_not_present",
+      "installedPackages": {
+        "perl-base": "5.40.1-6+deb13u1"
+      },
+      "impactStatement": "perl-base is installed, while Archive/Tar.pm is absent. No application or operations path invokes Perl archive parsing. GNU tar and Python tarfile are separate implementations.",
+      "vendorRemedy": "Archive::Tar 3.10, commit f9af01426038e29d9578825a0cd3626946ab08c7; Debian Perl fixed in 5.42.3-1, trixie postponed.",
+      "owner": "Core release maintainer",
+      "reviewedAt": "2026-10-28T05:38:36.542074+00:00",
+      "expiresAt": "2026-11-11T23:59:59Z",
+      "recheckTriggers": [
+        "Any source, image, package inventory, Dockerfile, Compose or command/entrypoint change",
+        "Any new private hook, extension, Python import, native library or attacker-controlled subprocess argument",
+        "Loss of nonroot app UID, dropped capabilities, no-new-privileges, read-only rootfs, isolated namespaces or network-none",
+        "Vendor advisory revision, new high/critical finding, or a fixed Debian trixie package becoming available",
+        "Expiry reached: refresh advisories, rebuild/scan and reevaluate before further release or deployment"
+      ],
+      "vendorSources": [
+        "https://security-tracker.debian.org/tracker/CVE-2026-9538"
+      ]
+    }
+  ]
+}

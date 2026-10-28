@@ -1,6 +1,18 @@
 # VPS hosting and recovery
 
-Set an A record for a hostname such as `workouts.example.com` to your VPS address. Add AAAA only with tested IPv6 routing and firewall rules. Caddy serves trusted public HTTPS once DNS, inbound ports 80/443 and certificate issuance work. Keep agent TCP 9443 closed to the Internet; Compose binds it to loopback. The security candidate builds Node22.23.4/Debian13 with active Node/Python SQLite3.53.4 and a source-patched Caddy2.11.7 scratch proxy. See [the security baseline](SECURITY-BASELINE.md) for exact dependencies and verification limits. Complete final image/advisory, merged private-copy and public deployment gates before exposure.
+Use a Linux amd64 VPS with Docker Engine and Compose v2, an administrative account and an owner-controlled hostname. The supported Compose topology assumes that public ports 80/443 are available. A VPS already serving other applications needs a reviewed integration with its existing proxy before using these port mappings.
+
+The app uses a private Unix socket and no application network. A public source-built proxy serves the configured hostname. A separate proxy exposes the agent endpoint only at host loopback 9443. The [security baseline](SECURITY-BASELINE.md) and final release evidence define exact versions and accepted advisory dispositions.
+
+## DNS and firewall
+
+Create an A record for the chosen hostname pointing to the VPS address. Add AAAA only after IPv6 routing and firewall behavior are verified. Permit public TCP 80/443 for certificate issuance and application use; restrict administrative SSH under your policy. Keep TCP 9443 inaccessible from the Internet. Inspect provider, host and Docker forwarding rules and test from an external network.
+
+Caddy obtains a public certificate for the configured hostname. Preserve its data/config volumes for renewals. DNS-01 certificate validation proves hostname control; it does not prove external access to the application's HTTPS listener. Verify trusted chain/hostname, expected response, arbitrary-host rejection and public reachability after deployment.
+
+## Build and enroll
+
+Build tools need Internet access to the checksum-pinned source and package registries. Apt security inputs can change; record exact resolved packages and built image digests for the release.
 
 ```sh
 umask 077
@@ -13,11 +25,13 @@ docker compose run --rm app setup
 docker compose up -d app caddy agent-proxy
 ```
 
-Open your HTTPS URL and enroll with the ten-minute setup capability. Retain the recovery capability securely. Confirm the timezone and storage-unit convention. A trusted certificate, external-network reachability, arbitrary-host rejection and effective provider/host firewall behavior are acceptance gates. Docker publishes ports through its own forwarding rules.
+The preparation step verifies the two public proxy templates and normalizes only their source permissions for nonroot mounts. Keep `.env` and credential files private. Image build checks enforce nonroot access to operations and the active SQLite runtime.
 
-Pair your agent using [the skill](../SKILL.md) and a forwarding-only account. Restrict authorized destinations to `127.0.0.1:9443`, disable shell/exec/PTY/remote forwarding, pin the SSH host key, and verify effective sshd policy before use. Keep credentials in a private directory outside the source tree. Administrator/root/Docker access retains broad host authority.
+Keep setup output private. Open the trusted HTTPS URL and enroll with the ten-minute setup capability. Save the recovery capability securely and confirm timezone/units. There is one owner per instance and no open registration. If enrollment output is lost, try the password you submitted and use the current-password recovery replacement workflow. Renew an expired unclaimed setup capability with the stopped-app `renew` operation.
 
-## Backup
+After login, create a basic plan or add authored exercise metadata and connect an agent using [agent setup](AGENTS.md). Confirm saved-plan date, prescribed values and a small test workout before relying on the deployment.
+
+## Back up
 
 ```sh
 docker compose stop app
@@ -25,12 +39,39 @@ docker compose run --rm app backup YOUR_BACKUP_NAME
 docker compose up -d app
 ```
 
-The exclusive lock and SQLite backup produce coherent owner/workout/control databases and configuration with fsync. Backups are plaintext; arrange encrypted off-host retention. Back up both Caddy data/config volumes while the proxies are stopped because they hold certificate and CA material. The agent bearer file is excluded from application backups. Socket volumes are temporary.
+Use a new simple backup name each time. The application lock serializes serving and maintenance. The backup captures owner/workout/control databases and configuration coherently and synchronizes files/directories before reporting success. It excludes the transferable agent bearer file. Preserve that credential separately only under your credential policy.
 
-## Restore
+Backups are plaintext. Arrange encrypted off-host storage, a retention policy and recurring restore rehearsals. Separately preserve public/private proxy data/config volumes while their proxies are stopped: these contain certificate and CA material. Socket volumes are temporary. Private hook files and integration credentials live outside the generic database backup; record and back them up with their digests/configuration.
 
-Restrict public ingress and stop public Caddy/app. Restore into a new empty private volume while retaining the original. Use `restore.override.example.yaml` and `RESTORE_VOLUME` consistently. Initialize UID/GID 1000 ownership and mode 0700 for the destination, then run the app's `restore YOUR_BACKUP_NAME` command through the override. Verify mounted volumes, integrity, owner login, history, plans and receipts. Rotate restored owner recovery/session generations and re-pair agents before reopening ingress. Older backups can revive historical credentials. Reconcile newer workouts and browser outboxes before accepting rollback. Interrupted restoration requires another empty destination.
+## Restore into an empty volume
 
-Linux crash tests cover process interruption and transaction rollback. Hardware power loss, public DNS/ACME and actual host reboot remain separate deployment checks.
+Restrict public ingress to the operator, stop the public proxy/app and retain the original volume. Initialize a new empty destination owned by UID/GID 1000 with mode 0700. Use the same Compose project and the restore override on every later operation against it.
 
-Distribution archives may retain mode0600 on public source templates. The hosting preparation command verifies release hashes and makes only Caddyfile/Caddyfile.agent readable as0644 for UID1000 bind mounts. Private .env and agent-cli.json stay0600; unsafe credential modes fail before template changes. Docker explicitly makes public ops.py readable inside the image and validates Python/native SQLite under the runtime UID. The actual-image entrypoint/proxy test exercises setup and both public configurations with synthetic state.
+```sh
+docker compose stop app caddy agent-proxy
+GYMBRO_APP_IMAGE=$(docker compose images -q app)
+test -n "$GYMBRO_APP_IMAGE"
+# Confirm this local immutable image ID matches the selected release before continuing.
+docker volume create gymbro-restored
+docker run --rm --network none --user 0:0 --entrypoint sh \
+  -v gymbro-restored:/restore "$GYMBRO_APP_IMAGE" \
+  -c 'chown 1000:1000 /restore && chmod 700 /restore'
+export RESTORE_VOLUME=gymbro-restored
+docker compose -f compose.yaml -f restore.override.example.yaml run --rm app restore YOUR_BACKUP_NAME
+docker compose -f compose.yaml -f restore.override.example.yaml up -d app caddy
+```
+
+Keep the agent proxy stopped throughout restoration and owner generation rotation. Retain `RESTORE_VOLUME` and the override for subsequent commands. Inspect actual selected mounts and verify integrity, owner login, history, plans and receipts before accepting restoration. Restore any required private hook at its configured path and verify its recorded digest. Interrupted restore requires another empty destination.
+
+An older backup can revive old credentials and generations. Before reopening public ingress, rotate the restored owner recovery/session generation and provision new agent access; reconcile newer workout data and browser outboxes. Keep the original volume and rollback image until the restored instance is accepted. Avoid deleting retained volumes as a cleanup shortcut.
+
+## Recovery and limits
+
+The browser supports capability-based password recovery and current-password replacement of a lost recovery capability. Both stopped-app console input modes use private stdin and the application lock; keep secrets out of shell arguments/history/logs.
+
+- `currentPassword` plus `replacementSecret`: choose and retain a 43-character base64url replacement generated from 32 random bytes before execution. This current-password path uses a persistent console-password quota and returns only success status, so a lost response can be retried with the retained password/replacement.
+- `secret` plus `password`: supply the existing recovery capability and a new owner password. This path returns a newly generated recovery capability privately; it uses the capability proof rather than the console-password quota. If that response is lost, use the newly selected password with the current-password replacement path to recover the capability.
+
+Do not apply the pre-retained replacement/quota guarantee to the legacy capability/password path. Keep successful legacy stdout private and store its returned capability securely.
+
+Process-interruption and transactional rollback tests cover software crash recovery. Hardware power loss and host reboot need deployment-specific evidence. Linux arm64, native Safari/iOS installation and a shared-host production-proxy integration are separate support claims. See [release status](RELEASE-STATUS.md) for the exact current acceptance scope.

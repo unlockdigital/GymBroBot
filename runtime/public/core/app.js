@@ -1476,6 +1476,11 @@ function formatSetNotes(ex, loggedSet) {
   return notes.length ? notes.join('; ') : null;
 }
 
+function setWeightForDb(ex, loggedSet) {
+  if (ex.bodyweight_capable && ['pure_bw', 'assisted'].includes(loggedSet.assistanceMode)) return null;
+  return loggedSet.weight == null ? 0 : Number(loggedSet.weight);
+}
+
 async function persistSet(ex, loggedSet) {
   if (ex.persistAs === 'cardio') {
     const durationSeconds = Number(loggedSet.durationSeconds || 0);
@@ -1512,13 +1517,7 @@ async function persistSet(ex, loggedSet) {
   //              max-weight / ESV ignore the row, same as the bot's path)
   //  - added (with positive weight): the weight number
   //  - added (weight=0) or non-bodyweight zero: the literal 0
-  const mode = loggedSet.assistanceMode;
-  let weightForDb;
-  if (ex.bodyweight_capable && (mode === 'pure_bw' || mode === 'assisted')) {
-    weightForDb = null;
-  } else {
-    weightForDb = loggedSet.weight == null ? 0 : Number(loggedSet.weight);
-  }
+  const weightForDb = setWeightForDb(ex, loggedSet);
   const payload = {
     client_set_id: loggedSet.clientSetId || null,
     client_logged_at: new Date(loggedSet.loggedAt || Date.now()).toISOString(),
@@ -3780,7 +3779,7 @@ function renderEditSetSheet() {
       `}
 
       <div class="edit-set-row" data-action="edit-set-weight">
-        <span class="es-label">${e.isTimed ? 'Added weight' : 'Weight'}</span>
+        <span class="es-label">${ex?.bodyweight_capable && ex.sets?.[e.setIdx]?.assistanceMode === 'assisted' ? 'Assistance' : ex?.bodyweight_capable || e.isTimed ? 'Added weight' : 'Weight'}</span>
         <span class="es-val">${fmtNum(e.weight ?? 0)}</span>
         <span class="es-unit">lb</span>
         <span class="tap-edit">tap to edit</span>
@@ -5143,7 +5142,7 @@ const actions = {
     state.editSet = {
       exId,
       setIdx,
-      weight: s.weight || 0,
+      weight: ex.bodyweight_capable && s.assistanceMode === 'assisted' ? (s.assistanceLbs ?? s.weight ?? 0) : (s.weight || 0),
       reps: s.reps ?? null,
       durationSeconds: s.durationSeconds ?? null,
       rpe: s.rpe ?? null,
@@ -5230,7 +5229,19 @@ const actions = {
     }
 
     // Apply locally first so the UI updates even if the network is slow.
-    s.weight = e.weight || 0;
+    // Assisted edits measure help; every other weight field measures added load.
+    const editingAssistance = ex.bodyweight_capable && s.assistanceMode === 'assisted';
+    s.weight = editingAssistance ? 0 : (e.weight || 0);
+    if (ex.bodyweight_capable) {
+      if (editingAssistance) {
+        s.assistanceLbs = e.weight || 0;
+        s.assistanceMode = s.assistanceLbs > 0 ? 'assisted' : 'pure_bw';
+      } else {
+        if (s.weight > 0) s.assistanceMode = 'added';
+        s.assistanceLbs = null;
+      }
+    }
+    const weightForDb = setWeightForDb(ex, s);
     if (e.isTimed) {
       s.durationSeconds = e.durationSeconds;
       s.reps = null;
@@ -5253,7 +5264,7 @@ const actions = {
     if (!e.dbSetId) {
       const pending = state.session.pendingSets?.find(p => p.client_set_id && p.client_set_id === e.clientSetId);
       if (pending) {
-        pending.weight = s.weight;
+        pending.weight = weightForDb;
         pending.reps = e.isTimed ? null : s.reps;
         pending.rpe = s.rpe;
         pending.duration_seconds = e.isTimed ? s.durationSeconds : null;
@@ -5271,7 +5282,7 @@ const actions = {
     renderPreservingScroll();
     try {
       await api.updateSet(e.dbSetId, {
-        weight: s.weight,
+        weight: weightForDb,
         reps: e.isTimed ? null : s.reps,
         rpe: s.rpe,
         duration_seconds: e.isTimed ? s.durationSeconds : null,

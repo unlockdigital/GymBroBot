@@ -93,8 +93,8 @@
     },
     {
       "path": "runtime/public/core/app.js",
-      "candidate_sha256": "31838ceb534ddb9b1bd5bffaff619fb8f701a4752ed03dd46cbff1f85ac6ee67",
-      "transformation": "reviewed rich workout/catalog change"
+      "candidate_sha256": "c0c3e9952b0f419696faa9d8d8c0eb9afc33f362f5425f5ba8c48daadd3ba342",
+      "transformation": "reviewed release acceptance, deployment or documentation correction"
     },
     {
       "path": "runtime/public/core/index.html",
@@ -183,8 +183,8 @@
     },
     {
       "path": "runtime/public/sw.js",
-      "candidate_sha256": "e981e6a419c17e42f902b06a5059472a3510d044f4147f0ad5569089eb75360e",
-      "transformation": "reviewed rich workout/catalog change"
+      "candidate_sha256": "4681fa95f9853f3d329798dafd68bbc536671f22a3da0528b59d3f18ff9a59b6",
+      "transformation": "reviewed release acceptance, deployment or documentation correction"
     },
     {
       "path": "runtime/rate.cjs",
@@ -323,13 +323,13 @@
     },
     {
       "path": "Dockerfile",
-      "candidate_sha256": "b3db01370d13511909a580e41976527c4439818f50c87def3020cb8c67a78f25",
+      "candidate_sha256": "816f900c7210c35339ea8851db1ce5eccf1b42439a5b9aab364f475ba3f81bcc",
       "transformation": "reviewed source-built SQLite/proxy and image security update"
     },
     {
       "path": "compose.yaml",
-      "candidate_sha256": "e4e6f2c25d4ab81fb6df5c777bc32d47a6789d205c3d07e6893be7575110cd4c",
-      "transformation": "reviewed source-built SQLite/proxy and image security update"
+      "candidate_sha256": "8506470db82b11318e8ee1265084860261c0aec6bc21987c35537df2369ba695",
+      "transformation": "reviewed release acceptance, deployment or documentation correction"
     },
     {
       "path": "ops.py",
@@ -423,8 +423,8 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "1ae32dd85d7e10780f903fca876f6c2bded6544f4ea6862c6482df9e39b67e5f",
-      "transformation": "reviewed source-built SQLite/proxy and image security update"
+      "candidate_sha256": "c6c3da8d87225a790cae047232a74797502e4ce0deb85558cfbec4e055b58803",
+      "transformation": "reviewed release acceptance, deployment or documentation correction"
     },
     {
       "path": "scripts/prepare-hosting.py",
@@ -503,13 +503,13 @@
     },
     {
       "path": "docs/HOSTING.md",
-      "candidate_sha256": "3a9fe729b57fdfd960e5eb6b670482f1bec4506ce999b3e7de4302bb80240b6f",
-      "transformation": "reviewed source-built SQLite/proxy and image security update"
+      "candidate_sha256": "343b6efa2eac13078c4ed7bfa0f2c0e911bfac40dbd6e9d20494ad82b76d7579",
+      "transformation": "reviewed release acceptance, deployment or documentation correction"
     },
     {
       "path": "docs/SECURITY-BASELINE.md",
-      "candidate_sha256": "5601e0f9adde504ed27256f5003668a4adf926f098f8002f5e304128a4630842",
-      "transformation": "reviewed source-built SQLite/proxy and image security update"
+      "candidate_sha256": "24c4087ec23d8145397d975a69640ee63db31d9f105ba205b2cbfd93c4712746",
+      "transformation": "reviewed release acceptance, deployment or documentation correction"
     },
     {
       "path": "proxy/LICENSE",
@@ -545,6 +545,101 @@
       "path": "scripts/check-security-baseline.py",
       "candidate_sha256": "5da874c61d8c00d7cb68ff3bcfd0a4d0bae73659e3eb8d62a6b28eac0afba12e",
       "transformation": "reviewed source-built SQLite/proxy and image security update"
+    },
+    {
+      "path": "runtime-surface-test.py",
+      "candidate_sha256": "0f1b2fca687d8a014e619037e011a7ae21c74bdde2c785fa7e31ec9c521e23e2",
+      "transformation": "bounded runtime command removal and applicability regression"
+    },
+    {
+      "path": "README.md",
+      "candidate_sha256": "bf8462894f09696fb763c14b90a4064b278efe4c4cef4dce45934bce5f7d5bb7",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "PRIVACY.md",
+      "candidate_sha256": "70334b357d53afb163a44e80b7213814cf61afb2a584f0f76e1b3726a7a89a2b",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "SECURITY.md",
+      "candidate_sha256": "dd77335df6b6c4c86f55caff2089923b856b3a32f9c463dc9013507cccb5cbde",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "candidate_sha256": "75fb42f1c8e1c828683d62930c3c9d9e26f044e0c968c788a3f85c4fcfeeb8b7",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/ADVISORY-DECISIONS.md",
+      "candidate_sha256": "981da4bb6a17deac44a376488a974ab91852f037db64ff5f5be90477bebe7456",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/ADVISORY-DECISIONS.json",
+      "candidate_sha256": "a59528c86d4062b26ba27b9380518d9222311accc1010261809e48b6d1edf966",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/AGENTS.md",
+      "candidate_sha256": "a98b017d46d04779e1ed591efa4297b95247990d6b5649ce320e04c50fa58485",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/PROJECT-HISTORY.md",
+      "candidate_sha256": "fa311078bdc2240284395234a33af2fd7494d4e26a305ad607207d5a2ce940c4",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/RELEASE-STATUS.md",
+      "candidate_sha256": "8cbecb150f760843f5a0f08abed899bdb260f86bfd67a5dc6249d6ca913ac6e4",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/ROADMAP.md",
+      "candidate_sha256": "7c509c4bb5cfae70eff469739af1a456d841bd55b1bdd3165151d8e32b6fb324",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/CORE-OVERLAY.md",
+      "candidate_sha256": "5f805ef48182c522776589a176a307370e556b9548df0567a2485d1d23bea25c",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/RIGHTS.md",
+      "candidate_sha256": "63f5cfae235baea0e5aafdb42c900c02a9b4adb353719804b875c0b026302885",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "docs/RELEASE-GATES.md",
+      "candidate_sha256": "025ca7de8c8c9f214425e135c2d97d4a2dbfe31e7b8f19212a53e930463f2b5e",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": ".github/workflows/ci.yml",
+      "candidate_sha256": "67b496c6eb5dfb1ba65338ed0c2ecbf3b63702de1cb5ca9a594478bf7183e81c",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": ".github/workflows/secret-scan.yml",
+      "candidate_sha256": "7178185b1fa0365ce1d81cbcf81a0c2ca6ae4d45bc09c5c52a33c36ebc2b6862",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "scripts/check-compose.py",
+      "candidate_sha256": "fd367b2951e1a12e6b038cf727f455e03542bbd28054c4ddf937d73826aefae7",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "compose-config-test.py",
+      "candidate_sha256": "edeb5aea08534043655017797daa8ffefa18a88a35ace01f4a878ca2aec62d3e",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "assisted-edit-test.cjs",
+      "candidate_sha256": "482fbf6aeb36f054c8525965b02e887785b103ad3aea60d23382ab24aa7e4871",
+      "transformation": "reviewed release acceptance, deployment or documentation addition"
     }
   ]
 }

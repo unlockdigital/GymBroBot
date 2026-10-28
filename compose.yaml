@@ -20,7 +20,7 @@ services:
       PUBLIC_ORIGIN: https://${PUBLIC_HOST:?Set PUBLIC_HOST}
       TZ: ${OWNER_TIMEZONE:-America/Chicago}
     volumes: [data:/app/data, socket:/run/gymbro, agent_socket:/run/gymbro-agent, backups:/backups]
-    tmpfs: [/tmp:mode=1777,size=16m]
+    tmpfs: ['/tmp:mode=1777,size=16m']
     network_mode: none
     stop_grace_period: 30s
   caddy:
@@ -39,7 +39,7 @@ services:
       PUBLIC_HOST: ${PUBLIC_HOST:?Set PUBLIC_HOST}
     ports: ['80:80', '443:443']
     volumes: [./Caddyfile:/etc/caddy/Caddyfile:ro, socket:/run/gymbro:ro, caddy_data:/data, caddy_config:/config]
-    tmpfs: [/tmp:mode=1777,size=16m]
+    tmpfs: ['/tmp:mode=1777,size=16m']
   agent-proxy:
     image: ${CADDY_IMAGE:-gymbro-caddy:security-20261027}
     pull_policy: never
@@ -52,7 +52,7 @@ services:
     ports: ['127.0.0.1:9443:9443']
     networks: [agent_private]
     volumes: [./Caddyfile.agent:/etc/caddy/Caddyfile:ro, agent_socket:/run/gymbro-agent:ro, agent_caddy_data:/data, agent_caddy_config:/config]
-    tmpfs: [/tmp:mode=1777,size=16m]
+    tmpfs: ['/tmp:mode=1777,size=16m']
 volumes:
   agent_socket:
   agent_caddy_data:

@@ -1,22 +1,32 @@
 # Core and private deployment
 
-Keep generic application code, migrations, synthetic regressions, CLI and documentation in this clean core. Keep private configuration, owner datasets, credentials, health/media assets and production evidence in a separate private deployment repository.
+The core is the shared application: user interfaces, workout storage and migrations, planner, agent contract, generic tests and documentation. A private overlay is a separate repository or controlled directory containing deployment settings, owner preferences, private integration adapters and operational records. Personal records and credentials stay outside source control.
 
-Each deployment pins one reviewed core commit and image digest. Record overlay commit, migration version, backup reference and rollback image alongside it. The private overlay supplies configuration/data through declared interfaces; it carries zero edits to core files. CI verifies exact core inventory and hashes against that pin before promotion.
+A deployment records one reviewed core commit and built image digest, its overlay revision, schema version, backup reference and rollback image. Recording that version is called pinning. It lets an operator identify what is running and restore the preceding known version. The current live private app remains on its existing deployment while this transition is prepared.
 
-For an improvement discovered in daily use:
+## A daily improvement reaches the shared app
 
-1. Preserve the existing private checkout and make a reproducible synthetic regression.
-2. Implement the generic fix in a clean core branch; review privacy, rights and behavior.
-3. Run core CI and build the immutable image.
-4. Rehearse against an isolated copy of private storage and verify existing rows.
-5. Update the private core pin through a reviewed promotion with backup and rollback.
-6. Publish the reviewed source/tag after distribution gates pass.
+1. Preserve the current private work and describe the issue with a synthetic regression.
+2. Put the reusable change in a clean core branch and review behavior, privacy and redistribution.
+3. Run CI and build the candidate images; retain source, image and package evidence.
+4. Rehearse the reviewed core plus overlay against a disposable private storage copy. Compare pre-existing rows and verify recovery.
+5. Change the private deployment's recorded core/image version with a fresh backup and rollback reference.
+6. Publish the reviewed source/tag when the distribution gates pass.
 
-An urgent private-only fix gets a tracked extraction item; promotion blocks while the private-only core patch list is nonempty. Owner-specific training preferences remain data/configuration. The current live private application has additional features and remains a separate baseline until parity is demonstrated.
+This process is promotion: a tested version becomes the selected deployment version. It is an update and recovery procedure, not a second fork of the app. Urgent private fixes should receive a tracked general-core patch and synthetic regression before the next normal update.
 
-## Existing private history
+## Overlay boundary
 
-Preserve the current private repository and its recovery bundle. Establish a fresh independent public history from this reviewed tree. Existing local/remote private commits remain private. Reusing the same GitHub repository name would require an explicit archival/replacement operation and verification of every reachable ref, PR attachment and release artifact before visibility changes. A new public repository provides a clear publication boundary and preserves the existing operational record.
+Keep core files unchanged in the private deployment. Use declared configuration and extension interfaces. The current compatibility reader can load an absolute owner-controlled 0600 private preparation/catalog hook with an explicit SHA256 digest. Its metadata, injury/PT material and private media are excluded from the public tree. Unknown exercise equipment remains unknown until confirmed.
 
-The executable promotion preflight is `python3 scripts/verify-core-pin.py /path/to/core /private/path/pin.json`. Start from `PRIVATE-PIN.example.json`; placeholder values fail closed. It verifies exact core HEAD, an immutable image reference and a completely clean core checkout. The private deployment CI must invoke it before each pin bump and deployment. Private overlay commits and image contents require their separate build/provenance checks.
+Back up and version the hook separately with its digest; the generic database backup does not package arbitrary extension files. Record extension contracts and schema compatibility. New core migrations must preserve the private source data until a tested migration is deliberately adopted.
+
+Run `python3 scripts/verify-core-pin.py /path/to/core /private/path/pin.json` using `docs/PRIVATE-PIN.example.json` as the shape. Placeholder values fail. The current check verifies the exact core HEAD, an immutable image reference and a clean checkout. Private overlay contents and actual image/source correspondence need their own evidence; this script alone does not establish them.
+
+## Repository transition
+
+Keep the original repository private while staging the independent clean history in an empty private repository. Audit every published ref/object, metadata and distribution artifact before changing visibility. The existing repository also has old PR pages and Actions records, which require separate review if it is reused.
+
+Choose distinct repository names for the private archive and public source. A case-only spelling change does not create a separate GitHub repository identity. If the public repository takes over the existing name, first update old remotes/automation so private branches cannot be pushed into the new destination through that name. Rename/archive/cutover operations remain a separate deliberate release action.
+
+The public [project history](PROJECT-HISTORY.md) can preserve the development timeline while private records stay in the archive. Additional historical commits require their own content, metadata and rights review.
