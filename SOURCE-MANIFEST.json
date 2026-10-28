@@ -423,8 +423,8 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "c6c3da8d87225a790cae047232a74797502e4ce0deb85558cfbec4e055b58803",
-      "transformation": "reviewed release acceptance, deployment or documentation correction"
+      "candidate_sha256": "55752ef328a533e0fda87412fd3ab848b244732006d3bae9485c5c1c2c2c209f",
+      "transformation": "add disposable actual Compose smoke using existing built images"
     },
     {
       "path": "scripts/prepare-hosting.py",
@@ -503,13 +503,13 @@
     },
     {
       "path": "docs/HOSTING.md",
-      "candidate_sha256": "343b6efa2eac13078c4ed7bfa0f2c0e911bfac40dbd6e9d20494ad82b76d7579",
-      "transformation": "reviewed release acceptance, deployment or documentation correction"
+      "candidate_sha256": "58d5532b8974e02a87037775b6c4018e26da4878fff7964507000eb8c3eacf60",
+      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
     },
     {
       "path": "docs/SECURITY-BASELINE.md",
-      "candidate_sha256": "24c4087ec23d8145397d975a69640ee63db31d9f105ba205b2cbfd93c4712746",
-      "transformation": "reviewed release acceptance, deployment or documentation correction"
+      "candidate_sha256": "833d5fe4eb57229b5355d7ca722a31233182bff7436c15141aafe2f436be7acc",
+      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
     },
     {
       "path": "proxy/LICENSE",
@@ -553,8 +553,8 @@
     },
     {
       "path": "README.md",
-      "candidate_sha256": "bf8462894f09696fb763c14b90a4064b278efe4c4cef4dce45934bce5f7d5bb7",
-      "transformation": "reviewed release acceptance, deployment or documentation addition"
+      "candidate_sha256": "ff4cf2ca803f715c0ad2fc27cdbb7bbf53d22408e5db145f7947e7fe342fc0e5",
+      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
     },
     {
       "path": "PRIVACY.md",
@@ -573,13 +573,13 @@
     },
     {
       "path": "docs/ADVISORY-DECISIONS.md",
-      "candidate_sha256": "981da4bb6a17deac44a376488a974ab91852f037db64ff5f5be90477bebe7456",
-      "transformation": "reviewed release acceptance, deployment or documentation addition"
+      "candidate_sha256": "67d82b1bc988aab05f130f3d483fd8a9bf1552cee1a02845b6efb7d6cd070148",
+      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
     },
     {
       "path": "docs/ADVISORY-DECISIONS.json",
-      "candidate_sha256": "a59528c86d4062b26ba27b9380518d9222311accc1010261809e48b6d1edf966",
-      "transformation": "reviewed release acceptance, deployment or documentation addition"
+      "candidate_sha256": "23082510f8b95b3bd56282f7e0cce792715c9e250ada301a2024a59931a1dd39",
+      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
     },
     {
       "path": "docs/AGENTS.md",
@@ -593,18 +593,18 @@
     },
     {
       "path": "docs/RELEASE-STATUS.md",
-      "candidate_sha256": "8cbecb150f760843f5a0f08abed899bdb260f86bfd67a5dc6249d6ca913ac6e4",
-      "transformation": "reviewed release acceptance, deployment or documentation addition"
+      "candidate_sha256": "67dc3f381e885b80b411e68dc2a07b324c9b33537b1286f50fe1536b83ebde23",
+      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
     },
     {
       "path": "docs/ROADMAP.md",
-      "candidate_sha256": "7c509c4bb5cfae70eff469739af1a456d841bd55b1bdd3165151d8e32b6fb324",
-      "transformation": "reviewed release acceptance, deployment or documentation addition"
+      "candidate_sha256": "3ef106cda86dafffc0d78c20e5d6554304d4a00e529dc316ce62d7ac10e15970",
+      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
     },
     {
       "path": "docs/CORE-OVERLAY.md",
-      "candidate_sha256": "5f805ef48182c522776589a176a307370e556b9548df0567a2485d1d23bea25c",
-      "transformation": "reviewed release acceptance, deployment or documentation addition"
+      "candidate_sha256": "dd44a682f9dfe9b8413a64295dd5b5fa4989181a6fb2de8f034dd729d0da87f7",
+      "transformation": "final image-bound release evidence, operator documentation or maintained synthetic validation"
     },
     {
       "path": "docs/RIGHTS.md",
@@ -640,6 +640,36 @@
       "path": "assisted-edit-test.cjs",
       "candidate_sha256": "482fbf6aeb36f054c8525965b02e887785b103ad3aea60d23382ab24aa7e4871",
       "transformation": "reviewed release acceptance, deployment or documentation addition"
+    },
+    {
+      "path": "compose-smoke-test.py",
+      "candidate_sha256": "47f8396897486356fcbbd65adc248797ac22dfd045d64e1629b2bcf15094a8b8",
+      "transformation": "synthetic actual Compose lifecycle with task-owned cleanup; no image input changes"
+    },
+    {
+      "path": "docs/BROWSER-ACCEPTANCE.json",
+      "candidate_sha256": "e2bccf336a7688d8507e946cf5d4d32d64d804de1ebe5368530535441630d74e",
+      "transformation": "public-safe release evidence, operator guide or maintained synthetic Compose validation"
+    },
+    {
+      "path": "docs/BROWSER-ACCEPTANCE.md",
+      "candidate_sha256": "7d94978194cb07c891b76a771cf9ed6b48205dd647c1dda4cfa47b1da7c531b1",
+      "transformation": "public-safe release evidence, operator guide or maintained synthetic Compose validation"
+    },
+    {
+      "path": "docs/IMAGE-INPUTS.json",
+      "candidate_sha256": "2805b170b05d49752b84dc5d726688fdd0c5f633c43891568ee5e855d20fbe1e",
+      "transformation": "public-safe release evidence, operator guide or maintained synthetic Compose validation"
+    },
+    {
+      "path": "docs/RELEASE-EVIDENCE.json",
+      "candidate_sha256": "c6fb3ead4b4f8772f8bd6c13bcd66ba56b70587474e114bdc3fbad109225ef15",
+      "transformation": "public-safe release evidence, operator guide or maintained synthetic Compose validation"
+    },
+    {
+      "path": "docs/UPGRADING.md",
+      "candidate_sha256": "dbfda031aa3d12922fb8657455d402c083afd28175fa77c3feeb56a5a5c3a940",
+      "transformation": "public-safe release evidence, operator guide or maintained synthetic Compose validation"
     }
   ]
 }

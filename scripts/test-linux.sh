@@ -39,3 +39,9 @@ python3 scripts/run-stage.py receipt-ui-test receipt-ui-test.log docker run --rm
 python3 scripts/run-stage.py rich-workout-test rich-workout-test.log docker run --rm --network none -v "$PWD/rich-workout-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs
 
 python3 scripts/run-stage.py assisted-history-test assisted-history-test.log docker run --rm --network none -v "$PWD/assisted-history-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs
+
+# Exercise the actual base Compose topology with synthetic disposable state.
+python3 scripts/run-stage.py actual-compose-smoke actual-compose-smoke.log \
+  python3 -B compose-smoke-test.py \
+  --image "$(docker image inspect --format '{{.Id}}' "$IMAGE")" \
+  --proxy-image "$(docker image inspect --format '{{.Id}}' "$PROXY_IMAGE")"

@@ -1,25 +1,34 @@
 # Release status
 
-Status date: October 28, 2026. This is a developer release candidate under review. The existing private production deployment is a separate baseline.
+Status date: October 28, 2026. This is a developer release candidate with completed bounded security, Linux/Compose and automated everyday-use acceptance. The existing private production deployment remains on its current version.
 
-## Verified baseline
+## Completed evidence
 
-The source baseline entering this review is `81bd29654c8669ac9c36962a06910ab8aab50bb5`. Its GitHub Actions run passed. Its native Linux amd64 rehearsal passed fresh builds, thirteen synthetic suites, owner setup/recovery, agent authorization and exact draft approval/save/readback, rich workouts, assisted-history rules and backup/restore.
+- Frozen runtime source `b81df078802b7d2188f00ccec5bb9b35ff1309a6` passed a fresh Linux amd64 build and 24 named checks. The native Node and Python paths use SQLite 3.53.4.
+- Actual disposable Compose initialization, owner setup, both proxies, pairing, TLS agent draft/approved commit/retry/readback, backup, empty-volume restore, generation rotation and old-token revocation passed. Effective configuration and actual kernel/mount state were checked. The maintained smoke test repeats this lifecycle in CI with synthetic state.
+- The same source passed ten Chromium/WebKit suites and 110 assertion groups, plus 24 assisted-edit regressions. Synced and offline corrections preserve assistance/bodyweight/added-weight semantics. Rich per-set plans, logging, reconnect, storage failures, recovery/logout and worker updates passed. [Browser acceptance](BROWSER-ACCEPTANCE.md) records scope and asset hashes.
+- All thirteen high advisory IDs have dated component/code-path decisions for the exact application/proxy images. Four unused vulnerable commands were removed. The raw application scan retains 64 high package rows across those IDs and zero critical rows. The bounded exceptions expire **November 11, 2026**, and changes to the checked execution profile can invalidate them earlier. [Advisory decisions](ADVISORY-DECISIONS.md) and [release evidence](RELEASE-EVIDENCE.json) record the boundary.
+- The release verifier passes sixteen controls under ordinary and optimized Python. Invalid images, expired decisions, source drift/symlinks and changed Compose inputs are rejected.
+- The selected private-copy rehearsal read legacy plans through the owner-scoped mapper/hooks and preserved every pre-existing application row. Weighted/timed logging, corrections, completion and restart passed. Complete deployed Next.js behavior and private exercise media retain separate coverage.
+- Source lineage, generic catalog metadata, generated icons, dependency/proxy notices and the clean source/history have bounded redistribution/privacy reviews. Every new release repeats its final-tree/history and artifact checks.
 
-An isolated current private-copy rehearsal read the existing plans through the selected legacy mapper and private hooks. Every pre-existing application row was preserved. Detailed weighted/timed logging, corrections, completion and restart passed. This establishes the tested storage and selected mapping contracts; complete deployed Next.js behavior and private exercise media have separate coverage.
-
-Earlier source-pinned HTTP/CLI/Chromium candidates passed rich per-set and assisted workflows, receipts, restart, logging and revocation. Those browser results are separate from the native `81bd296` rehearsal. Earlier isolated Chromium/WebKit suites covered offline reload/reconnect, response-loss retries and storage/update/logout safeguards. Exact current-build everyday acceptance is being completed in this review. Physical Safari/iOS installation is outside those browser-engine claims.
+Subsequent documentation and test-only additions preserve all 78 image inputs in [the build-input record](IMAGE-INPUTS.json). A different source/image/profile requires proportional revalidation. Disposable rehearsal resources were removed and cleanup independently verified.
 
 ## Hosting evidence
 
-A disposable real DNS hostname and Let’s Encrypt DNS-01 issuance were verified, along with trusted HTTPS/HTTP2 from the VPS. External access to its temporary 8443 listener timed out; no successful public reachability claim follows. The test certificate was revoked and its resources removed. The owner has removed the temporary DNS records.
+A disposable real DNS hostname and Let’s Encrypt DNS-01 issuance were verified, along with trusted HTTPS/HTTP2 from the VPS. External access to its temporary 8443 listener timed out. The test certificate was revoked and its resources removed; the owner removed the temporary DNS records.
 
-Isolated Linux OpenSSH tests verified the restricted tunnel and rejected shell/exec/PTY, remote or alternative-destination forwarding and host-key mismatch. Intended-host effective SSH policy and standard public 443 reachability remain deployment-specific checks.
+Isolated Linux OpenSSH tests verified the restricted tunnel and rejected shell/exec/PTY, remote or alternative-destination forwarding and host-key mismatch. Intended-host effective SSH policy, Docker/provider/host firewall behavior and standard public 443 reachability remain deployment-specific checks.
 
-## Release conditions
+Native Safari/iOS installation, Linux arm64 and hardware power-loss behavior remain support limits. Automated WebKit coverage supports the tested browser flows. Physical phone installation is outside this candidate's required automated gate.
 
-The security decision must identify affected components and reachable code for every high finding and bind accepted exceptions to exact source/image digests, supported topology and review dates. Current scan details and decisions belong in the security baseline and accompanying machine-readable release evidence. Scanning does not establish that an image is free of unknown defects.
+## Remaining publication and adoption work
 
-Before publication, finish exact-source everyday acceptance, final image/security evidence, rights and ownership confirmation, clean repository metadata/privacy review, and the private dependency consolidation. The public release will use an explicitly selected clean history. Existing private GitHub refs, PR pages and Actions records stay private until their separate transition is decided.
+1. Stage only the reviewed clean history in a separate repository and audit its reachable refs, metadata, CI and distribution artifacts. Keep the existing private GitHub history, PR pages and Actions records private. Resolve the final repository name/cutover and enable private vulnerability reporting before public visibility.
+2. Record the final source/image/SBOM/security evidence for a release tag and recheck advisory expiry/current vendor updates before distribution or deployment.
+3. For a real deployment, verify its trusted public 443 route, firewall and effective restricted SSH policy. A shared VPS proxy needs a reviewed integration.
+4. Rehearse the exact core plus required private overlay and browser/media workflows, then deliberately adopt the recorded core/image version with backup and rollback. The broader private source snapshot and its dependency consolidation remain separate from live production until reviewed for adoption.
 
-A public release record must include its exact commit, platform, built image digests, package inventory/SBOM, test evidence, security dispositions and recovery procedure. Later code or image changes require proportional revalidation.
+The dependency consolidation has passed Node 20/22 tests and dashboard build/typecheck and has landed on its private integration branch; the six superseded dependency PRs are closed. This maintains the separate private application without importing its historical content into public core.
+
+[Release gates](RELEASE-GATES.md), [core/private development](CORE-OVERLAY.md) and [upgrading](UPGRADING.md) describe the durable path from daily improvements to reviewed shared releases.

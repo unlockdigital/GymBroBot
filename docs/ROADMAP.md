@@ -2,9 +2,9 @@
 
 ## Release candidate
 
-Finish the per-advisory security decision and supported image baseline. Complete current-source Chromium/WebKit acceptance for enrollment, rich and assisted workouts, queue recovery, updates and logout. Verify the private dependency consolidation and close superseded PRs only after their changes are represented in landed code.
+The bounded thirteen-advisory decision, combined Linux/Compose rehearsal and current-source Chromium/WebKit acceptance are complete. Private dependency consolidation has landed on its integration branch and the six superseded PRs are closed. Private main and production retain their existing versions while broader source adoption is reviewed.
 
-Publish reviewed setup, privacy, security, backup/recovery, agent and contributor guidance. Establish an empty private staging repository for the clean public source, audit its reachable objects and GitHub-hosted metadata, and publish only the explicitly approved refs when distribution gates pass.
+Stage the clean history in a separate private repository, audit its reachable objects and GitHub-hosted metadata, enable private vulnerability reporting, and publish explicitly selected refs after final source/security/distribution checks. Verify intended-host public routing and rehearse the required private overlay before adopting the shared core in daily production.
 
 ## Daily development and shared releases
 

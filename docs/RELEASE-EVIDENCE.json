@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "coreCommit": "b81df078802b7d2188f00ccec5bb9b35ff1309a6",
+  "appImage": "sha256:7c3e93524b7a5e21c1aec7d640818ef0d93410aa9bac068f14c5aa01ad99992b",
+  "proxyImage": "sha256:9ee978d97b08832cb848fab859a4ca97d43cc2b6f5b51488db932f226129aff7",
+  "appArchiveSha256": "dac0bafdca077d46103b5c0f0db3731fdbb19b6d45dc6afee80380c1f05db5c7",
+  "sourcePinsSha256": "aa21c4c7d7697d1371abee10b4548ee0e9462065479cc3f8a358d5eed370ab3c",
+  "effectiveComposeSha256": "7694c3551d3a5d5f04ffea3f215c27b2f11b9c677548b482c1abfd9dffc7c636",
+  "expiry": "2026-11-11T23:59:59Z",
+  "namedNativeChecks": 24,
+  "nativeAssistedEditCases": 24,
+  "exactSourceBrowserSuites": 10,
+  "exactSourceBrowserAssertionGroups": 110,
+  "verifierControls": 16,
+  "verifierNormalAndOptimized": "PASS",
+  "verifyDecisionSha256": "b94dd995188c4078624efbffc90241f7ed2c0873d0cf52ce37003e1cc605a6f6",
+  "schemaVersion": 1,
+  "imageInputsUnchanged": {
+    "count": 78,
+    "manifest": "IMAGE-INPUTS.json",
+    "policy": "Documentation and test-only additions preserve the tested runtime, dependencies, Docker build context and Compose recipe."
+  },
+  "cleanup": {
+    "taskContainersAbsent": true,
+    "taskVolumesAbsent": true,
+    "taskNetworksAbsent": true,
+    "taskImageIDsAbsent": true,
+    "taskTagsAbsent": true,
+    "preexistingImagesPreserved": true,
+    "publicSmokeCleanupVerified": true,
+    "taskDirectoryAbsent": true
+  },
+  "applicationPatchRequired": false,
+  "supportedProfile": "Public core; operator-only fixed initialization; scoped Unix sockets; no additional executable private hooks",
+  "knownLimits": [
+    "Deployment-specific public 443 reachability and firewall policy",
+    "Complete private Next.js/media integration",
+    "Native Safari/iOS and hardware power-loss behavior",
+    "Linux arm64 build verification"
+  ],
+  "advisoryDecision": "ADVISORY-DECISIONS.json"
+}

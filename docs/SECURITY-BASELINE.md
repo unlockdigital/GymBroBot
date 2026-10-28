@@ -19,7 +19,7 @@ Sample environment, Dockerfile and Compose defaults must select this same baseli
 
 ## Advisory decision
 
-The named thirteen high advisory IDs have individual bounded applicability dispositions in [the advisory decisions](ADVISORY-DECISIONS.md) and [machine-readable record](ADVISORY-DECISIONS.json). They concern removed/missing command implementations or Python/library paths absent from the supported execution flow. Retained affected packages remain visible in the raw scan. This is a scoped code-path determination, not an upstream patch claim.
+The named thirteen high advisory IDs have individual bounded applicability dispositions in [the advisory decisions](ADVISORY-DECISIONS.md) and [machine-readable record](ADVISORY-DECISIONS.json). They concern removed/missing command implementations or Python/library paths absent from the supported execution flow. Retained affected packages remain visible in the raw scan. The decision establishes applicability within the checked execution profile; upstream package remediation remains tracked separately.
 
 The review expires November 11, 2026. New images/packages, imports, extensions, subprocess paths, privilege/network changes, vendor guidance or stable fixes trigger earlier review. Keep the runtime surface regression in CI. An arbitrary privileged host invocation or executable overlay is outside the approved public-core profile.
 
@@ -29,4 +29,8 @@ The reviewed proxy image has zero rated vulnerability findings and an UNKNOWN mo
 
 Record exact source, architecture, final image/config digests, resolved package inventory, native-component hashes, SBOMs, scanner/database timestamps, tests and advisory dispositions for each release. Apt inputs resolve from active security repositories and may change between builds. An earlier image's exception cannot silently approve a new image.
 
-Native application/proxy, owner security, agent contracts, rich/assisted training and backup/restore tests have passed on the reviewed baseline. The exact final integrated build must additionally carry the everyday acceptance correction and its regression. See [release status](RELEASE-STATUS.md) and [release gates](RELEASE-GATES.md) for the source-specific limits. Linux arm64, complete native-device behavior and intended-host public reachability remain separate support claims.
+The final Linux amd64 application image is `sha256:7c3e93524b7a5e21c1aec7d640818ef0d93410aa9bac068f14c5aa01ad99992b`; the proxy image is `sha256:9ee978d97b08832cb848fab859a4ca97d43cc2b6f5b51488db932f226129aff7`. These are local image identities from the rehearsal. Registry installation requires a separately published and verified distribution digest.
+
+The combined runtime passed 24 named Linux checks, the 24-case assisted-edit regression, actual Compose initialization/pairing/backup/empty-volume restore/generation rotation, and a native-image Chromium smoke. Exact-source Chromium/WebKit acceptance passed ten suites and 110 assertion groups. The release verifier passed sixteen controls under ordinary and optimized Python, including fourteen expected rejections.
+
+[Release evidence](RELEASE-EVIDENCE.json) records these identities and scope. [Image inputs](IMAGE-INPUTS.json) preserves all 78 tested build inputs across subsequent documentation and test-only additions. Build from a clean source checkout; generated files inside an allowed Docker context can change the build. See [release status](RELEASE-STATUS.md) and [release gates](RELEASE-GATES.md) for the remaining boundaries. Linux arm64, complete native-device behavior and intended-host public reachability remain separate support claims.

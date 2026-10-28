@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "date": "2026-10-28",
+  "commit": "b81df078802b7d2188f00ccec5bb9b35ff1309a6",
+  "tree": "7c008bb72ac9216492fd1637b2d7c99cbab5427b",
+  "browserSuites": 10,
+  "assertionGroups": 110,
+  "sourceRegressionCases": 24,
+  "unexpectedPageErrors": 0,
+  "externalPageRequests": 0,
+  "expectedTransportPageErrors": 1,
+  "cleanup": true,
+  "assetSha256": {
+    "runtime/public/core/app.js": "c0c3e9952b0f419696faa9d8d8c0eb9afc33f362f5425f5ba8c48daadd3ba342",
+    "runtime/public/sw.js": "4681fa95f9853f3d329798dafd68bbc536671f22a3da0528b59d3f18ff9a59b6",
+    "runtime/package-lock.json": "5dbeb2b5c026e167091a0b104b4c43f0e5f5c91f56a96a00b663322df4590089",
+    "assisted-edit-test.cjs": "482fbf6aeb36f054c8525965b02e887785b103ad3aea60d23382ab24aa7e4871",
+    "SOURCE-MANIFEST.json": "e29786ffc6d9a35d59f8f424a3dddade4c3821d2de1c8bc1e85a9ba03d7c4e98"
+  },
+  "serviceWorkerVersion": "c0c3e9952b0f4196",
+  "supportLimits": [
+    "Physical Safari/iOS/Android installation and airplane mode remain outside this automated acceptance scope.",
+    "Listener shutdown models server unavailability while navigator.onLine stays true.",
+    "OS trust/DNS, physical-device background suspension/eviction/power loss, haptics and audible alerts require separate platform evidence.",
+    "No production, private database, deployment or external model-provider acceptance was performed."
+  ],
+  "scope": "Automated isolated browser acceptance of the source-pinned candidate",
+  "runtime": {
+    "node": "v22.22.2",
+    "platform": "darwin",
+    "arch": "arm64",
+    "os": "26.5",
+    "playwright": "1.62.1",
+    "betterSqlite3": "13.0.3",
+    "sqlite": "3.53.4",
+    "typescript": "5.9.3"
+  }
+}

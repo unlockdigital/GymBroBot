@@ -51,8 +51,8 @@ The connection uses a separate, revocable application credential through a restr
 
 ## Develop and release
 
-Run `python3 scripts/check-tree.py` and `sh scripts/test-linux.sh` in a supported Docker environment. CI uses synthetic data. Real records, credentials, private overlays and operational evidence belong outside this repository.
+Run `python3 scripts/check-tree.py` and `sh scripts/test-linux.sh` in a supported Docker environment. CI uses synthetic data, including an actual disposable Compose installation, pairing and backup/restore rehearsal. Real records, credentials, private overlays and operational evidence belong outside this repository.
 
-[Core and private deployment](docs/CORE-OVERLAY.md) explains how a general fix discovered in daily use becomes a reviewed core change and a tested deployment update. The existing private application remains on its current deployment while that transition is prepared.
+[Core and private deployment](docs/CORE-OVERLAY.md) explains how a general fix discovered in daily use becomes a reviewed core change and a tested deployment update. The [upgrade guide](docs/UPGRADING.md) covers stable storage identity, distinct image versions and rollback. The existing private application remains on its current deployment while that transition is prepared.
 
-See [privacy](PRIVACY.md), [security](SECURITY.md), [rights](docs/RIGHTS.md), [release gates](docs/RELEASE-GATES.md) and [the roadmap](docs/ROADMAP.md) and [project history](docs/PROJECT-HISTORY.md). The repository carries its existing ISC license; third-party components retain their notices. Exercise GIFs, personal health records and private integration data are excluded from the public source selection.
+See [privacy](PRIVACY.md), [security](SECURITY.md), [rights](docs/RIGHTS.md), [release gates](docs/RELEASE-GATES.md), [browser acceptance](docs/BROWSER-ACCEPTANCE.md), [the roadmap](docs/ROADMAP.md) and [project history](docs/PROJECT-HISTORY.md). The repository carries its existing ISC license; third-party components retain their notices. Exercise GIFs, personal health records and private integration data are excluded from the public source selection.

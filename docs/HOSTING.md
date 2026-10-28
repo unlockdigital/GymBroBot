@@ -34,31 +34,49 @@ After login, create a basic plan or add authored exercise metadata and connect a
 ## Back up
 
 ```sh
+(
+set -eu
+restart_after_backup() {
+  backup_status=$?
+  trap - EXIT
+  docker compose up -d app || exit 1
+  exit "$backup_status"
+}
+trap restart_after_backup EXIT
 docker compose stop app
 docker compose run --rm app backup YOUR_BACKUP_NAME
-docker compose up -d app
+)
 ```
 
-Use a new simple backup name each time. The application lock serializes serving and maintenance. The backup captures owner/workout/control databases and configuration coherently and synchronizes files/directories before reporting success. It excludes the transferable agent bearer file. Preserve that credential separately only under your credential policy.
+Run maintenance from the current deployment with its recorded image/overlay configuration. Build proposed updates under distinct tags as described in the [upgrade guide](UPGRADING.md). Use a new simple backup name each time. The application lock serializes serving and maintenance. The backup captures owner/workout/control databases and configuration coherently and synchronizes files/directories before reporting success. It excludes the transferable agent bearer file. Preserve that credential separately only under your credential policy.
 
 Backups are plaintext. Arrange encrypted off-host storage, a retention policy and recurring restore rehearsals. Separately preserve public/private proxy data/config volumes while their proxies are stopped: these contain certificate and CA material. Socket volumes are temporary. Private hook files and integration credentials live outside the generic database backup; record and back them up with their digests/configuration.
 
 ## Restore into an empty volume
 
-Restrict public ingress to the operator, stop the public proxy/app and retain the original volume. Initialize a new empty destination owned by UID/GID 1000 with mode 0700. Use the same Compose project and the restore override on every later operation against it.
+Restrict public ingress to the operator, stop the public proxy/app and retain the original volume. Initialize a new empty destination owned by UID/GID 1000 with mode 0700. Use the same Compose project and the restore override on every later operation against it. Private deployments retain their existing overlay files, mounts and environment options alongside the restore override on every command.
+
+Before running the restore block, restore any required private hook files and retain the matching overlay options. The example covers the public Compose files. Choose an unused volume name; an existing name is rejected before service changes.
 
 ```sh
+export RESTORE_VOLUME=gymbro-restored
+(
+set -eu
+if docker volume inspect "$RESTORE_VOLUME" >/dev/null 2>&1; then
+  echo 'Choose a new, unused restore volume name' >&2
+  exit 1
+fi
 docker compose stop app caddy agent-proxy
 GYMBRO_APP_IMAGE=$(docker compose images -q app)
 test -n "$GYMBRO_APP_IMAGE"
 # Confirm this local immutable image ID matches the selected release before continuing.
-docker volume create gymbro-restored
+docker volume create "$RESTORE_VOLUME"
 docker run --rm --network none --user 0:0 --entrypoint sh \
-  -v gymbro-restored:/restore "$GYMBRO_APP_IMAGE" \
+  -v "$RESTORE_VOLUME:/restore" "$GYMBRO_APP_IMAGE" \
   -c 'chown 1000:1000 /restore && chmod 700 /restore'
-export RESTORE_VOLUME=gymbro-restored
 docker compose -f compose.yaml -f restore.override.example.yaml run --rm app restore YOUR_BACKUP_NAME
 docker compose -f compose.yaml -f restore.override.example.yaml up -d app caddy
+)
 ```
 
 Keep the agent proxy stopped throughout restoration and owner generation rotation. Retain `RESTORE_VOLUME` and the override for subsequent commands. Inspect actual selected mounts and verify integrity, owner login, history, plans and receipts before accepting restoration. Restore any required private hook at its configured path and verify its recorded digest. Interrupted restore requires another empty destination.

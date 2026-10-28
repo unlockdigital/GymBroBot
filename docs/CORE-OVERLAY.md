@@ -13,7 +13,7 @@ A deployment records one reviewed core commit and built image digest, its overla
 5. Change the private deployment's recorded core/image version with a fresh backup and rollback reference.
 6. Publish the reviewed source/tag when the distribution gates pass.
 
-This process is promotion: a tested version becomes the selected deployment version. It is an update and recovery procedure, not a second fork of the app. Urgent private fixes should receive a tracked general-core patch and synthetic regression before the next normal update.
+This process is promotion: a tested shared-core version becomes the selected private deployment version, with a recorded update and recovery procedure. Urgent private fixes should receive a tracked general-core patch and synthetic regression before the next normal update.
 
 ## Overlay boundary
 
