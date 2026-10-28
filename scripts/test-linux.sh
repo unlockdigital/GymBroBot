@@ -19,6 +19,7 @@ python3 scripts/run-stage.py durability-test durability-test.log docker run --rm
 python3 scripts/run-stage.py provision-test provision-test.log docker run --rm --network none --tmpfs /app/data:uid=1000,gid=1000,mode=0700 -v "$PWD/provision-test.cjs:/test.cjs:ro" -v "$PWD/synthetic-ca.crt:/pairing/root.crt:ro" --entrypoint node "$IMAGE" /test.cjs
 python3 scripts/run-stage.py agent-unit agent-unit.log docker run --rm --network none -v "$PWD/unit.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs
 python3 scripts/run-stage.py history-unit history-unit.log docker run --rm --network none -v "$PWD/history-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs
+python3 scripts/run-stage.py catalog-canonical-test catalog-canonical-test.log docker run --rm --network none -v "$PWD/catalog-canonical-test.cjs:/test.cjs:ro" --entrypoint node "$IMAGE" /test.cjs
 python3 scripts/run-stage.py hardening-rehearsal hardening-rehearsal.log python3 rehearse.py
 docker image inspect "$IMAGE" --format '{{json .Id}}' > hardening-image-ids.txt
 

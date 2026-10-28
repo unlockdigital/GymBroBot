@@ -13,7 +13,8 @@ function historyFromRows(rows,date,owner='local-owner',catalog=CATALOG) {
   if(day>=date)continue;
   const sets=[];
   for(const x of rows.sets.filter(x=>x.session_id===s.id)) {
-   const e=require('../catalog.cjs').resolve(catalog,x.exercise);
+   const resolve=require('../catalog.cjs').resolve;
+   const e=resolve(catalog,x.exercise)||catalog.find(entry=>entry.id===x.exercise_canonical);
    const timed=x.measurement_type==='duration_seconds';
    let reason=!e?'unknown_exercise':!['reps','duration_seconds'].includes(x.measurement_type)?'unsupported_measurement':null;
    const createdAt=x.created_at??s.started_at;

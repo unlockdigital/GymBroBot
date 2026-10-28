@@ -28,8 +28,8 @@
     },
     {
       "path": "runtime/history.cjs",
-      "candidate_sha256": "68e7300c941951fa8ff050811f425ef2f1c3a6bb81b9fb9ce95c281b248a4846",
-      "transformation": "assisted history preserves fatigue with distinct help semantics"
+      "candidate_sha256": "b030febb7270006930ee62c172fd3163dbd747aa79f6052b68b60eec64a70829",
+      "transformation": "canonical history compatibility and synthetic regression; deployment evidence pending for new runtime"
     },
     {
       "path": "runtime/owner.cjs",
@@ -53,8 +53,8 @@
     },
     {
       "path": "runtime/planner/bridge.cjs",
-      "candidate_sha256": "2498f0de0d1a3aec0a3b3e5d3596c2bfad4325c93b89ee9a4657c468137599ca",
-      "transformation": "assisted history preserves fatigue with distinct help semantics"
+      "candidate_sha256": "e1e43688d1510d7a5220d46b940a6c2e9deaf79fb7dfbb6face133650ffd42e4",
+      "transformation": "canonical history compatibility and synthetic regression; deployment evidence pending for new runtime"
     },
     {
       "path": "runtime/planner/core/anchors.js",
@@ -423,8 +423,8 @@
     },
     {
       "path": "scripts/test-linux.sh",
-      "candidate_sha256": "55752ef328a533e0fda87412fd3ab848b244732006d3bae9485c5c1c2c2c209f",
-      "transformation": "add disposable actual Compose smoke using existing built images"
+      "candidate_sha256": "6cb903f21bc91aa210df0e71ccc1f3a80dffb4bae4f422c5a99a435cd6f8a74b",
+      "transformation": "canonical history compatibility and synthetic regression; deployment evidence pending for new runtime"
     },
     {
       "path": "scripts/prepare-hosting.py",
@@ -593,8 +593,8 @@
     },
     {
       "path": "docs/RELEASE-STATUS.md",
-      "candidate_sha256": "3500844832714fa7f136949b7f646d64cb6c5d3d7bee12ddf9db266f784796d2",
-      "transformation": "source-only public repository identity, security reporting or current deployment evidence"
+      "candidate_sha256": "15d3d967e57e3114af410e5d592f76952d05e6f050cee3719603eae1e1f6bcfd",
+      "transformation": "canonical history compatibility and synthetic regression; deployment evidence pending for new runtime"
     },
     {
       "path": "docs/ROADMAP.md",
@@ -675,6 +675,11 @@
       "path": ".github/ISSUE_TEMPLATE/config.yml",
       "candidate_sha256": "29b344fd4d53f04cb52fbf709139a80190ca3a31e42c7dbe992dd975ddf19926",
       "transformation": "source-only public repository identity, security reporting or current deployment evidence"
+    },
+    {
+      "path": "catalog-canonical-test.cjs",
+      "candidate_sha256": "8dc450cfb92258c362b91c6ec8ec77197f46a62f16a4b795dfd8953156ac77d4",
+      "transformation": "canonical history compatibility and synthetic regression; deployment evidence pending for new runtime"
     }
   ]
 }
